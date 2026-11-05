@@ -9,8 +9,16 @@
 
 **Thận trọng:** Dự thảo sửa đổi chương trình công bố tháng 8/2026 không phải văn bản có hiệu lực để thay thế văn bản ban hành; cần tiếp tục rà văn bản mới chính thức trước khi công bố dữ liệu học liệu chính thức.
 
+## Cập nhật kiểm tra chương trình môn Toán — 05/11/2026
+- Đã quan sát trực quan các trang in **79, 80, 81, 89, 105, 106** của bản Chương trình môn Toán ban hành kèm Thông tư 32/2018/TT-BGDĐT.
+- Đã định vị các dải trang: **Toán 10: 79–88; Toán 11: 89–104; Toán 12: 105–113** theo mục lục bản chương trình; chưa kiểm đủ từng dòng trong các dải trang.
+- Bổ sung 01 yêu cầu cần đạt nguyên văn Toán 10 về lập bảng giá trị của hàm số bậc hai, trang in 80. Tổng cộng **02 yêu cầu cần đạt** được đưa vào bộ nguồn `VERIFIED`.
+- Các chủ đề lớp 11 và lớp 12 đã được định vị theo trang bắt đầu, **chưa tạo tuyên bố xác minh nguyên văn từng yêu cầu**.
+- Giao diện H01 nhận thống kê số YCCĐ được kiểm chứng và dải trang nguồn; bản yêu cầu AI chỉ truy cập các bản ghi hợp lệ có provenance.
+- **Chưa PASS** kiểm thử chạy thật của website, chưa kết nối Gemini, chưa xác minh toàn bộ chương trình.
+
 ## Kết quả kiểm tra dữ liệu nguyên văn
-- Môn Toán lớp 10: đã quan sát ảnh trang in **79** của Chương trình môn Toán; **01 yêu cầu cần đạt** thuộc mục Tập hợp – Mệnh đề đã được lưu dưới mã `MATH10-PROP-TRUTH-001`.
+- Môn Toán lớp 10: đã quan sát ảnh trang in **79** của Chương trình môn Toán; **02 yêu cầu cần đạt** thuộc hai nội dung (trang in 79 và 80) đã được đưa vào kho; một yêu cầu mục Tập hợp – Mệnh đề đã được lưu dưới mã `MATH10-PROP-TRUTH-001`.
 - Toán lớp 10 (toàn bộ phần còn lại), lớp 11, lớp 12: **CHƯA kiểm kê đủ từng YCCĐ**.
 - Các môn/hoạt động giáo dục khác lớp 10–12: **CHƯA kiểm kê đủ từng YCCĐ**.
 - CT nâng cao môn chuyên theo TT22/2025: **CHƯA nạp và đối chiếu đủ từng YCCĐ**.
