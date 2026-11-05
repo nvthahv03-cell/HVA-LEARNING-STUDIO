@@ -9,7 +9,7 @@
  * Không có doGet/doPost, không sửa Sheet, không đọc dữ liệu nhân sự,
  * không gửi khóa lên trình duyệt, không tự công bố học liệu.
  *
- * HƯỚNG DẪN: chọn hàm hvaStudioTaoGiaoAnToan10_ rồi bấm Run.
+ * HƯỚNG DẪN: chọn hàm hvaStudioChayThuGiaoAnToan10 rồi bấm Run.
  * Hàm sử dụng Gemini thật, tạo một Google Docs BẢN NHÁP trong Drive của
  * người thực thi và trả URL cùng báo cáo phi nhạy cảm.
  */
@@ -86,7 +86,7 @@ function hvaStudioTaoGiaoAnToan10_() {
 }
 
 /** Chọn hàm này trong Run để thấy KẾT QUẢ KHÔNG NHẠY CẢM trong Execution log. */
-function hvaStudioChayThuGiaoAnToan10_() {
+function hvaStudioChayThuGiaoAnToan10() {
   const result=hvaStudioTaoGiaoAnToan10_();
   console.log(JSON.stringify(result));
   return result;
