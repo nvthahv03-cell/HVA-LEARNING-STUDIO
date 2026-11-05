@@ -55,10 +55,11 @@ export function normalizeStudioAnswer(response, expectedRequestId) {
  * Sau khi có SSO chính thức, EDOS sẽ cấp một hàm authorizedSend bằng cơ chế
  * ủy quyền đã được kiểm chứng. Hàm này thuộc lớp kết nối an toàn, KHÔNG phải
  * fetch trực tiếp từ GitHub Pages, không lấy token từ URL hoặc localStorage.
- * Hiện tại mọi lời gọi được CHẶN.
+ * Khi thiếu authorizedSend, yêu cầu bị chặn. Ca thử chỉ được gửi qua cầu nối do EDOS cấp.
  */
 export async function generateWithEdos(task, authorizedSend) {
-  if (!STUDIO_AI_READY) return {success:false,message:'Trợ lý AI đang chờ kết nối phiên an toàn với EDOS.',draft:true,reviewRequired:true};
+  // STUDIO_AI_READY phản ánh trạng thái phát hành chính thức, không chặn ca thử có bridge do EDOS cấp.
+  // Backend vẫn bắt buộc xác thực phiên, quyền, quota; không dựa vào cờ trong trình duyệt.
   if (typeof authorizedSend!=='function') return {success:false,message:'Chưa có kết nối EDOS được xác thực.',draft:true,reviewRequired:true};
   const id='studio-'+crypto.randomUUID();
   const request=makeStudioRequest(task,id);
