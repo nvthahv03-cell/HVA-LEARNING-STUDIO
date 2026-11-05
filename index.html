@@ -71,13 +71,24 @@ main{max-width:1540px;padding:32px 36px 70px}
 @media(max-width:1200px){.studio-tools{grid-template-columns:repeat(2,minmax(0,1fr))}.studio-hero{grid-template-columns:1fr}.hero-art{display:none}.studio-hero-copy{padding:35px}.studio-lower{grid-template-columns:1fr}}
 @media(max-width:800px){.studio-topbar{height:64px;padding:0 14px}.studio-beta{display:none}.topbar-library{padding:8px;font-size:11px}.studio-sidebar{position:static;height:auto;display:flex;flex-direction:row;overflow-x:auto;padding:8px}.studio-sidebar button{min-width:140px}.sidebar-group-label,.sidebar-bottom{display:none}.shell{grid-template-columns:1fr}main{padding:17px}.studio-hero-copy{padding:24px}.studio-hero h1{font-size:30px}.studio-lower{grid-template-columns:1fr}}
 @media(max-width:520px){.studio-tools{grid-template-columns:1fr}.studio-hero h1{font-size:26px}.studio-dashboard-head{align-items:start}.studio-dashboard-head .studio-minor{display:none}.hero-meta{gap:8px}.studio-hero p{font-size:12px}}
-</style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar"><div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div><button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button><button data-page="create"><span class="nav-symbol">✧</span> Thiết kế học liệu</button><button data-page="library"><span class="nav-symbol">▤</span> Kho học liệu</button><div class="sidebar-group-label sidebar-second">TRỢ LÝ CHUYÊN MÔN</div><button data-page="expert"><span class="nav-symbol">✦</span> Trợ lý AI – Chuyên gia</button><div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Một nền tảng • Mọi môn học</small></div></div></aside><main><div class="hint"><strong>Đang thử nghiệm giao diện trực tuyến.</strong> Dữ liệu chỉ lưu trên trình duyệt đang mở; chưa có đăng nhập EDOS, Gemini, chia sẻ kho hoặc xác minh nguồn chương trình. Không nhập thông tin học sinh hay tài liệu mật.</div><section id="home">
+
+/* Batch creation workspace */
+.batch-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.batch-option{display:flex;gap:9px;align-items:center;border:1px solid #e1e9ef;border-radius:12px;padding:12px;background:#fff;font-size:12px;font-weight:650}
+.batch-option input{width:auto;accent-color:#078982}
+.batch-entry{border:1px solid #dde9ef;border-radius:12px;padding:15px;margin:12px 0;background:#fafdfe}
+.batch-entry h3{margin:0 0 5px;font-size:15px}
+.batch-task{display:flex;gap:10px;justify-content:space-between;padding:8px 0;border-bottom:1px solid #e7eef1;font-size:12px}
+.batch-task span:last-child{color:#936f26;font-weight:700}
+@media(max-width:950px){.batch-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.batch-options{grid-template-columns:1fr}}
+</style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar"><div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div><button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button><button data-page="create"><span class="nav-symbol">✧</span> Sáng tạo học liệu</button><button data-page="batch"><span class="nav-symbol">▦</span> Sáng tạo học liệu đồng bộ</button><button data-page="library"><span class="nav-symbol">▤</span> Kho học liệu của tôi</button><div class="sidebar-group-label sidebar-second">TRỢ LÝ CHUYÊN MÔN</div><button data-page="expert"><span class="nav-symbol">✦</span> Trợ lý AI – Chuyên gia</button><div class="sidebar-group-label sidebar-second">THƯ VIỆN & HỆ THỐNG</div><button data-page="shared"><span class="nav-symbol">♧</span> Học liệu chia sẻ</button><button data-page="admin"><span class="nav-symbol">⚙</span> Quản trị hệ thống</button><div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Một nền tảng • Mọi môn học</small></div></div></aside><main><div class="hint"><strong>Đang thử nghiệm giao diện trực tuyến.</strong> Dữ liệu chỉ lưu trên trình duyệt đang mở; chưa có đăng nhập EDOS, Gemini, chia sẻ kho hoặc xác minh nguồn chương trình. Không nhập thông tin học sinh hay tài liệu mật.</div><section id="home">
 <div class="studio-hero">
   <div class="studio-hero-copy">
-    <div class="hero-kicker"><span class="pulse-dot"></span> TRUNG TÂM SÁNG TẠO HỌC LIỆU SỐ</div>
+    <div class="hero-kicker"><span class="pulse-dot"></span> HỆ SINH THÁI HỌC LIỆU · HVA LEARNING STUDIO</div>
     <h1>Biến ý tưởng bài dạy thành <em>học liệu chất lượng.</em></h1>
     <p>Một không gian làm việc cho giáo viên THPT: phát triển chủ đề, thiết kế ma trận – đặc tả, xây dựng học liệu và quản lý sản phẩm theo chương trình giáo dục.</p>
-    <div class="hero-actions"><button class="hero-primary" onclick="nav('create')">✦ Bắt đầu thiết kế <span>↗</span></button><button class="hero-outline" onclick="nav('library')">Mở kho của tôi <span>→</span></button></div>
+    <div class="hero-actions"><button class="hero-primary" onclick="nav('create')">✦ Sáng tạo học liệu <span>↗</span></button><button class="hero-outline" onclick="nav('library')">Mở kho của tôi <span>→</span></button></div>
     <div class="hero-meta"><span>✓ Có quy trình thẩm định</span><span>✓ Theo từng môn và lớp</span><span>◇ Kết nối AI đang phát triển</span></div>
   </div>
   <div class="hero-art" aria-hidden="true">
@@ -92,14 +103,37 @@ main{max-width:1540px;padding:32px 36px 70px}
  <button class="studio-tool" onclick="nav('create')"><span class="tool-icon purple">▧</span><b>Giáo án & kế hoạch bài dạy</b><small>Khởi tạo và biên tập nội dung theo chủ đề</small><span class="tool-more">Mở công cụ ↗</span></button>
  <button class="studio-tool" onclick="nav('create');showAssistant()"><span class="tool-icon aqua">▤</span><b>Ma trận & bản đặc tả</b><small>Tổ chức kiến thức, mức độ tư duy, minh chứng</small><span class="tool-more">Mở công cụ ↗</span></button>
  <button class="studio-tool" onclick="nav('create');showAssistant()"><span class="tool-icon amber">◇</span><b>Ngân hàng câu hỏi & đề kiểm tra</b><small>Thiết kế có cấu trúc; cần thẩm định trước khi dùng</small><span class="tool-more">Mở công cụ ↗</span></button>
- <button class="studio-tool" onclick="nav('expert')"><span class="tool-icon blue">✦</span><b>Trợ lý AI – Chuyên gia</b><small>Các trợ lý theo lĩnh vực và loại học liệu</small><span class="tool-more">Xem danh mục ↗</span></button>
+ <button class="studio-tool" onclick="nav('batch')"><span class="tool-icon blue">▦</span><b>Sáng tạo học liệu đồng bộ</b><small>Một lần giao nhiệm vụ, chọn nhiều sản phẩm</small><span class="tool-more">Xem danh mục ↗</span></button>
 </div>
 <div class="studio-lower">
  <div class="studio-workspace"><div class="studio-workspace-head"><div><span class="eyebrow">KHO CÁ NHÂN</span><h2>Tiếp tục công việc</h2></div><button class="studio-minor" onclick="nav('library')">Xem tất cả →</button></div><p id="recentWorkspace" class="workspace-empty">Chưa có chủ đề đã lưu trên thiết bị này. Bắt đầu bằng một chủ đề đầu tiên.</p><button class="studio-outline" onclick="nav('create')">+ Tạo chủ đề mới</button></div>
  <div class="studio-status"><span class="eyebrow">TÌNH TRẠNG HỆ THỐNG</span><h2>Sẵn sàng cho kiểm thử giao diện</h2><div class="status-line"><span class="status-dot green"></span><span>Giao diện Kho học liệu</span><strong>Đang hoạt động</strong></div><div class="status-line"><span class="status-dot green"></span><span>Lưu bản nháp cục bộ</span><strong>Đã triển khai</strong></div><div class="status-line"><span class="status-dot orange"></span><span>Gemini qua EDOS</span><strong>Chưa kết nối</strong></div><div class="status-line"><span class="status-dot orange"></span><span>Đăng nhập chung / chia sẻ</span><strong>Chưa kích hoạt</strong></div></div>
 </div>
 <div class="hidden" aria-hidden="true"><span id="count">0</span></div>
-</section><section id="create" class="hidden"><div class="eyebrow">XƯỞNG SẢN XUẤT</div><h1>Biên tập chủ đề</h1><p>Bản nháp phục vụ thử nghiệm thao tác tạo – sửa – lưu – xuất HTML.</p><div class="panel"><div class="grid"><div><label>Chế độ chương trình</label><select id="program"><option>Phổ thông – CT GDPT 2018</option><option>HSG thành phố – VDC và vận dụng rất cao</option><option>HSG quốc gia – CT môn chuyên</option></select></div><div><label>Môn học</label><select id="subject"><option>Toán</option><option>Ngữ văn</option><option>Tiếng Anh</option><option>Vật lí</option><option>Hóa học</option><option>Sinh học</option><option>Lịch sử</option><option>Địa lí</option><option>Tin học</option><option>Công nghệ</option><option>GD Kinh tế và Pháp luật</option><option>Giáo dục thể chất</option><option>GDQP&AN</option><option>Hoạt động trải nghiệm</option></select></div><div><label>Lớp</label><select id="grade"><option>10</option><option>11</option><option selected>12</option></select></div><div><label>Chủ đề / chuyên đề từ chương trình <span style="color:#bd6538">*</span></label><select id="curriculumTopic" onchange="selectCurriculumTopic()"><option value="">Chọn môn và lớp để xem chủ đề</option></select><p id="curriculumStatus" class="source" role="status"></p></div></div><label>Tên chủ đề / bài học cụ thể</label><input id="topic" placeholder="Tự điền sau khi chọn chủ đề chương trình"><div class="panel" style="margin-top:20px;border-left:4px solid #087f7b">
+</section><section id="batch" class="hidden">
+<div class="eyebrow">XƯỞNG SÁNG TẠO ĐỒNG BỘ</div>
+<h1>Sáng tạo học liệu đồng bộ</h1>
+<p>Chọn một chủ đề và nhiều học liệu, hệ thống sẽ lập kế hoạch tác vụ thống nhất. Khi AI và kho máy chủ được nghiệm thu, từng bản nháp mới được sinh và lưu theo quyền.</p>
+<div class="panel">
+ <h2>Giao nhiệm vụ một lần</h2>
+ <div class="grid">
+ <div><label>Chế độ chương trình</label><select id="batchProgram"><option value="GDPT_2018">Phổ thông – CT GDPT 2018</option><option value="HSG_THANH_PHO">Bồi dưỡng HSG thành phố</option><option value="HSG_QUOC_GIA">Bồi dưỡng HSG quốc gia</option></select></div>
+ <div><label>Môn học</label><select id="batchSubject"><option>Toán</option><option>Ngữ văn</option><option>Tiếng Anh</option><option>Vật lí</option><option>Hóa học</option><option>Sinh học</option><option>Lịch sử</option><option>Địa lí</option><option>Tin học</option><option>Công nghệ</option><option>GD Kinh tế và Pháp luật</option><option>Giáo dục thể chất</option><option>GDQP&AN</option><option>Hoạt động trải nghiệm</option></select></div>
+ <div><label>Lớp</label><select id="batchGrade"><option>10</option><option>11</option><option selected>12</option></select></div>
+ <div><label>Chủ đề thuộc chương trình</label><select id="batchTopic"><option value="">— Chọn chủ đề —</option></select></div>
+ </div>
+ <p class="source" id="batchCurriculumNote"></p>
+ <label>Yêu cầu riêng của giáo viên</label><textarea id="batchInstruction" placeholder="Ví dụ: dạy 2 tiết, chú trọng hoạt động khám phá, có bài tập phân hóa; đề kiểm tra phải có ma trận và bản đặc tả"></textarea>
+ <h2 style="margin-top:20px">Chọn nhiều sản phẩm</h2>
+ <div class="batch-options" id="batchOptions"></div>
+ <div class="actions"><button class="primary" type="button" onclick="createBatchOrder()">Lập kế hoạch và lưu nhiệm vụ</button><button class="secondary" onclick="showBatchOrders()">Xem nhiệm vụ đã lưu</button></div>
+ <p class="status" id="batchFeedback" role="status"></p>
+ <p class="source">Nút trên chỉ lưu kế hoạch vào trình duyệt, không gọi Gemini và không tạo học liệu giả lập. Bộ máy thực thi chờ cổng AI đã xác thực và kho máy chủ.</p>
+</div>
+<div class="panel"><h2>Nhiệm vụ sáng tạo học liệu của tôi</h2><div id="batchOrders"></div></div>
+</section>
+<section id="shared" class="hidden"><div class="eyebrow">THƯ VIỆN CHUYÊN MÔN</div><h1>Học liệu chia sẻ</h1><div class="panel"><h2>Đang phát triển</h2><p>Thư viện theo tổ chuyên môn chỉ hiển thị sau khi EDOS cung cấp đăng nhập chung, phân quyền và cơ chế chia sẻ được nghiệm thu. Chưa có tài liệu công khai từ kho cá nhân.</p></div></section>
+<section id="admin" class="hidden"><div class="eyebrow">DÀNH CHO NGƯỜI ĐƯỢC CẤP QUYỀN</div><h1>Quản trị hệ thống</h1><div class="panel"><h2>Đang phát triển</h2><p>Phòng thử nghiệm AI, quản lý chương trình, quản lý hạn mức và nhật ký hoạt động sẽ chỉ bật sau khi backend xác minh quyền quản trị. Trang GitHub Pages công khai không cung cấp các thao tác quản trị.</p></div></section><section id="create" class="hidden"><div class="eyebrow">XƯỞNG SẢN XUẤT</div><h1>Biên tập chủ đề</h1><p>Bản nháp phục vụ thử nghiệm thao tác tạo – sửa – lưu – xuất HTML.</p><div class="panel"><div class="grid"><div><label>Chế độ chương trình</label><select id="program"><option>Phổ thông – CT GDPT 2018</option><option>HSG thành phố – VDC và vận dụng rất cao</option><option>HSG quốc gia – CT môn chuyên</option></select></div><div><label>Môn học</label><select id="subject"><option>Toán</option><option>Ngữ văn</option><option>Tiếng Anh</option><option>Vật lí</option><option>Hóa học</option><option>Sinh học</option><option>Lịch sử</option><option>Địa lí</option><option>Tin học</option><option>Công nghệ</option><option>GD Kinh tế và Pháp luật</option><option>Giáo dục thể chất</option><option>GDQP&AN</option><option>Hoạt động trải nghiệm</option></select></div><div><label>Lớp</label><select id="grade"><option>10</option><option>11</option><option selected>12</option></select></div><div><label>Chủ đề / chuyên đề từ chương trình <span style="color:#bd6538">*</span></label><select id="curriculumTopic" onchange="selectCurriculumTopic()"><option value="">Chọn môn và lớp để xem chủ đề</option></select><p id="curriculumStatus" class="source" role="status"></p></div></div><label>Tên chủ đề / bài học cụ thể</label><input id="topic" placeholder="Tự điền sau khi chọn chủ đề chương trình"><div class="panel" style="margin-top:20px;border-left:4px solid #087f7b">
 <h2>✦ Trợ lý AI – Chuyên gia ma trận kiến thức và đặc tả</h2>
 <p class="info">Giáo viên chọn môn, lớp, chủ đề và chế độ chương trình ở phía trên. Trợ lý AI sẽ lập ma trận kiến thức, phân loại mức độ tư duy và đề xuất bản đặc tả để giáo viên thẩm định, khi cổng AI EDOS được kết nối an toàn.</p>
 <div class="actions"><button type="button" class="primary" onclick="openMatrixAssistant()">✦ Trợ lý AI lập ma trận</button><button type="button" class="secondary" onclick="document.getElementById('matrixEditor').open=true;document.getElementById('matrixEditor').scrollIntoView({behavior:'smooth',block:'start'})">Chỉnh sửa ma trận</button><button type="button" class="secondary" onclick="exportMatrixCSV()">Xuất ma trận CSV</button></div>
@@ -341,5 +375,70 @@ async function restoreLibrary(ev){
 
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function exportHtml(){if(!$('topic').value.trim()){$('feedback').textContent='Cần nhập tên chủ đề.';return}const html='<!doctype html><html lang="vi"><meta charset="utf-8"><title>'+esc($('topic').value)+'</title><body style="font:16px Arial;max-width:800px;margin:50px auto"><h1>'+esc($('topic').value)+'</h1><p>'+esc($('subject').value)+' · Lớp '+esc($('grade').value)+'</p><p>'+esc($('program').value)+'</p><div style="white-space:pre-wrap">'+esc($('content').value)+'</div></body></html>';const u=URL.createObjectURL(new Blob([html],{type:'text/html;charset=utf-8'}));const a=document.createElement('a');a.href=u;a.download='hoc-lieu.html';a.click();setTimeout(()=>URL.revokeObjectURL(u),2000);$('feedback').textContent='Đã tạo tệp HTML.'}
-['Giáo án số','Bài giảng trình chiếu','Phiếu học tập','Ngân hàng câu hỏi','Đề kiểm tra','Học liệu trực quan','Video học liệu','Trò chơi giáo dục','Chuyển đổi học liệu','Kho học liệu'].forEach(n=>{const d=document.createElement('div');d.className='mod';const b=document.createElement('b');b.textContent='Trợ lý AI – '+n;const s=document.createElement('small');s.textContent='Chưa kích hoạt';d.append(b,s);$('mods').append(d)});nav('home');
+['Giáo án số','Bài giảng trình chiếu','Phiếu học tập','Ngân hàng câu hỏi','Đề kiểm tra','Học liệu trực quan','Video học liệu','Trò chơi giáo dục','Chuyển đổi học liệu','Kho học liệu'].forEach(n=>{const d=document.createElement('div');d.className='mod';const b=document.createElement('b');b.textContent='Trợ lý AI – '+n;const s=document.createElement('small');s.textContent='Chưa kích hoạt';d.append(b,s);$('mods').append(d)});
+const BATCH_KEY='hva-learning-studio-batch-orders-v1';
+const BATCH_TYPES=[
+ ['lesson_plan','Giáo án số'],
+ ['slides','Bài giảng PowerPoint'],
+ ['worksheet','Phiếu học tập'],
+ ['question_bank','Ngân hàng câu hỏi'],
+ ['exam','Đề kiểm tra và đáp án'],
+ ['infographic','Học liệu trực quan'],
+ ['game','Trò chơi tương tác'],
+ ['video_script','Kịch bản video học liệu'],
+ ['specification','Ma trận và bản đặc tả']
+];
+function batchData(){try{const x=JSON.parse(localStorage.getItem(BATCH_KEY)||'[]');return Array.isArray(x)?x:[]}catch(e){return []}}
+function initBatch(){
+ const root=document.getElementById('batchOptions');if(!root)return;
+ BATCH_TYPES.forEach(([id,title],i)=>{const lab=document.createElement('label');lab.className='batch-option';const inp=document.createElement('input');inp.type='checkbox';inp.value=id;inp.checked=i<4;lab.append(inp,document.createTextNode(title));root.append(lab)});
+ ['batchProgram','batchSubject','batchGrade'].forEach(id=>document.getElementById(id).addEventListener('change',updateBatchTopics));
+ updateBatchTopics();showBatchOrders();
+}
+function updateBatchTopics(){
+ const program=document.getElementById('batchProgram').value,subject=document.getElementById('batchSubject').value,grade=document.getElementById('batchGrade').value;
+ const el=document.getElementById('batchTopic');const previous=el.value;el.replaceChildren();
+ const none=document.createElement('option');none.value='';none.textContent='— Chọn chủ đề —';el.append(none);
+ const topics=program==='HSG_QUOC_GIA'?[]:(typeof CT_TOPICS!=='undefined'?CT_TOPICS[subject]?.[grade]||[]:[]);
+ topics.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;el.append(o)});
+ el.disabled=!topics.length;if(topics.includes(previous))el.value=previous;
+ document.getElementById('batchCurriculumNote').textContent=!topics.length?
+ 'Chưa có danh mục được xác minh cho chế độ/môn/lớp này. Không tự gắn nhãn chương trình Bộ.':
+ 'Chủ đề tham chiếu theo CT GDPT 2018; yêu cầu cần đạt chi tiết phải tiếp tục đối chiếu nguồn chính thức trước khi sinh học liệu.';
+}
+function createBatchOrder(){
+ const program=document.getElementById('batchProgram').value,subject=document.getElementById('batchSubject').value,grade=document.getElementById('batchGrade').value,topic=document.getElementById('batchTopic').value;
+ const tasks=[...document.querySelectorAll('#batchOptions input:checked')].map(x=>x.value),message=document.getElementById('batchFeedback');
+ if(!topic){message.textContent='Hãy chọn chủ đề có trong danh mục đã nạp; chưa hỗ trợ chủ đề chưa xác minh.';return}
+ if(!tasks.length){message.textContent='Hãy chọn ít nhất một loại học liệu.';return}
+ const name=BATCH_TYPES.filter(([id])=>tasks.includes(id)).map(([id,title])=>({id,title,status:'Chờ kết nối AI'}));
+ const examSelected=tasks.includes('exam'),hasSpec=tasks.includes('specification');
+ const existing=batchData(),id='batch-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+ const order={id,createdAt:new Date().toISOString(),program,subject,grade,topic,instruction:document.getElementById('batchInstruction').value.slice(0,10000),status:'Đã lưu kế hoạch – Chưa tạo học liệu',tasks:name,dependencies:examSelected?['Ma trận kiến thức','Ma trận đề','Bản đặc tả được duyệt','Sinh đề và lời giải']:[],needsSpecification:examSelected&&!hasSpec};
+ try{localStorage.setItem(BATCH_KEY,JSON.stringify([order,...existing]));message.textContent='Đã lưu lệnh gồm '+tasks.length+' học liệu vào trình duyệt. Chưa gọi AI; chưa có sản phẩm được tạo.';showBatchOrders()}
+ catch(e){message.textContent='Không thể lưu nhiệm vụ trên thiết bị: '+e.message}
+}
+function showBatchOrders(){
+ const root=document.getElementById('batchOrders');if(!root)return;
+ root.replaceChildren();const orders=batchData();
+ if(!orders.length){root.textContent='Chưa có nhiệm vụ. Giáo viên có thể lập một kế hoạch để lưu và kiểm tra quy trình.';return}
+ orders.forEach(order=>{
+ const box=document.createElement('div');box.className='batch-entry';
+ const title=document.createElement('h3');title.textContent=order.topic+' · '+order.subject+' '+order.grade;
+ const date=document.createElement('div');date.className='source';date.textContent=new Date(order.createdAt).toLocaleString('vi-VN')+' · '+order.status;box.append(title,date);
+ (order.tasks||[]).forEach(task=>{const line=document.createElement('div');line.className='batch-task';const a=document.createElement('span');a.textContent=task.title;const b=document.createElement('span');b.textContent=task.status;line.append(a,b);box.append(line)});
+ if(order.dependencies?.length){const p=document.createElement('p');p.className='source';p.textContent='Quy trình đề kiểm tra: '+order.dependencies.join(' → ')+(order.needsSpecification?' (phải tạo, phê duyệt ma trận và đặc tả trước)':'');box.append(p)}
+ const actions=document.createElement('div');actions.className='actions';
+ const exportBtn=document.createElement('button');exportBtn.className='secondary';exportBtn.textContent='Xuất kế hoạch JSON';exportBtn.onclick=()=>exportBatchOrder(order);
+ const delBtn=document.createElement('button');delBtn.className='secondary';delBtn.textContent='Xóa kế hoạch';delBtn.onclick=()=>deleteBatchOrder(order.id);
+ actions.append(exportBtn,delBtn);box.append(actions);root.append(box);
+ });
+}
+function exportBatchOrder(o){
+ const blob=new Blob([JSON.stringify({format:'HVA_LEARNING_STUDIO_BATCH_PLAN',version:1,order:o},null,2)],{type:'application/json'});
+ const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='ke-hoach-hoc-lieu-'+o.id+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1500)
+}
+function deleteBatchOrder(id){if(!confirm('Xóa kế hoạch nhiệm vụ khỏi thiết bị này?'))return;localStorage.setItem(BATCH_KEY,JSON.stringify(batchData().filter(x=>x.id!==id)));showBatchOrders()}
+initBatch();
+nav('home');
 </script></body></html>
