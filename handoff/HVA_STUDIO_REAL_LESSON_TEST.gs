@@ -2,8 +2,9 @@
  * HVA LEARNING STUDIO — MỘT GIÁO ÁN TOÁN 10 BẰNG GEMINI THẬT
  *
  * Chạy DUY NHẤT trên bản sao Apps Script THỬ NGHIỆM (không đặt trong EDOS chính thức).
- * Trước khi chạy: Apps Script thử nghiệm có nvsGeminiFallbackV441_ và
+ * Dự án Apps Script THỬ NGHIỆM ĐỘC LẬP: chỉ cần dán tệp này và đặt
  * Script Properties GEMINI_API_KEY. Tùy chọn HVA_STUDIO_GEMINI_MODEL.
+ * Không cần sao chép Backend EDOS hay thêm doPost.
  *
  * Không có doGet/doPost, không sửa Sheet, không đọc dữ liệu nhân sự,
  * không gửi khóa lên trình duyệt, không tự công bố học liệu.
@@ -15,15 +16,12 @@
 function hvaStudioTaoGiaoAnToan10_() {
   const scriptProps=PropertiesService.getScriptProperties();
   const key=String(scriptProps.getProperty('GEMINI_API_KEY')||'').trim();
-  const model=String(scriptProps.getProperty('HVA_STUDIO_GEMINI_MODEL')||
-    scriptProps.getProperty('GEMINI_MEETING_MODEL')||'gemini-2.5-flash').trim();
+  const model=String(scriptProps.getProperty('HVA_STUDIO_GEMINI_MODEL')||'gemini-2.5-flash').trim();
   const fail=(step,message,extra)=>Object.assign({
     success:false,step:step,message:message
   },extra||{});
   if (!key) return fail('CONFIG','Thiếu GEMINI_API_KEY trong Script Properties của bản THỬ.');
   if (!/^[A-Za-z0-9._-]+$/.test(model)) return fail('CONFIG','Tên mô hình không hợp lệ.');
-  if (typeof nvsGeminiFallbackV441_!=='function')
-    return fail('CONFIG','Backend thử nghiệm chưa có nvsGeminiFallbackV441_.');
 
   const instructions=[
     'Bạn soạn BẢN NHÁP KẾ HOẠCH BÀI DẠY môn Toán lớp 10, chủ đề MỆNH ĐỀ VÀ TẬP HỢP.',
@@ -54,13 +52,15 @@ function hvaStudioTaoGiaoAnToan10_() {
 
   const started=Date.now();
   try {
-    const call=nvsGeminiFallbackV441_(request,key,model);
-    if(!call||!call.response) return fail('GEMINI','Không nhận được đối tượng phản hồi từ Gemini.');
-    const status=call.response.getResponseCode();
+    const apiResponse=UrlFetchApp.fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent',
+      {method:'post',contentType:'application/json',
+       headers:{'x-goog-api-key':key},payload:JSON.stringify(request),muteHttpExceptions:true});
+    const status=apiResponse.getResponseCode();
     if(status<200||status>=300)
       return fail('GEMINI','Gemini trả HTTP không thành công. Kiểm tra model, hạn mức và quyền API.',
-        {httpStatus:status,modelAttempted:call.model||model,elapsedMs:Date.now()-started});
-    const result=JSON.parse(call.response.getContentText());
+        {httpStatus:status,modelAttempted:model,elapsedMs:Date.now()-started});
+    const result=JSON.parse(apiResponse.getContentText());
     const answer=(result.candidates||[]).flatMap(c=>c.content&&c.content.parts||[])
       .map(part=>typeof part.text==='string'?part.text:'').join('\n').trim();
     if(answer.length<500) return fail('CONTENT','Gemini phản hồi quá ngắn hoặc không có nội dung.',
@@ -74,7 +74,7 @@ function hvaStudioTaoGiaoAnToan10_() {
       'Nguồn sinh: Gemini qua Apps Script THỬ NGHIỆM; chưa duyệt, chưa phát hành.\n\n'+answer);
     doc.saveAndClose();
     return {success:true,step:'GEMINI_AND_GOOGLE_DOC',
-      httpStatus:status,modelUsed:call.model||model,
+      httpStatus:status,modelUsed:model,
       elapsedMs:Date.now()-started,chars:answer.length,
       documentUrl:doc.getUrl(),draft:true,reviewRequired:true,
       message:'Gemini thật đã tạo giáo án và lưu bản nháp Google Docs. Chưa nối giao diện Studio.'};
