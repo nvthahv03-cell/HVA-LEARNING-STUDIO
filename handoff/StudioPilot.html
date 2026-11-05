@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi"><head><base target="_top"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{font-family:system-ui,Arial,sans-serif;color:#18374b;background:#f3f7fa}
+*{box-sizing:border-box}body{margin:0}.shell{max-width:980px;margin:0 auto;padding:30px 20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+small{color:#5c7282}.mark{font-weight:800;color:#047e7b;letter-spacing:.06em}
+h1{font-size:28px;line-height:1.25;margin:7px 0}h2{font-size:19px}
+section{background:white;padding:24px;border:1px solid #d9e5eb;border-radius:18px;margin-bottom:16px;box-shadow:0 8px 24px rgba(20,50,70,.045)}
+label{display:block;font-size:14px;font-weight:700;margin:14px 0 7px}
+textarea,input{width:100%;border:1px solid #bed1da;border-radius:12px;padding:12px;font:inherit;line-height:1.55;color:inherit;background:#fff}
+textarea{min-height:115px;resize:vertical}#draft{min-height:360px;font-family:system-ui,Arial,sans-serif}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
+button{border:1px solid #c2d8df;background:#fff;padding:11px 16px;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;color:#193950}
+button.primary{background:#078681;color:white;border-color:#078681}button:disabled{opacity:.55;cursor:not-allowed}
+.info{color:#587184;line-height:1.55}.status{border-left:4px solid #a4bac5;padding:10px 14px;background:#f5f8fa;border-radius:8px}
+.status.success{border-color:#0b897b}.status.error{border-color:#b54e4e}.hidden{display:none}
+ul{padding-left:23px}li{padding:6px 0}li button{margin-left:12px;font-size:12px;padding:5px 9px}
+@media(max-width:600px){.shell{padding:14px}section{padding:16px}h1{font-size:23px}}
+</style></head>
+<body><main class="shell">
+<header><div><span class="mark">HVA LEARNING STUDIO</span><h1>Sáng tạo giáo án Toán 10</h1><small>Phòng kiểm thử Gemini thật • Bản nháp cần giáo viên thẩm định</small></div></header>
+<section>
+<h2>1. Tạo giáo án</h2><p class="info">Tác vụ thử nghiệm: Toán 10 – Mệnh đề và tập hợp. Không nhập dữ liệu học sinh, thông tin cá nhân hoặc khóa API.</p>
+<p class="status" id="auth" role="status">Đang kiểm tra tài khoản được cấp quyền…</p>
+<label for="instruction">Yêu cầu bổ sung</label>
+<textarea id="instruction" maxlength="2500">Hãy soạn kế hoạch bài dạy Toán 10, chủ đề Mệnh đề và tập hợp, thời lượng 2 tiết. Có hoạt động khám phá, bài tập luyện tập, vận dụng, đáp án và cách phân hóa học sinh. Nội dung toán học chính xác; giáo viên thẩm định trước khi dùng.</textarea>
+<div class="actions"><button class="primary" type="button" id="create" disabled>Tạo giáo án bằng AI</button></div>
+<p class="status" id="status" role="status">Chưa gửi yêu cầu.</p>
+</section>
+<section id="editor" class="hidden">
+<h2>2. Biên tập bản nháp</h2><p class="info"><strong>BẢN NHÁP AI – GIÁO VIÊN CẦN THẨM ĐỊNH.</strong> Chưa được phê duyệt hay phát hành. Thầy/cô có thể sửa trực tiếp, lưu trên trình duyệt này và mở lại.</p>
+<label for="draft">Nội dung giáo án</label><textarea id="draft"></textarea>
+<div class="actions"><button type="button" class="primary" id="save">Lưu bản nháp</button><button type="button" id="export">Xuất bản nháp .md</button></div>
+<p class="status" id="saveStatus" role="status">Chưa lưu.</p>
+</section>
+<section><h2>3. Bản nháp đã lưu</h2>
+<p class="info">Kho thử nghiệm chỉ lưu trên trình duyệt và tài khoản đang dùng; chưa đồng bộ EDOS, không dùng thay kho chính thức.</p>
+<ul id="saved"></ul></section>
+</main>
+<script>
+(function(){
+'use strict';
+const el=id=>document.getElementById(id);
+let authorized=false,busy=false,account='',currentId='',lastGenerated=false;
+const prefix='hva_studio_pilot_drafts_';
+const key=()=>prefix+account.toLowerCase();
+const read=()=>{try{const a=JSON.parse(localStorage.getItem(key())||'[]');return Array.isArray(a)?a:[]}catch(e){return []}};
+function message(id,text,type){el(id).textContent=text;el(id).className='status'+(type?' '+type:'')}
+function update(){el('create').disabled=!authorized||busy}
+function render(){
+ const ul=el('saved');ul.replaceChildren();
+ if(!authorized){const li=document.createElement('li');li.textContent='Chỉ hiển thị khi tài khoản đã được xác thực.';ul.append(li);return}
+ const list=read();
+ if(!list.length){const li=document.createElement('li');li.textContent='Chưa có bản nháp lưu cục bộ.';ul.append(li);return}
+ for(const item of list){
+  const li=document.createElement('li'),span=document.createElement('span'),open=document.createElement('button');
+  span.textContent='Toán 10 – Mệnh đề và tập hợp • '+String(item.time||'');
+  open.type='button';open.textContent='Mở lại';
+  open.addEventListener('click',()=>{currentId=item.id;lastGenerated=true;el('draft').value=item.content;el('editor').classList.remove('hidden');message('saveStatus','Đã mở bản nháp đã lưu. Có thể chỉnh sửa và lưu lại.','success');el('editor').scrollIntoView({behavior:'smooth'})});
+  li.append(span,open);ul.append(li)
+ }
+}
+el('create').addEventListener('click',()=>{
+ if(!authorized||busy)return;
+ const input=el('instruction').value.trim();
+ if(!input||input.length>2500){message('status','Yêu cầu phải có nội dung, tối đa 2.500 ký tự.','error');return}
+ busy=true;update();message('status','Đang gửi yêu cầu đến Gemini thật. Không bấm lại khi đang xử lý.');
+ const requestId='studio-'+(typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.random().toString(36).slice(2,12));
+ google.script.run
+  .withSuccessHandler(result=>{
+   busy=false;update();
+   if(!result||result.success!==true||result.provider!=='gemini'||result.draft!==true||result.reviewRequired!==true||result.requestId!==requestId||typeof result.answer!=='string'||result.answer.length<200){
+    message('status','Chưa nhận được giáo án Gemini hợp lệ: '+(result&&result.message||'Phản hồi không phù hợp.'),'error');return
+   }
+   currentId=requestId;lastGenerated=true;el('draft').value=result.answer;el('editor').classList.remove('hidden');
+   message('status','Gemini đã tạo bản nháp ('+result.modelUsed+'). Giáo viên cần thẩm định trước khi lưu.','success');
+   message('saveStatus','Bản nháp chưa được lưu.');el('editor').scrollIntoView({behavior:'smooth'});
+  })
+  .withFailureHandler(()=>{busy=false;update();message('status','Không kết nối được Backend thử nghiệm. Vui lòng kiểm tra quyền và triển khai.','error')})
+  .hvaPilotGenerate({requestId,taskType:'lesson_plan',subject:'Toán',grade:'10',topic:'Mệnh đề và tập hợp',input});
+});
+el('save').addEventListener('click',()=>{
+ if(!authorized||!lastGenerated||!currentId){message('saveStatus','Chưa có giáo án thật để lưu.','error');return}
+ const content=el('draft').value.trim();if(!content){message('saveStatus','Nội dung trống.','error');return}
+ const list=read(),entry={id:currentId,time:new Date().toLocaleString('vi-VN'),content};
+ const i=list.findIndex(x=>x.id===currentId);if(i<0)list.unshift(entry);else list[i]=entry;
+ try{localStorage.setItem(key(),JSON.stringify(list.slice(0,20)));message('saveStatus','Đã lưu trên trình duyệt này. Chưa đồng bộ EDOS.','success');render()}catch(e){message('saveStatus','Trình duyệt không cho lưu cục bộ; hãy xuất tệp .md.','error')}
+});
+el('export').addEventListener('click',()=>{
+ const text=el('draft').value;if(!text||!lastGenerated)return;
+ const a=document.createElement('a'),u=URL.createObjectURL(new Blob([text],{type:'text/markdown;charset=utf-8'}));
+ a.href=u;a.download='HVA_GiaoAn_Toan10_BanNhap.md';a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);
+});
+google.script.run.withSuccessHandler(data=>{
+ authorized=!!data&&data.authorized===true;account=authorized?data.email:'';
+ message('auth',data&&data.message||'Không nhận được thông tin đăng nhập.',authorized?'success':'error');update();render();
+}).withFailureHandler(()=>{message('auth','Không xác minh được tài khoản thử nghiệm.','error');update();render()}).hvaPilotStatus();
+})();
+</script></body></html>
