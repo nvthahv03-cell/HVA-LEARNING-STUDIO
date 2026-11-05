@@ -40,9 +40,24 @@ function hideAssistant(){$('assistantPanel').classList.add('hidden')}
 function buildPrompt(){
  const p=$('program').value,s=$('subject').value,g=$('grade').value,selected=$('curriculumTopic').value,title=$('topic').value.trim();
  const source=p.includes('HSG quốc gia')?'Chương trình giáo dục nâng cao môn chuyên của Bộ; chưa có chủ đề xác minh trên hệ thống':CT_SOURCE;
- const level=p.includes('thành phố')?'Yêu cầu VDC và vận dụng rất cao, có lời giải chặt chẽ và câu hỏi phân hóa.':p.includes('HSG quốc gia')?'Yêu cầu nghiên cứu chuyên sâu; đối chiếu phạm vi chương trình chuyên trước khi xây dựng.':'Bảo đảm yêu cầu cần đạt của CT GDPT 2018.';
- const matrix=validateMatrix();const matrixText=matrix.rows.map((r,i)=>'\\n'+(i+1)+'. Kiến thức: '+r.knowledge+'; YCCĐ: '+r.requirement+'; Nguồn: '+r.source+'; Năng lực: '+r.competency+'; Mức độ: '+r.level+'; Minh chứng: '+r.evidence).join('');const warning=selected?'Chủ đề được giáo viên chọn từ danh mục tham chiếu: '+selected:'Chưa có chủ đề được chọn từ chương trình đã xác minh. Cần giáo viên đối chiếu nguồn trước khi dùng.';
- $('promptText').value='Bạn là Trợ lý AI – Chuyên gia học liệu THPT.\nNhiệm vụ: '+$('artifactType').value+'\nMôn: '+s+'; Lớp: '+g+'\nChế độ: '+p+'\nChủ đề/bài học: '+(title||'[giáo viên chưa xác định]')+'\nNguồn: '+source+'\n'+warning+'\n'+level+'\nYêu cầu bổ sung: '+($('extraInstruction').value||'Không có')+'\nHãy lập bản dự thảo đầy đủ, trình bày rõ mục tiêu, cấu trúc, hoạt động học tập, câu hỏi và đáp án khi phù hợp; nêu điểm chưa chắc chắn để giáo viên thẩm định. Không tự khẳng định đã kiểm chứng chương trình khi thiếu nguồn.\nNội dung giáo viên cung cấp: '+($('content').value||'[Chưa có]');
+ const level=p.includes('thành phố')?'Ưu tiên vận dụng cao và vận dụng rất cao (mức mở rộng luyện HSG), yêu cầu lập luận chặt chẽ.':p.includes('HSG quốc gia')?'Yêu cầu chuyên sâu, phải đối chiếu văn bản môn chuyên và phạm vi thi trước khi sử dụng.':'Tuân thủ đúng yêu cầu cần đạt của CT GDPT 2018.';
+ const matrix=validateMatrix();
+ const matrixText=matrix.rows.map((r,i)=>'\\n'+(i+1)+'. Kiến thức: '+r.knowledge+'; YCCĐ: '+r.requirement+'; Nguồn: '+r.source+'; Năng lực: '+r.competency+'; Mức độ: '+r.level+'; Minh chứng: '+r.evidence).join('');
+ const warning=selected?'Chủ đề tham chiếu giáo viên chọn: '+selected:'Chưa có chủ đề được chọn từ chương trình đã xác minh.';
+ $('promptText').value=[
+ 'Bạn là Trợ lý AI – Chuyên gia học liệu THPT.',
+ 'Nhiệm vụ: '+$('artifactType').value,
+ 'Môn: '+s+'; Lớp: '+g,
+ 'Chế độ: '+p,
+ 'Chủ đề/bài học: '+(title||'[chưa xác định]'),
+ 'Nguồn chương trình: '+source,
+ warning,level,
+ 'MA TRẬN KIẾN THỨC – YÊU CẦU CẦN ĐẠT:'+matrixText,
+ 'Tình trạng: '+(matrix.errors.length?'MA TRẬN CHƯA ĐỦ / CHƯA XÁC MINH. Không tuyên bố sản phẩm bám chuẩn khi chưa bổ sung.':'Ma trận đã điền đủ trường; giáo viên vẫn phải thẩm định nguồn và kiến thức.'),
+ 'Yêu cầu bổ sung: '+($('extraInstruction').value||'Không có'),
+ 'Chỉ thiết kế nội dung phù hợp từng yêu cầu cần đạt, mức độ tư duy đã gắn trong ma trận; nêu rõ phần mở rộng HSG. Có đáp án, lời giải và tiêu chí thẩm định nếu cần. Không tự suy đoán căn cứ chương trình.',
+ 'Nội dung giáo viên cung cấp: '+($('content').value||'[Chưa có]')
+ ].join('\\n');
 }
 async function copyPrompt(){buildPrompt();try{await navigator.clipboard.writeText($('promptText').value);$('assistantMessage').textContent='Đã sao chép yêu cầu. Chưa gọi Gemini trực tiếp.'}catch(e){$('promptText').focus();$('promptText').select();$('assistantMessage').textContent='Không thể tự sao chép; bấm Ctrl+C để sao chép yêu cầu.'}}
 ['program','subject','grade'].forEach(id=>$(id).addEventListener('change',()=>{updateCurriculumTopics();if(!$('assistantPanel').classList.contains('hidden'))buildPrompt()}));
