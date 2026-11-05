@@ -166,6 +166,16 @@ main{max-width:1540px;padding:32px 36px 70px}
 <div style="overflow-x:auto;margin-top:12px"><table id="matrixTable" style="width:100%;border-collapse:collapse;min-width:1000px;font-size:13px"><thead><tr><th>Nội dung kiến thức</th><th>Yêu cầu cần đạt (trích nguyên văn)</th><th>Nguồn/vị trí</th><th>Năng lực</th><th>Mức độ</th><th>Minh chứng / dạng học liệu</th><th></th></tr></thead><tbody id="matrixBody"></tbody></table></div>
 <p class="source">Phân loại B, H, VD, VDC; “Vận dụng rất cao” là mức mở rộng trong bồi dưỡng HSG, không phải mức chính thức của CT GDPT.</p><p id="matrixStatus" class="status" role="status"></p>
 </details></div>
+<div id="studioLivePilot" class="panel" style="border-left:4px solid #0c9690;margin:16px 0">
+ <div class="eyebrow">KIỂM THỬ HỌC LIỆU VỚI AI</div>
+ <h2>✦ Trợ lý AI – Thử tạo một giáo án số</h2>
+ <p class="info">Bài thử đầu tiên: giáo án Toán 10 theo yêu cầu cần đạt được xác minh. Nội dung AI chỉ là bản nháp để giáo viên thẩm định và lưu vào Kho cá nhân.</p>
+ <div class="grid"><div><label>Yêu cầu gửi AI (có thể chỉnh sửa)</label><textarea id="studioPilotInstruction" rows="4">Soạn kế hoạch bài dạy 1 tiết về xác định tính đúng, sai của mệnh đề toán học; có khởi động, khám phá, luyện tập, vận dụng; bài tập và đáp án, chú ý phân hóa.</textarea></div>
+ <div><label>Tình trạng kết nối</label><p class="source" id="studioPilotStatus">Đang kiểm tra kết nối EDOS…</p><p class="source">Chỉ chạy trên phiên giáo viên được EDOS xác thực. Không nhập hoặc dán khóa API, mã phiên, dữ liệu học sinh vào đây.</p></div></div>
+ <div class="actions"><button type="button" id="studioPilotRun" class="primary" disabled>✦ Tạo bản nháp bằng AI thật</button><button type="button" id="studioPilotCheck" class="secondary">Kiểm tra kết nối AI</button></div>
+ <p class="status" role="status" id="studioPilotFeedback"></p>
+ <div id="studioPilotOutput" class="hidden"><label>Bản nháp do Trợ lý AI trả về</label><textarea id="studioPilotDraft" rows="12" placeholder="Kết quả AI sẽ hiển thị ở đây; giáo viên được sửa trước khi lưu"></textarea><div class="actions"><button type="button" id="studioPilotUse" class="secondary">Đưa bản nháp vào trình biên tập để giáo viên lưu</button></div><p class="source">Chỉ khi nhận được phản hồi thật, hợp lệ từ Backend thì mới hiển thị nội dung và cho phép đưa vào Kho. Không tự phê duyệt.</p></div>
+</div>
 <label>Nội dung dự thảo</label><textarea id="content" placeholder="Nhập nội dung nháp để thử khả năng lưu và xuất. Chức năng AI thật đang chờ kết nối."></textarea><div class="actions"><button class="primary" onclick="save()">Lưu bản nháp</button><button class="secondary" onclick="exportHtml()">Xuất HTML</button><button class="secondary" onclick="resetForm()">Tạo mới</button><button class="secondary" onclick="showAssistant()">✦ Trợ lý AI – Chuyên gia học liệu</button></div><p class="status" id="feedback" role="status"></p><div class="assistant-panel hidden" id="assistantPanel"><h2>✦ Trợ lý AI – Chuyên gia học liệu</h2><p class="info">Chọn nhiệm vụ để chuẩn bị yêu cầu chuyên môn. Việc tạo nội dung bằng Gemini trực tiếp trên Kho chưa được kích hoạt vì cổng EDOS chưa kết nối.</p><div class="grid"><div><label>Loại học liệu</label><select id="artifactType" onchange="buildPrompt()"><option>Kế hoạch bài dạy</option><option>Bài giảng trình chiếu</option><option>Phiếu học tập</option><option>Ngân hàng câu hỏi</option><option>Đề kiểm tra</option><option>Ma trận kiến thức và bản đặc tả</option><option>Infographic / Sơ đồ tư duy</option><option>Trò chơi tương tác</option></select></div><div><label>Yêu cầu bổ sung</label><input id="extraInstruction" oninput="buildPrompt()" placeholder="Ví dụ: 2 tiết, có hoạt động khám phá"></div></div><div id="examWorkflow" class="panel hidden" style="border-left:4px solid #087f7b"><h2>Quy trình bắt buộc tạo đề Toán</h2><p class="info">Bước 1: xây dựng ma trận đề kiểm tra. Bước 2: lập bản đặc tả từng nhóm câu hỏi gắn yêu cầu cần đạt. Chỉ sau khi cả hai bảng hợp lệ mới mở yêu cầu tạo đề.</p>
 <div class="grid"><div><label>Tên kỳ kiểm tra / đợt bồi dưỡng</label><input id="examName" oninput="updateExamGate()" placeholder="Ví dụ: Giữa kỳ I – Toán 12"></div><div><label>Thời gian làm bài (phút)</label><input id="examMinutes" type="number" min="1" max="300" oninput="updateExamGate()" placeholder="90"></div><div><label>Tổng điểm</label><input id="examPoints" type="number" min="0.1" max="100" step="0.1" oninput="updateExamGate()" placeholder="10"></div><div><label>Hình thức đánh giá</label><select id="examKind" onchange="updateExamGate()"><option>Kiểm tra định kỳ</option><option>Đề ôn tập</option><option>Đề bồi dưỡng HSG</option></select></div></div>
 <h3>1. Ma trận đề kiểm tra</h3><p class="source">Mỗi dòng là một nhóm câu hỏi theo nội dung, hình thức và mức tư duy. Số câu, số điểm phải khớp tổng đề.</p><div class="actions"><button class="secondary" onclick="addBlueprintRow()">+ Thêm dòng ma trận</button></div><div style="overflow-x:auto"><table style="width:100%;min-width:840px;border-collapse:collapse"><thead><tr><th>Nội dung kiến thức</th><th>Mức độ</th><th>Hình thức</th><th>Số câu</th><th>Điểm mỗi câu</th><th></th></tr></thead><tbody id="blueprintBody"></tbody></table></div><p id="blueprintSummary" class="source"></p>
@@ -568,4 +578,41 @@ async function importH01(event){
 initH01();
 loadVerifiedCurriculum();
 nav('home');
-</script></body></html>
+</script>
+
+<script type="module">
+import {generateWithEdos} from './studio-edos-adapter.js';
+const el=id=>document.getElementById(id);
+const run=el('studioPilotRun'),status=el('studioPilotStatus'),feedback=el('studioPilotFeedback');
+function approvedBridge(){return typeof window.HVA_STUDIO_AUTHORIZED_SEND==='function'?window.HVA_STUDIO_AUTHORIZED_SEND:null}
+function inspect(){
+ const ready=!!approvedBridge();run.disabled=!ready;status.textContent=ready?'Có lớp chuyển yêu cầu của EDOS. Backend vẫn phải xác thực phiên, quyền và action trước khi tạo học liệu.':'Chưa có kết nối an toàn từ EDOS. Chỉ giao diện kiểm thử đang hoạt động; không có lệnh gọi Gemini.';
+ feedback.textContent=ready?'Đã phát hiện cầu nối phía EDOS; có thể thử tạo một bản nháp với tài khoản kiểm thử.':'Cần EDOS triển khai action hva_studio_ai_generate và cung cấp kết nối xác thực. Không thể gọi AI từ GitHub Pages đơn lẻ.';
+}
+el('studioPilotCheck').addEventListener('click',inspect);
+run.addEventListener('click',async()=>{
+ const bridge=approvedBridge();if(!bridge){inspect();return}
+ if(!window.verifiedCurriculum && typeof curriculumContext!=='function'){feedback.textContent='Chưa nạp dữ liệu chương trình.';return}
+ const context=typeof curriculumContext==='function'?curriculumContext('GDPT_2018','Toán','10','Mệnh đề và tập hợp'):{verified:false};
+ if(!context.verified){feedback.textContent='Chưa tải được yêu cầu cần đạt Toán 10 đã xác minh. Hãy kiểm tra kho chương trình rồi thử lại.';return}
+ const input=el('studioPilotInstruction').value.trim();
+ if(!input||input.length>3000){feedback.textContent='Yêu cầu phải có nội dung, tối đa 3.000 ký tự.';return}
+ run.disabled=true;feedback.textContent='Đang yêu cầu Gemini qua Backend EDOS đã xác thực…';
+ try{
+  const result=await generateWithEdos({taskType:'lesson_plan',program:'GDPT_2018',subject:'Toán',grade:'10',topic:'Mệnh đề và tập hợp',input:input+'\nNguồn YCCĐ đã xác minh: '+JSON.stringify(context.entries),outputFormat:'markdown'},bridge);
+  if(!result.success)throw Error(result.message||'Backend chưa tạo được học liệu');
+  el('studioPilotDraft').value=result.answer;
+  el('studioPilotOutput').classList.remove('hidden');
+  feedback.textContent='Đã nhận bản nháp thực từ Backend ('+result.provider+'). Giáo viên kiểm tra và chỉnh sửa trước khi lưu.';
+ }catch(err){feedback.textContent='Không thể tạo học liệu: '+(err?.message||'Lỗi kết nối');el('studioPilotOutput').classList.add('hidden')}
+ finally{inspect()}
+});
+el('studioPilotUse').addEventListener('click',()=>{
+ const draft=el('studioPilotDraft').value.trim();if(!draft)return;
+ el('program').value='Phổ thông – CT GDPT 2018';el('subject').value='Toán';el('grade').value='10';updateCurriculumTopics();el('curriculumTopic').value='Mệnh đề và tập hợp';el('topic').value='Mệnh đề và tập hợp – giáo án thử nghiệm';el('content').value=draft;
+ feedback.textContent='Đã đưa bản nháp vào trình biên tập. Giáo viên rà soát và bấm “Lưu bản nháp” để lưu cục bộ.';
+ el('content').scrollIntoView({behavior:'smooth',block:'center'});
+});
+inspect();
+</script>
+</body></html>
