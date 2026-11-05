@@ -1,7 +1,7 @@
 {
   "schema": "hva-curriculum-registry/v1",
   "updatedAt": "2026-11-05",
-  "notice": "Đã xác minh nguyên văn 01 yêu cầu cần đạt môn Toán 10. Phần còn lại của các môn lớp 10–12 và nội dung môn chuyên CHƯA HOÀN TẤT. Tên chủ đề đang có là danh mục tham chiếu.",
+  "notice": "Đã đối chiếu riêng 02 yêu cầu cần đạt môn Toán lớp 10 (trang in 79 và 80); KHÔNG đồng nghĩa đã hoàn tất toàn bộ chương trình.",
   "sources": [
     {
       "id": "MOET_TT32_2018",
@@ -35,6 +35,14 @@
       "url": "https://thlevanthogv.hcm.edu.vn/chuong-trinh-gdpt-2018-khoi-1/chuong-trinh-giao-duc-pho-thong-mon-toan-ban-hanh-kem-theo-thong-tu-322018tt-bg/vbctmb/85091/567111",
       "status": "SOURCE_TEXT_CHECKED",
       "note": "Đã quan sát ảnh trang in 79, lớp 10, mục Đại số, Tập hợp – Mệnh đề; đối chiếu đoạn chính xác với PDF đăng trên website trường học."
+    },
+    {
+      "id": "MOET_MATH_2018_P80",
+      "program": "GDPT_2018",
+      "title": "Chương trình môn Toán 2018 – trang in 80, lớp 10, Hàm số và đồ thị",
+      "url": "https://lophocnguvan.com/wp-content/uploads/Giao-duc-pho-thong-2018-Mon-Toan.pdf",
+      "status": "SOURCE_TEXT_CHECKED",
+      "note": "Đã kiểm tra bản scan trang in 80 từ tài liệu chương trình môn Toán, ban hành kèm Thông tư 32/2018/TT-BGDĐT."
     }
   ],
   "outcomes": [
@@ -52,6 +60,21 @@
       "status": "VERIFIED",
       "scope": "source_text_only",
       "note": "Xác minh nguyên văn riêng yêu cầu này. Không đồng nghĩa đã xác minh toàn bộ chủ đề hoặc toàn bộ chương trình."
+    },
+    {
+      "id": "MATH10-QUADRATIC-TABLE-001",
+      "program": "GDPT_2018",
+      "subject": "Toán",
+      "grade": "10",
+      "topic": "Hàm số và đồ thị",
+      "requirement": "Thiết lập được bảng giá trị của hàm số bậc hai.",
+      "sourceId": "MOET_MATH_2018_P80",
+      "sourceLocation": "Chương trình môn Toán 2018; mục V, Lớp 10, trang in 80; Hàm số bậc hai, đồ thị hàm số bậc hai và ứng dụng",
+      "reviewedBy": "Kim Quy 2 – đối chiếu trực quan trang in 80",
+      "reviewedAt": "2026-11-05",
+      "status": "VERIFIED",
+      "scope": "source_text_only",
+      "note": "Đã xác minh riêng yêu cầu cần đạt này; chưa xác minh toàn bộ mạch kiến thức."
     }
   ],
   "verificationRules": {
@@ -75,7 +98,7 @@
   },
   "coverage": {
     "expected": "Tất cả môn/hoạt động giáo dục thuộc THPT lớp 10–12 và môn chuyên liên quan",
-    "verifiedOutcomes": 1,
+    "verifiedOutcomes": 2,
     "state": "PILOT_ONLY"
   }
 }
