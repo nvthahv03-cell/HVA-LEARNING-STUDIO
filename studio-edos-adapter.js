@@ -4,7 +4,7 @@
  * Backend EDOS phải xác thực phiên và quyền độc lập.
  */
 export const STUDIO_AI_ACTION = 'hva_studio_ai_generate';
-export const STUDIO_AI_READY = false; // CHỈ bật sau kiểm thử tích hợp EDOS thật.
+export const STUDIO_AI_READY = false; // Trạng thái production: chưa xác minh Backend/SSO.\n// Chế độ thử nghiệm chỉ có thể gọi qua authorizedSend do EDOS cung cấp sau xác thực.
 
 const TASKS = Object.freeze({
   lesson_plan: 'Kế hoạch bài dạy',
