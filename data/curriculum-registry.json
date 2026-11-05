@@ -43,6 +43,14 @@
       "url": "https://lophocnguvan.com/wp-content/uploads/Giao-duc-pho-thong-2018-Mon-Toan.pdf",
       "status": "SOURCE_TEXT_CHECKED",
       "note": "Đã kiểm tra bản scan trang in 80 từ tài liệu chương trình môn Toán, ban hành kèm Thông tư 32/2018/TT-BGDĐT."
+    },
+    {
+      "id": "MOET_MATH_2018_FULL_PDF",
+      "program": "GDPT_2018",
+      "title": "Chương trình giáo dục phổ thông môn Toán 2018, bản đầy đủ 123 trang",
+      "url": "https://lophocnguvan.com/wp-content/uploads/Giao-duc-pho-thong-2018-Mon-Toan.pdf",
+      "status": "SOURCE_TEXT_CHECKED",
+      "note": "Đã kiểm tra mục lục, các trang mẫu 79–81, 89, 105–106 của nội dung lớp 10–12. Chưa rà từng yêu cầu cần đạt trên tất cả trang."
     }
   ],
   "outcomes": [
@@ -99,6 +107,32 @@
   "coverage": {
     "expected": "Tất cả môn/hoạt động giáo dục thuộc THPT lớp 10–12 và môn chuyên liên quan",
     "verifiedOutcomes": 2,
-    "state": "PILOT_ONLY"
+    "state": "PILOT_ONLY",
+    "gradeSections": [
+      {
+        "subject": "Toán",
+        "grade": "10",
+        "fromPrintedPage": 79,
+        "toPrintedPage": 88,
+        "sourceId": "MOET_MATH_2018_FULL_PDF",
+        "status": "RANGE_LOCATED_NOT_FULLY_VERIFIED"
+      },
+      {
+        "subject": "Toán",
+        "grade": "11",
+        "fromPrintedPage": 89,
+        "toPrintedPage": 104,
+        "sourceId": "MOET_MATH_2018_FULL_PDF",
+        "status": "RANGE_LOCATED_NOT_FULLY_VERIFIED"
+      },
+      {
+        "subject": "Toán",
+        "grade": "12",
+        "fromPrintedPage": 105,
+        "toPrintedPage": 113,
+        "sourceId": "MOET_MATH_2018_FULL_PDF",
+        "status": "RANGE_LOCATED_NOT_FULLY_VERIFIED"
+      }
+    ]
   }
 }
