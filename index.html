@@ -200,10 +200,10 @@ function updateCurriculumTopics(){
  const previous=sel.value;sel.replaceChildren();const blank=document.createElement('option');blank.value='';blank.textContent='— Chọn chủ đề từ chương trình —';sel.append(blank);
  if(p.includes('HSG quốc gia')){$('curriculumStatus').textContent='Danh mục chương trình môn chuyên chưa được nhập và xác minh. Chưa cho phép gắn nhãn chủ đề chính thức.';sel.disabled=true;return}
  const topics=CT_TOPICS[s]?.[g]||[];
- if(!topics.length){$('curriculumStatus').textContent='Chưa có dữ liệu chương trình được xác minh cho môn/lớp này; không tự sinh danh mục.';sel.disabled=true;return}
+ if(!topics.length){$('curriculumStatus').textContent='Chưa có danh mục chủ đề tham chiếu môn/lớp này. Bộ YCCĐ xác minh hiện có: '+verifiedCurriculum.outcomes.length+'; không tự sinh dữ liệu.';sel.disabled=true;return}
  sel.disabled=false;topics.forEach(t=>{const opt=document.createElement('option');opt.value=t;opt.textContent=t;sel.append(opt)});
  if(topics.includes(previous))sel.value=previous;
- $('curriculumStatus').textContent=CT_SOURCE+' · Danh mục chủ đề tham chiếu, đang tiếp tục đối chiếu yêu cầu cần đạt chi tiết.'+(p.includes('thành phố')?' · HSG thành phố dùng mức VDC và vận dụng rất cao.':'');
+ $('curriculumStatus').textContent=CT_SOURCE+' · Danh mục chủ đề THAM CHIẾU (không phải bản YCCĐ đã kiểm chứng). Dữ liệu YCCĐ chuẩn: '+verifiedOutcomes(programCode(p),s,g,sel.value).length+' mục cho chủ đề đang chọn.'+(p.includes('thành phố')?' · HSG thành phố dùng mức VDC và vận dụng rất cao.':'');
 }
 function selectCurriculumTopic(){
  const t=$('curriculumTopic').value;if(t){$('topic').value=t}
@@ -316,6 +316,7 @@ function buildPrompt(){
  const matrix=validateMatrix();
  const exam=examValidation();
  const matrixText=matrix.rows.map((r,i)=>'\\n'+(i+1)+'. Kiến thức: '+r.knowledge+'; YCCĐ: '+r.requirement+'; Nguồn: '+r.source+'; Năng lực: '+r.competency+'; Mức độ: '+r.level+'; Minh chứng: '+r.evidence).join('');
+ const ctx=curriculumContext(programCode(p),s,g,selected||title);
  const warning=selected?'Chủ đề tham chiếu giáo viên chọn: '+selected:'Chưa có chủ đề được chọn từ chương trình đã xác minh.';
  $('promptText').value=[
  'Bạn là Trợ lý AI – Chuyên gia học liệu THPT.',
@@ -324,6 +325,7 @@ function buildPrompt(){
  'Chế độ: '+p,
  'Chủ đề/bài học: '+(title||'[chưa xác định]'),
  'Nguồn chương trình: '+source,
+ 'DỮ LIỆU CHƯƠNG TRÌNH CHÍNH THỨC: '+JSON.stringify(ctx),
  warning,level,
  'MA TRẬN KIẾN THỨC – YÊU CẦU CẦN ĐẠT:'+matrixText,
  examMode()?'QUY TRÌNH ĐỀ TOÁN (bắt buộc ma trận và đặc tả trước khi sinh đề): '+JSON.stringify({tenKy:exam.name,thoiGian:exam.minutes,tongDiem:exam.points,hinhThuc:exam.kind,maTranDe:exam.blueprint,banDacTa:exam.spec}):'',
@@ -463,6 +465,36 @@ function exportBatchOrder(o){
 function deleteBatchOrder(id){if(!confirm('Xóa kế hoạch nhiệm vụ khỏi thiết bị này?'))return;localStorage.setItem(BATCH_KEY,JSON.stringify(batchData().filter(x=>x.id!==id)));showBatchOrders()}
 initBatch();
 
+const CURRICULUM_REGISTRY_URL='./data/curriculum-registry.json';
+let verifiedCurriculum={sources:[],outcomes:[],loaded:false,error:''};
+function programCode(value){return value.includes('HSG quốc gia')?'HSG_QUOC_GIA':value.includes('HSG thành phố')?'HSG_THANH_PHO':'GDPT_2018'}
+function verifiedOutcomes(program,subject,grade,topic){
+ const actualProgram=program==='HSG_THANH_PHO'?'GDPT_2018':program;
+ if(!verifiedCurriculum.loaded)return [];
+ return verifiedCurriculum.outcomes.filter(x=>x.status==='VERIFIED'&&x.program===actualProgram&&x.subject===subject&&String(x.grade)===String(grade)&&x.topic===topic&&x.sourceId&&x.sourceLocation&&x.reviewedBy&&x.reviewedAt);
+}
+function curriculumContext(program,subject,grade,topic){
+ const matches=verifiedOutcomes(program,subject,grade,topic);
+ if(!matches.length)return {verified:false,entries:[],message:'CHƯA CÓ YÊU CẦU CẦN ĐẠT ĐÃ XÁC MINH cho chủ đề này. Không nhận dữ liệu giáo viên nhập/AI suy đoán là nguyên văn CT Bộ. Yêu cầu bổ sung nguồn và người thẩm định trước khi dùng.'};
+ return {verified:true,entries:matches.map(x=>({id:x.id,requirement:x.requirement,source:x.sourceId,location:x.sourceLocation,reviewedAt:x.reviewedAt})),message:'Yêu cầu cần đạt đã được đưa vào bộ nguồn được quản lý phiên bản; giáo viên vẫn cần rà soát tính phù hợp.'}
+}
+async function loadVerifiedCurriculum(){
+ try{
+  const response=await fetch(CURRICULUM_REGISTRY_URL,{cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const data=await response.json();
+  if(data.schema!=='hva-curriculum-registry/v1'||!Array.isArray(data.outcomes)||!Array.isArray(data.sources))throw Error('Sai cấu trúc dữ liệu');
+  const sourceIds=new Set(data.sources.map(s=>s.id));
+  const clean=data.outcomes.filter(x=>x&&x.status==='VERIFIED'&&['GDPT_2018','HSG_QUOC_GIA'].includes(x.program)&&
+   ['10','11','12'].includes(String(x.grade))&&
+   ['id','subject','topic','requirement','sourceId','sourceLocation','reviewedBy','reviewedAt'].every(k=>typeof x[k]==='string'&&x[k].trim())&&sourceIds.has(x.sourceId));
+  verifiedCurriculum={sources:data.sources,outcomes:clean,loaded:true,error:''};
+ }catch(e){verifiedCurriculum={sources:[],outcomes:[],loaded:false,error:String(e.message||e)}}
+ if(typeof renderH01==='function')renderH01();
+ if(typeof updateCurriculumTopics==='function')updateCurriculumTopics();
+ if(typeof updateBatchTopics==='function')updateBatchTopics();
+}
+
 const H01_KEY='hva-learning-studio-h01-outcomes-v1';
 const H01_SOURCE='Thông tư 32/2018/TT-BGDĐT – Chương trình môn học; cần đối chiếu các văn bản sửa đổi';
 function h01Records(){try{const v=JSON.parse(localStorage.getItem(H01_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return []}}
@@ -482,7 +514,9 @@ function renderH01(){
  const search=$('h01Search').value.trim().toLocaleLowerCase('vi');
  const filtered=topics.filter(x=>x.toLocaleLowerCase('vi').includes(search));
  const existing=h01Records(),sources=existing.filter(x=>x.program===program&&x.subject===subject&&x.grade===grade);
+ const official=verifiedCurriculum.outcomes.filter(x=>x.program===(program==='HSG_THANH_PHO'?'GDPT_2018':program)&&x.subject===subject&&String(x.grade)===String(grade));
  $('h01Status').textContent=program==='HSG_QUOC_GIA'?'Chưa nạp chương trình nâng cao môn chuyên đã xác minh. Không tự tạo danh mục.':subject==='Toán'?'Danh mục Toán là chủ đề THAM CHIẾU chưa xác minh đầy đủ nguyên văn yêu cầu cần đạt. Các hồ sơ nhập vào chỉ là bản nháp chờ thẩm định.':'Môn/lớp này chưa có danh mục chủ đề từ nguồn được kiểm chứng.';
+ const info=document.createElement('p');info.className='source';info.textContent='Kho chuẩn: '+official.length+' yêu cầu cần đạt đã được xác minh trong gói dữ liệu · '+sources.length+' bản ghi giáo viên chờ thẩm định.'+(verifiedCurriculum.error?' Không tải được gói chuẩn: '+verifiedCurriculum.error:'');root.append(info);
  if(!filtered.length){const p=document.createElement('p');p.className='source';p.textContent='Chưa có chủ đề tham chiếu phù hợp. H01 chưa tự sinh dữ liệu chương trình.';root.append(p)}
  filtered.forEach((topic,i)=>{
   const id=h01TopicId(program,subject,grade,topic),items=sources.filter(x=>x.topicId===id);
@@ -490,6 +524,7 @@ function renderH01(){
   const top=document.createElement('div');top.className='h01-item-head';const text=document.createElement('div');const t=document.createElement('h3');t.textContent=topic;
   const code=document.createElement('span');code.className='h01-code';code.textContent=id;text.append(t,code);
   const chip=document.createElement('span');chip.className='h01-chip';chip.textContent=items.length?items.length+' hồ sơ chờ đối chiếu':'Chưa có YCCĐ xác minh';top.append(text,chip);card.append(top);
+  official.filter(x=>x.topic===topic).forEach(x=>{const div=document.createElement('div');div.className='h01-outcome';const p=document.createElement('p');p.textContent=x.requirement;const meta=document.createElement('small');meta.textContent='ĐÃ XÁC MINH THEO KHO CHUẨN · '+x.sourceId+' · '+x.sourceLocation;div.append(p,meta);card.append(div)});
   items.forEach(x=>{const div=document.createElement('div');div.className='h01-outcome';const p=document.createElement('p');p.textContent=x.requirement;const meta=document.createElement('small');meta.textContent='Nguồn: '+x.source+' · Vị trí: '+x.location+' · Trạng thái: Chờ thẩm định';div.append(p,meta);card.append(div)});
   const details=document.createElement('details');details.className='h01-editor';const summary=document.createElement('summary');summary.textContent='+ Ghi nhận yêu cầu cần đạt để thẩm định';details.append(summary);
   const labels=[['requirement','Yêu cầu cần đạt – ghi nguyên văn'],['source','Tên văn bản, chương trình và phiên bản'],['location','Mục, trang hoặc vị trí trích dẫn'],['competency','Năng lực đặc thù liên quan']];
@@ -527,5 +562,6 @@ async function importH01(event){
  finally{event.target.value=''}
 }
 initH01();
+loadVerifiedCurriculum();
 nav('home');
 </script></body></html>
