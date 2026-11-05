@@ -82,7 +82,18 @@ main{max-width:1540px;padding:32px 36px 70px}
 .batch-task span:last-child{color:#936f26;font-weight:700}
 @media(max-width:950px){.batch-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.batch-options{grid-template-columns:1fr}}
-</style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar"><div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div><button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button><button data-page="create"><span class="nav-symbol">✧</span> Sáng tạo học liệu</button><button data-page="batch"><span class="nav-symbol">▦</span> Sáng tạo học liệu đồng bộ</button><button data-page="library"><span class="nav-symbol">▤</span> Kho học liệu của tôi</button><div class="sidebar-group-label sidebar-second">TRỢ LÝ CHUYÊN MÔN</div><button data-page="expert"><span class="nav-symbol">✦</span> Trợ lý AI – Chuyên gia</button><div class="sidebar-group-label sidebar-second">THƯ VIỆN & HỆ THỐNG</div><button data-page="shared"><span class="nav-symbol">♧</span> Học liệu chia sẻ</button><button data-page="admin"><span class="nav-symbol">⚙</span> Quản trị hệ thống</button><div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Một nền tảng • Mọi môn học</small></div></div></aside><main><div class="hint"><strong>Đang thử nghiệm giao diện trực tuyến.</strong> Dữ liệu chỉ lưu trên trình duyệt đang mở; chưa có đăng nhập EDOS, Gemini, chia sẻ kho hoặc xác minh nguồn chương trình. Không nhập thông tin học sinh hay tài liệu mật.</div><section id="home">
+
+/* H01 official curriculum library and review */
+.h01-item{padding:15px 17px;border:1px solid #e1eaf0;background:#fff;border-radius:12px;margin:10px 0}
+.h01-item-head{display:flex;gap:12px;justify-content:space-between;align-items:center}
+.h01-item h3{font-size:15px;margin:0;color:#1b4350}.h01-code{font-size:10px;color:#74909a;display:block;margin-top:5px}
+.h01-chip{font-size:10px;color:#9b6b1f;background:#fff5dd;padding:5px 9px;border-radius:16px;white-space:nowrap}
+.h01-outcome{border-left:3px solid #12a6a0;margin-top:12px;background:#f3fbfa;padding:12px;border-radius:0 8px 8px 0}
+.h01-outcome p{white-space:pre-wrap;margin:5px 0}.h01-outcome small{color:#657b86}
+.h01-editor{background:#f7fafc;border-radius:10px;padding:14px;margin-top:12px}
+.h01-editor summary{font-weight:700;color:#087c80;cursor:pointer}
+.h01-editor textarea{min-height:80px}
+</style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar"><div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div><button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button><button data-page="curriculum"><span class="nav-symbol">◎</span> Chương trình & yêu cầu cần đạt</button><button data-page="create"><span class="nav-symbol">✧</span> Sáng tạo học liệu</button><button data-page="batch"><span class="nav-symbol">▦</span> Sáng tạo học liệu đồng bộ</button><button data-page="library"><span class="nav-symbol">▤</span> Kho học liệu của tôi</button><div class="sidebar-group-label sidebar-second">TRỢ LÝ CHUYÊN MÔN</div><button data-page="expert"><span class="nav-symbol">✦</span> Trợ lý AI – Chuyên gia</button><div class="sidebar-group-label sidebar-second">THƯ VIỆN & HỆ THỐNG</div><button data-page="shared"><span class="nav-symbol">♧</span> Học liệu chia sẻ</button><button data-page="admin"><span class="nav-symbol">⚙</span> Quản trị hệ thống</button><div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Một nền tảng • Mọi môn học</small></div></div></aside><main><div class="hint"><strong>Đang thử nghiệm giao diện trực tuyến.</strong> Dữ liệu chỉ lưu trên trình duyệt đang mở; chưa có đăng nhập EDOS, Gemini, chia sẻ kho hoặc xác minh nguồn chương trình. Không nhập thông tin học sinh hay tài liệu mật.</div><section id="home">
 <div class="studio-hero">
   <div class="studio-hero-copy">
     <div class="hero-kicker"><span class="pulse-dot"></span> HỆ SINH THÁI HỌC LIỆU · HVA LEARNING STUDIO</div>
@@ -110,6 +121,17 @@ main{max-width:1540px;padding:32px 36px 70px}
  <div class="studio-status"><span class="eyebrow">TÌNH TRẠNG HỆ THỐNG</span><h2>Sẵn sàng cho kiểm thử giao diện</h2><div class="status-line"><span class="status-dot green"></span><span>Giao diện Kho học liệu</span><strong>Đang hoạt động</strong></div><div class="status-line"><span class="status-dot green"></span><span>Lưu bản nháp cục bộ</span><strong>Đã triển khai</strong></div><div class="status-line"><span class="status-dot orange"></span><span>Gemini qua EDOS</span><strong>Chưa kết nối</strong></div><div class="status-line"><span class="status-dot orange"></span><span>Đăng nhập chung / chia sẻ</span><strong>Chưa kích hoạt</strong></div></div>
 </div>
 <div class="hidden" aria-hidden="true"><span id="count">0</span></div>
+</section><section id="curriculum" class="hidden">
+<div class="eyebrow">H01 · NỀN TẢNG CHUYÊN MÔN</div><h1>Chương trình và yêu cầu cần đạt</h1>
+<p>Thư viện dữ liệu nguồn cho tất cả Trợ lý AI. Phân biệt chủ đề tham chiếu, yêu cầu cần đạt chưa thẩm định và dữ liệu được xác minh. Không tự coi dữ liệu do giáo viên nhập là văn bản chính thức.</p>
+<div class="panel">
+ <div class="grid"><div><label>Chương trình</label><select id="h01Program"><option value="GDPT_2018">Phổ thông – CT GDPT 2018</option><option value="HSG_THANH_PHO">HSG thành phố (mở rộng CT2018)</option><option value="HSG_QUOC_GIA">HSG quốc gia – môn chuyên</option></select></div>
+ <div><label>Môn học</label><select id="h01Subject"></select></div><div><label>Lớp</label><select id="h01Grade"><option>10</option><option>11</option><option>12</option></select></div>
+ <div><label>Tìm chủ đề</label><input id="h01Search" placeholder="Tìm theo tên chủ đề"></div></div>
+ <p class="source">Nguồn pháp lý nền: <a href="https://vbpl.moj.gov.vn/bogiaoducdaotao/Pages/vbpq-toanvan.aspx?ItemID=146721" target="_blank" rel="noopener noreferrer">Thông tư 32/2018/TT-BGDĐT (CSDL pháp luật)</a>. Chương trình môn Toán: <a href="https://se.ctu.edu.vn/images/upload/thongbao/TT32.pdf" target="_blank" rel="noopener noreferrer">tài liệu môn Toán ban hành kèm Thông tư 32</a>. Cần đối chiếu văn bản sửa đổi và yêu cầu cần đạt nguyên văn trước khi phê duyệt.</p>
+ <div class="actions"><button class="secondary" type="button" onclick="exportH01()">Xuất hồ sơ yêu cầu cần đạt JSON</button><button class="secondary" type="button" onclick="document.getElementById('h01Import').click()">Nhập hồ sơ JSON</button><input type="file" id="h01Import" accept=".json,application/json" class="hidden" onchange="importH01(event)"></div>
+ <p class="status" id="h01Status" role="status"></p><div id="h01Topics"></div>
+</div>
 </section><section id="batch" class="hidden">
 <div class="eyebrow">XƯỞNG SÁNG TẠO ĐỒNG BỘ</div>
 <h1>Sáng tạo học liệu đồng bộ</h1>
@@ -440,5 +462,70 @@ function exportBatchOrder(o){
 }
 function deleteBatchOrder(id){if(!confirm('Xóa kế hoạch nhiệm vụ khỏi thiết bị này?'))return;localStorage.setItem(BATCH_KEY,JSON.stringify(batchData().filter(x=>x.id!==id)));showBatchOrders()}
 initBatch();
+
+const H01_KEY='hva-learning-studio-h01-outcomes-v1';
+const H01_SOURCE='Thông tư 32/2018/TT-BGDĐT – Chương trình môn học; cần đối chiếu các văn bản sửa đổi';
+function h01Records(){try{const v=JSON.parse(localStorage.getItem(H01_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return []}}
+function h01Slug(s){return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/đ/g,'d').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'').slice(0,65)}
+function h01TopicId(program,subject,grade,topic){return program+'-'+h01Slug(subject)+'-'+grade+'-'+h01Slug(topic)}
+function h01Scope(){return {program:$('h01Program').value,subject:$('h01Subject').value,grade:$('h01Grade').value}}
+function initH01(){
+ const el=$('h01Subject');[...$('subject').options].forEach(opt=>{const o=document.createElement('option');o.value=opt.value;o.textContent=opt.textContent;el.append(o)});
+ el.value='Toán';$('h01Grade').value='12';
+ ['h01Program','h01Subject','h01Grade','h01Search'].forEach(id=>$(id).addEventListener(id==='h01Search'?'input':'change',renderH01));
+ renderH01();
+}
+function renderH01(){
+ const root=$('h01Topics');if(!root)return;root.replaceChildren();
+ const {program,subject,grade}=h01Scope();
+ const topics=program==='HSG_QUOC_GIA'?[]:(CT_TOPICS[subject]?.[grade]||[]);
+ const search=$('h01Search').value.trim().toLocaleLowerCase('vi');
+ const filtered=topics.filter(x=>x.toLocaleLowerCase('vi').includes(search));
+ const existing=h01Records(),sources=existing.filter(x=>x.program===program&&x.subject===subject&&x.grade===grade);
+ $('h01Status').textContent=program==='HSG_QUOC_GIA'?'Chưa nạp chương trình nâng cao môn chuyên đã xác minh. Không tự tạo danh mục.':subject==='Toán'?'Danh mục Toán là chủ đề THAM CHIẾU chưa xác minh đầy đủ nguyên văn yêu cầu cần đạt. Các hồ sơ nhập vào chỉ là bản nháp chờ thẩm định.':'Môn/lớp này chưa có danh mục chủ đề từ nguồn được kiểm chứng.';
+ if(!filtered.length){const p=document.createElement('p');p.className='source';p.textContent='Chưa có chủ đề tham chiếu phù hợp. H01 chưa tự sinh dữ liệu chương trình.';root.append(p)}
+ filtered.forEach((topic,i)=>{
+  const id=h01TopicId(program,subject,grade,topic),items=sources.filter(x=>x.topicId===id);
+  const card=document.createElement('article');card.className='h01-item';
+  const top=document.createElement('div');top.className='h01-item-head';const text=document.createElement('div');const t=document.createElement('h3');t.textContent=topic;
+  const code=document.createElement('span');code.className='h01-code';code.textContent=id;text.append(t,code);
+  const chip=document.createElement('span');chip.className='h01-chip';chip.textContent=items.length?items.length+' hồ sơ chờ đối chiếu':'Chưa có YCCĐ xác minh';top.append(text,chip);card.append(top);
+  items.forEach(x=>{const div=document.createElement('div');div.className='h01-outcome';const p=document.createElement('p');p.textContent=x.requirement;const meta=document.createElement('small');meta.textContent='Nguồn: '+x.source+' · Vị trí: '+x.location+' · Trạng thái: Chờ thẩm định';div.append(p,meta);card.append(div)});
+  const details=document.createElement('details');details.className='h01-editor';const summary=document.createElement('summary');summary.textContent='+ Ghi nhận yêu cầu cần đạt để thẩm định';details.append(summary);
+  const labels=[['requirement','Yêu cầu cần đạt – ghi nguyên văn'],['source','Tên văn bản, chương trình và phiên bản'],['location','Mục, trang hoặc vị trí trích dẫn'],['competency','Năng lực đặc thù liên quan']];
+  const fields={};labels.forEach(([name,label])=>{const l=document.createElement('label');l.textContent=label;const e=document.createElement(name==='requirement'?'textarea':'input');e.placeholder=name==='location'?'Ví dụ: mục V, trang ...':'';fields[name]=e;details.append(l,e)});
+  const btn=document.createElement('button');btn.className='primary';btn.type='button';btn.textContent='Lưu bản ghi chờ thẩm định';btn.onclick=()=>{
+   const values={};for(const [name] of labels)values[name]=fields[name].value.trim();
+   if(!values.requirement||!values.source||!values.location){$('h01Status').textContent='Cần ghi đủ yêu cầu cần đạt, nguồn và vị trí trích dẫn trước khi lưu.';return}
+   const record={id:'yccd-'+Date.now()+'-'+Math.random().toString(36).slice(2,6),topicId:id,program,subject,grade,topic,...values,reviewStatus:'PENDING',createdAt:new Date().toISOString()};
+   try{localStorage.setItem(H01_KEY,JSON.stringify([...h01Records(),record]));renderH01();$('h01Status').textContent='Đã lưu bản ghi chờ thẩm định trên trình duyệt. Chưa xác nhận nguyên văn chính thức.'}catch(e){$('h01Status').textContent='Không thể lưu: '+e.message}
+  };details.append(btn);card.append(details);root.append(card);
+ });
+}
+function exportH01(){
+ const scope=h01Scope(),v=h01Records().filter(x=>x.program===scope.program&&x.subject===scope.subject&&x.grade===scope.grade);
+ const blob=new Blob([JSON.stringify({format:'HVA_H01_OUTCOMES',version:1,scope,records:v},null,2)],{type:'application/json;charset=utf-8'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='h01-yeu-cau-can-dat-'+h01Slug(scope.subject)+'-'+scope.grade+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+ $('h01Status').textContent='Đã xuất '+v.length+' bản ghi lưu cục bộ. Tất cả vẫn ở trạng thái chờ thẩm định.';
+}
+async function importH01(event){
+ const file=event.target.files?.[0];if(!file)return;
+ try{
+  if(file.size>1024*1024)throw Error('Tệp vượt 1 MB');
+  const v=JSON.parse(await file.text());if(v.format!=='HVA_H01_OUTCOMES'||v.version!==1||!Array.isArray(v.records)||v.records.length>500)throw Error('Định dạng hồ sơ không hợp lệ');
+  const clean=v.records.map(x=>{
+   if(!x||typeof x!=='object')throw Error('Bản ghi không hợp lệ');
+   const keys=['id','topicId','program','subject','grade','topic','requirement','source','location','competency','createdAt'];
+   const obj={};keys.forEach(k=>{if(typeof x[k]!=='string'||x[k].length>5000)throw Error('Thiếu trường hoặc trường quá dài: '+k);obj[k]=x[k]});
+   if(!obj.requirement.trim()||!obj.source.trim()||!obj.location.trim())throw Error('Thiếu nguồn hoặc YCCĐ');
+   obj.reviewStatus='PENDING';return obj
+  });
+  const previous=h01Records();const m=new Map(previous.map(x=>[x.id,x]));clean.forEach(x=>{if(!m.has(x.id))m.set(x.id,x)});
+  localStorage.setItem(H01_KEY,JSON.stringify([...m.values()]));
+  $('h01Status').textContent='Đã nhập '+clean.length+' bản ghi ở trạng thái chờ thẩm định (không tự phê duyệt).';renderH01();
+ }catch(e){$('h01Status').textContent='Nhập thất bại: '+e.message}
+ finally{event.target.value=''}
+}
+initH01();
 nav('home');
 </script></body></html>
