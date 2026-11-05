@@ -92,3 +92,28 @@ function hvaStudioChayThuGiaoAnToan10() {
   console.log('HVA STUDIO | '+JSON.stringify(result));
   return result;
 }
+
+/**
+ * Xem danh sách tên mô hình mà API Key liệt kê là hỗ trợ generateContent.
+ * LƯU Ý: được liệt kê không bảo đảm dự án có quyền gọi sinh nội dung.
+ */
+function hvaStudioKiemTraMoHinh() {
+  const p=PropertiesService.getScriptProperties();
+  const k=String(p.getProperty('GEMINI_API_KEY')||'').trim();
+  if(!k){ console.log('Chưa có cấu hình Gemini.');return [] }
+  try {
+    let token='',names=[],count=0;
+    do {
+      const url='https://generativelanguage.googleapis.com/v1beta/models?pageSize=100'+(token?'&pageToken='+encodeURIComponent(token):'');
+      const response=UrlFetchApp.fetch(url,{headers:{'x-goog-api-key':k},muteHttpExceptions:true});
+      if(response.getResponseCode()!==200){console.log('Không xem được danh sách mô hình. HTTP '+response.getResponseCode());return []}
+      const data=JSON.parse(response.getContentText());
+      names.push(...(data.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent')).map(m=>m.name));
+      token=String(data.nextPageToken||'');
+      count++;
+    }while(token&&count<10);
+    console.log('Mô hình hỗ trợ generateContent được liệt kê: '+names.length);
+    names.forEach(name=>console.log(name));
+    return names;
+  }catch(e){console.log('Không thể đọc danh sách mô hình.');return []}
+}
