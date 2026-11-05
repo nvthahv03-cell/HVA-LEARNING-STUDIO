@@ -1,7 +1,7 @@
 {
   "schema": "hva-curriculum-registry/v1",
   "updatedAt": "2026-11-05",
-  "notice": "Danh mục nguồn pháp lý đã được định danh; KHÔNG đồng nghĩa các YCCĐ toàn bộ môn/lớp đã được trích xuất, rà soát và nghiệm thu.",
+  "notice": "Đã xác minh nguyên văn 01 yêu cầu cần đạt môn Toán 10. Phần còn lại của các môn lớp 10–12 và nội dung môn chuyên CHƯA HOÀN TẤT. Tên chủ đề đang có là danh mục tham chiếu.",
   "sources": [
     {
       "id": "MOET_TT32_2018",
@@ -19,9 +19,41 @@
       "status": "SOURCE_IDENTIFIED",
       "effectiveDate": "2025-10-15",
       "note": "Văn bản môn chuyên; phạm vi thi HSG phải đối chiếu thêm quy định của kỳ thi."
+    },
+    {
+      "id": "MOET_TT17_2025",
+      "program": "GDPT_2018",
+      "title": "Thông tư 17/2025/TT-BGDĐT ngày 12/09/2025 – Sửa đổi nội dung CT GDPT",
+      "url": "https://chinhphu.vn/?docid=215347&pageid=27160",
+      "status": "SOURCE_IDENTIFIED",
+      "note": "Sửa đổi chủ yếu Lịch sử, Địa lí, GDCD; không dùng nguồn 2018 thay cho văn bản cập nhật ở các phần chịu tác động."
+    },
+    {
+      "id": "MOET_MATH_2018_P79",
+      "program": "GDPT_2018",
+      "title": "Chương trình môn Toán ban hành kèm Thông tư 32/2018/TT-BGDĐT, trang in 79",
+      "url": "https://thlevanthogv.hcm.edu.vn/chuong-trinh-gdpt-2018-khoi-1/chuong-trinh-giao-duc-pho-thong-mon-toan-ban-hanh-kem-theo-thong-tu-322018tt-bg/vbctmb/85091/567111",
+      "status": "SOURCE_TEXT_CHECKED",
+      "note": "Đã quan sát ảnh trang in 79, lớp 10, mục Đại số, Tập hợp – Mệnh đề; đối chiếu đoạn chính xác với PDF đăng trên website trường học."
     }
   ],
-  "outcomes": [],
+  "outcomes": [
+    {
+      "id": "MATH10-PROP-TRUTH-001",
+      "program": "GDPT_2018",
+      "subject": "Toán",
+      "grade": "10",
+      "topic": "Mệnh đề và tập hợp",
+      "requirement": "Xác định được tính đúng/sai của một mệnh đề toán học trong những trường hợp đơn giản.",
+      "sourceId": "MOET_MATH_2018_P79",
+      "sourceLocation": "Chương trình Toán 2018, mục V. Nội dung giáo dục, lớp 10, trang in 79, bảng Tập hợp – Mệnh đề",
+      "reviewedBy": "Kim Quy 2 – đối chiếu văn bản gốc và ảnh PDF",
+      "reviewedAt": "2026-11-05",
+      "status": "VERIFIED",
+      "scope": "source_text_only",
+      "note": "Xác minh nguyên văn riêng yêu cầu này. Không đồng nghĩa đã xác minh toàn bộ chủ đề hoặc toàn bộ chương trình."
+    }
+  ],
   "verificationRules": {
     "statusAllowed": [
       "VERIFIED"
@@ -43,7 +75,7 @@
   },
   "coverage": {
     "expected": "Tất cả môn/hoạt động giáo dục thuộc THPT lớp 10–12 và môn chuyên liên quan",
-    "verifiedOutcomes": 0,
-    "state": "NOT_COMPLETE"
+    "verifiedOutcomes": 1,
+    "state": "PILOT_ONLY"
   }
 }
