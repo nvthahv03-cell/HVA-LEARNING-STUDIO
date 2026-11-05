@@ -187,6 +187,36 @@ function updateRecentWorkspace(){const t=data()[0],root=document.getElementById(
 function nav(p){document.querySelectorAll('main section').forEach(s=>s.classList.toggle('hidden',s.id!==p));document.querySelectorAll('aside button').forEach(b=>b.classList.toggle('sel',b.dataset.page===p));if(p==='library')render();updateRecentWorkspace();$('count').textContent=data().length;scrollTo(0,0)}
 document.querySelectorAll('aside button').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.page)));
 
+const CURRICULUM_REGISTRY_URL='./data/curriculum-registry.json';
+let verifiedCurriculum={sources:[],outcomes:[],loaded:false,error:''};
+function programCode(value){return value.includes('HSG quốc gia')?'HSG_QUOC_GIA':value.includes('HSG thành phố')?'HSG_THANH_PHO':'GDPT_2018'}
+function verifiedOutcomes(program,subject,grade,topic){
+ const actualProgram=program==='HSG_THANH_PHO'?'GDPT_2018':program;
+ if(!verifiedCurriculum.loaded)return [];
+ return verifiedCurriculum.outcomes.filter(x=>x.status==='VERIFIED'&&x.program===actualProgram&&x.subject===subject&&String(x.grade)===String(grade)&&x.topic===topic&&x.sourceId&&x.sourceLocation&&x.reviewedBy&&x.reviewedAt);
+}
+function curriculumContext(program,subject,grade,topic){
+ const matches=verifiedOutcomes(program,subject,grade,topic);
+ if(!matches.length)return {verified:false,entries:[],message:'CHƯA CÓ YÊU CẦU CẦN ĐẠT ĐÃ XÁC MINH cho chủ đề này. Không nhận dữ liệu giáo viên nhập/AI suy đoán là nguyên văn CT Bộ. Yêu cầu bổ sung nguồn và người thẩm định trước khi dùng.'};
+ return {verified:true,entries:matches.map(x=>({id:x.id,requirement:x.requirement,source:x.sourceId,location:x.sourceLocation,reviewedAt:x.reviewedAt})),message:'Yêu cầu cần đạt đã được đưa vào bộ nguồn được quản lý phiên bản; giáo viên vẫn cần rà soát tính phù hợp.'}
+}
+async function loadVerifiedCurriculum(){
+ try{
+  const response=await fetch(CURRICULUM_REGISTRY_URL,{cache:'no-store'});
+  if(!response.ok)throw Error('HTTP '+response.status);
+  const data=await response.json();
+  if(data.schema!=='hva-curriculum-registry/v1'||!Array.isArray(data.outcomes)||!Array.isArray(data.sources))throw Error('Sai cấu trúc dữ liệu');
+  const sourceIds=new Set(data.sources.map(s=>s.id));
+  const clean=data.outcomes.filter(x=>x&&x.status==='VERIFIED'&&['GDPT_2018','HSG_QUOC_GIA'].includes(x.program)&&
+   ['10','11','12'].includes(String(x.grade))&&
+   ['id','subject','topic','requirement','sourceId','sourceLocation','reviewedBy','reviewedAt'].every(k=>typeof x[k]==='string'&&x[k].trim())&&sourceIds.has(x.sourceId));
+  verifiedCurriculum={sources:data.sources,outcomes:clean,loaded:true,error:''};
+ }catch(e){verifiedCurriculum={sources:[],outcomes:[],loaded:false,error:String(e.message||e)}}
+ if(typeof renderH01==='function')renderH01();
+ if(typeof updateCurriculumTopics==='function')updateCurriculumTopics();
+ if(typeof updateBatchTopics==='function')updateBatchTopics();
+}
+
 const CT_SOURCE='Thông tư 32/2018/TT-BGDĐT – Chương trình GDPT môn Toán (đối chiếu theo mạch nội dung)';
 const CT_TOPICS={
  'Toán':{
@@ -464,36 +494,6 @@ function exportBatchOrder(o){
 }
 function deleteBatchOrder(id){if(!confirm('Xóa kế hoạch nhiệm vụ khỏi thiết bị này?'))return;localStorage.setItem(BATCH_KEY,JSON.stringify(batchData().filter(x=>x.id!==id)));showBatchOrders()}
 initBatch();
-
-const CURRICULUM_REGISTRY_URL='./data/curriculum-registry.json';
-let verifiedCurriculum={sources:[],outcomes:[],loaded:false,error:''};
-function programCode(value){return value.includes('HSG quốc gia')?'HSG_QUOC_GIA':value.includes('HSG thành phố')?'HSG_THANH_PHO':'GDPT_2018'}
-function verifiedOutcomes(program,subject,grade,topic){
- const actualProgram=program==='HSG_THANH_PHO'?'GDPT_2018':program;
- if(!verifiedCurriculum.loaded)return [];
- return verifiedCurriculum.outcomes.filter(x=>x.status==='VERIFIED'&&x.program===actualProgram&&x.subject===subject&&String(x.grade)===String(grade)&&x.topic===topic&&x.sourceId&&x.sourceLocation&&x.reviewedBy&&x.reviewedAt);
-}
-function curriculumContext(program,subject,grade,topic){
- const matches=verifiedOutcomes(program,subject,grade,topic);
- if(!matches.length)return {verified:false,entries:[],message:'CHƯA CÓ YÊU CẦU CẦN ĐẠT ĐÃ XÁC MINH cho chủ đề này. Không nhận dữ liệu giáo viên nhập/AI suy đoán là nguyên văn CT Bộ. Yêu cầu bổ sung nguồn và người thẩm định trước khi dùng.'};
- return {verified:true,entries:matches.map(x=>({id:x.id,requirement:x.requirement,source:x.sourceId,location:x.sourceLocation,reviewedAt:x.reviewedAt})),message:'Yêu cầu cần đạt đã được đưa vào bộ nguồn được quản lý phiên bản; giáo viên vẫn cần rà soát tính phù hợp.'}
-}
-async function loadVerifiedCurriculum(){
- try{
-  const response=await fetch(CURRICULUM_REGISTRY_URL,{cache:'no-store'});
-  if(!response.ok)throw Error('HTTP '+response.status);
-  const data=await response.json();
-  if(data.schema!=='hva-curriculum-registry/v1'||!Array.isArray(data.outcomes)||!Array.isArray(data.sources))throw Error('Sai cấu trúc dữ liệu');
-  const sourceIds=new Set(data.sources.map(s=>s.id));
-  const clean=data.outcomes.filter(x=>x&&x.status==='VERIFIED'&&['GDPT_2018','HSG_QUOC_GIA'].includes(x.program)&&
-   ['10','11','12'].includes(String(x.grade))&&
-   ['id','subject','topic','requirement','sourceId','sourceLocation','reviewedBy','reviewedAt'].every(k=>typeof x[k]==='string'&&x[k].trim())&&sourceIds.has(x.sourceId));
-  verifiedCurriculum={sources:data.sources,outcomes:clean,loaded:true,error:''};
- }catch(e){verifiedCurriculum={sources:[],outcomes:[],loaded:false,error:String(e.message||e)}}
- if(typeof renderH01==='function')renderH01();
- if(typeof updateCurriculumTopics==='function')updateCurriculumTopics();
- if(typeof updateBatchTopics==='function')updateBatchTopics();
-}
 
 const H01_KEY='hva-learning-studio-h01-outcomes-v1';
 const H01_SOURCE='Thông tư 32/2018/TT-BGDĐT – Chương trình môn học; cần đối chiếu các văn bản sửa đổi';
