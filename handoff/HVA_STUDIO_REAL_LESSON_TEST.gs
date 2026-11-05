@@ -16,7 +16,8 @@
 function hvaStudioTaoGiaoAnToan10_() {
   const scriptProps=PropertiesService.getScriptProperties();
   const key=String(scriptProps.getProperty('GEMINI_API_KEY')||'').trim();
-  const model=String(scriptProps.getProperty('HVA_STUDIO_GEMINI_MODEL')||'gemini-2.5-flash').trim();
+  const configured=String(scriptProps.getProperty('HVA_STUDIO_GEMINI_MODEL')||'').trim();
+  const model=(!configured || configured.startsWith('gemini-2.5-'))?'gemini-3.5-flash-lite':configured;
   const fail=(step,message,extra)=>Object.assign({
     success:false,step:step,message:message
   },extra||{});
