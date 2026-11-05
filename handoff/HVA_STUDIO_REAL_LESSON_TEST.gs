@@ -10,8 +10,8 @@
  * không gửi khóa lên trình duyệt, không tự công bố học liệu.
  *
  * HƯỚNG DẪN: chọn hàm hvaStudioChayThuGiaoAnToan10 rồi bấm Run.
- * Hàm sử dụng Gemini thật, tạo một Google Docs BẢN NHÁP trong Drive của
- * người thực thi và trả URL cùng báo cáo phi nhạy cảm.
+ * Hàm sử dụng Gemini thật, in giáo án nháp vào nhật ký thực thi;
+ * KHÔNG cần quyền Google Docs/Drive, KHÔNG tạo tài liệu tự động.
  */
 function hvaStudioTaoGiaoAnToan10_() {
   const scriptProps=PropertiesService.getScriptProperties();
@@ -65,29 +65,29 @@ function hvaStudioTaoGiaoAnToan10_() {
       .map(part=>typeof part.text==='string'?part.text:'').join('\n').trim();
     if(answer.length<500) return fail('CONTENT','Gemini phản hồi quá ngắn hoặc không có nội dung.',
       {httpStatus:status,chars:answer.length,elapsedMs:Date.now()-started});
-    const name='HVA STUDIO - BAN NHAP GIAO AN TOAN 10 - '+
-      Utilities.formatDate(new Date(),'Asia/Ho_Chi_Minh','yyyyMMdd-HHmmss');
-    const doc=DocumentApp.create(name);
-    doc.getBody().setText(
-      'BẢN NHÁP AI – GIÁO VIÊN CẦN THẨM ĐỊNH\n'+
-      'Môn: Toán 10 | Chủ đề: Mệnh đề và tập hợp\n'+
-      'Nguồn sinh: Gemini qua Apps Script THỬ NGHIỆM; chưa duyệt, chưa phát hành.\n\n'+answer);
-    doc.saveAndClose();
-    return {success:true,step:'GEMINI_AND_GOOGLE_DOC',
+    return {success:true,step:'GEMINI_RESPONSE',
       httpStatus:status,modelUsed:model,
       elapsedMs:Date.now()-started,chars:answer.length,
-      documentUrl:doc.getUrl(),draft:true,reviewRequired:true,
-      message:'Gemini thật đã tạo giáo án và lưu bản nháp Google Docs. Chưa nối giao diện Studio.'};
+      answer:answer,draft:true,reviewRequired:true,
+      message:'Gemini thật đã sinh nội dung giáo án Toán 10. Đã hiển thị trong Nhật ký thực thi; chưa lưu Docs, chưa nối Studio.'};
   } catch(error) {
     // Cố ý không ghi lỗi gốc: URL nội bộ/chi tiết từ API có thể nhạy cảm.
-    return fail('EXECUTION','Không hoàn tất việc tạo giáo án. Kiểm tra quyền Google Docs/UrlFetchApp và nhật ký quyền truy cập.',
+    return fail('EXECUTION','Không gọi được Gemini. Kiểm tra quyền kết nối ngoài, khóa API và tên mô hình.',
       {elapsedMs:Date.now()-started});
   }
 }
 
-/** Chọn hàm này trong Run để thấy KẾT QUẢ KHÔNG NHẠY CẢM trong Execution log. */
+/** Chọn hàm này trong Run. Nhật ký in nội dung giáo án thử (không có khóa/token). */
 function hvaStudioChayThuGiaoAnToan10() {
   const result=hvaStudioTaoGiaoAnToan10_();
-  console.log(JSON.stringify(result));
+  if (result.success) {
+    const {answer,...summary}=result;
+    console.log('HVA STUDIO | '+JSON.stringify(summary));
+    console.log('=== BẮT ĐẦU GIÁO ÁN GEMINI — BẢN NHÁP ===');
+    for (let i=0;i<answer.length;i+=1800) console.log(answer.slice(i,i+1800));
+    console.log('=== KẾT THÚC BẢN NHÁP ===');
+    return summary;
+  }
+  console.log('HVA STUDIO | '+JSON.stringify(result));
   return result;
 }
