@@ -1,0 +1,49 @@
+{
+  "schema": "hva-curriculum-registry/v1",
+  "updatedAt": "2026-11-05",
+  "notice": "Danh mục nguồn pháp lý đã được định danh; KHÔNG đồng nghĩa các YCCĐ toàn bộ môn/lớp đã được trích xuất, rà soát và nghiệm thu.",
+  "sources": [
+    {
+      "id": "MOET_TT32_2018",
+      "program": "GDPT_2018",
+      "title": "Thông tư 32/2018/TT-BGDĐT ngày 26/12/2018 – Ban hành Chương trình giáo dục phổ thông",
+      "url": "https://vbpl.moj.gov.vn/bogiaoducdaotao/Pages/vbpq-toanvan.aspx?ItemID=146721",
+      "status": "SOURCE_IDENTIFIED",
+      "note": "Cơ sở dữ liệu pháp luật ghi nhận hết hiệu lực một phần; phải đối chiếu sửa đổi và bản hợp nhất theo từng môn trước khi xác minh từng YCCĐ."
+    },
+    {
+      "id": "MOET_TT22_2025",
+      "program": "HSG_QUOC_GIA",
+      "title": "Thông tư 22/2025/TT-BGDĐT ngày 30/09/2025 – Chương trình giáo dục nâng cao dành cho các môn chuyên",
+      "url": "https://chinhphu.vn/?docid=215557&pageid=27160",
+      "status": "SOURCE_IDENTIFIED",
+      "effectiveDate": "2025-10-15",
+      "note": "Văn bản môn chuyên; phạm vi thi HSG phải đối chiếu thêm quy định của kỳ thi."
+    }
+  ],
+  "outcomes": [],
+  "verificationRules": {
+    "statusAllowed": [
+      "VERIFIED"
+    ],
+    "mustHave": [
+      "id",
+      "program",
+      "subject",
+      "grade",
+      "topic",
+      "requirement",
+      "sourceId",
+      "sourceLocation",
+      "reviewedBy",
+      "reviewedAt"
+    ],
+    "approval": "Chỉ dữ liệu do người quản trị nội dung xác minh và commit vào kho chuẩn mới được AI sử dụng. Bản ghi nhập bằng giao diện công khai không tạo VERIFIED.",
+    "noFabrication": true
+  },
+  "coverage": {
+    "expected": "Tất cả môn/hoạt động giáo dục thuộc THPT lớp 10–12 và môn chuyên liên quan",
+    "verifiedOutcomes": 0,
+    "state": "NOT_COMPLETE"
+  }
+}
