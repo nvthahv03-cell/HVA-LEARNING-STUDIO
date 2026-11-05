@@ -53,21 +53,40 @@ function hvaStudioTaoGiaoAnToan10_() {
 
   const started=Date.now();
   try {
-    const apiResponse=UrlFetchApp.fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent',
-      {method:'post',contentType:'application/json',
-       headers:{'x-goog-api-key':key},payload:JSON.stringify(request),muteHttpExceptions:true});
-    const status=apiResponse.getResponseCode();
+    // Một lần thử lại có giới hạn cho HTTP 503; sau đó thử mô hình dự phòng
+    // đã xuất hiện trong danh sách models.list của chính dự án.
+    const candidates=[model,...(model==='gemini-3.1-flash-lite'?[]:['gemini-3.1-flash-lite'])];
+    let apiResponse=null,status=0,usedModel=model,attempts=0;
+    for (const candidate of candidates) {
+      usedModel=candidate;
+      for(let retry=0;retry<2;retry++){
+        attempts++;
+        apiResponse=UrlFetchApp.fetch(
+          'https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(candidate)+':generateContent',
+          {method:'post',contentType:'application/json',
+           headers:{'x-goog-api-key':key},payload:JSON.stringify(request),muteHttpExceptions:true});
+        status=apiResponse.getResponseCode();
+        if(status>=200&&status<300)break;
+        if(status!==503)break; // Không thử lại lỗi quyền, khóa, tên model, hạn mức.
+        if(retry===0)Utilities.sleep(1200); // Chỉ thử lại 503 một lần.
+      }
+      if(status>=200&&status<300)break;
+      if(status!==503)break; // Không chuyển model khi lỗi khác 503.
+    }
     if(status<200||status>=300)
-      return fail('GEMINI','Gemini trả HTTP không thành công. Kiểm tra model, hạn mức và quyền API.',
-        {httpStatus:status,modelAttempted:model,elapsedMs:Date.now()-started});
+      return fail('GEMINI',
+        status===503?'Gemini tạm thời quá tải hoặc không khả dụng; đã thử mô hình dự phòng.':
+        status===429?'Đã đạt hạn mức gọi Gemini của dự án.':
+        status===404?'Mô hình chưa hỗ trợ yêu cầu trên endpoint này.':
+        'Gemini trả lỗi HTTP. Cần kiểm tra cấu hình và quyền sử dụng.',
+        {httpStatus:status,modelAttempted:usedModel,attempts,elapsedMs:Date.now()-started});
     const result=JSON.parse(apiResponse.getContentText());
     const answer=(result.candidates||[]).flatMap(c=>c.content&&c.content.parts||[])
       .map(part=>typeof part.text==='string'?part.text:'').join('\n').trim();
     if(answer.length<500) return fail('CONTENT','Gemini phản hồi quá ngắn hoặc không có nội dung.',
       {httpStatus:status,chars:answer.length,elapsedMs:Date.now()-started});
     return {success:true,step:'GEMINI_RESPONSE',
-      httpStatus:status,modelUsed:model,
+      httpStatus:status,modelUsed:usedModel,attempts,
       elapsedMs:Date.now()-started,chars:answer.length,
       answer:answer,draft:true,reviewRequired:true,
       message:'Gemini thật đã sinh nội dung giáo án Toán 10. Đã hiển thị trong Nhật ký thực thi; chưa lưu Docs, chưa nối Studio.'};
