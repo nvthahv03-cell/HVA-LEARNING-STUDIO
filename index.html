@@ -586,29 +586,44 @@ const el=id=>document.getElementById(id);
 const run=el('studioPilotRun'),status=el('studioPilotStatus'),feedback=el('studioPilotFeedback');
 function approvedBridge(){return typeof window.HVA_STUDIO_AUTHORIZED_SEND==='function'?window.HVA_STUDIO_AUTHORIZED_SEND:null}
 function inspect(preserveFeedback=false){
- const ready=!!approvedBridge();run.disabled=!ready;status.textContent=ready?'Có lớp chuyển yêu cầu của EDOS. Backend vẫn phải xác thực phiên, quyền và action trước khi tạo học liệu.':'Chưa có kết nối an toàn từ EDOS. Chỉ giao diện kiểm thử đang hoạt động; không có lệnh gọi Gemini.';
+ const ready=!!approvedBridge();run.disabled=!ready||pilotBusy;status.textContent=ready?'Có lớp chuyển yêu cầu của EDOS. Backend vẫn phải xác thực phiên, quyền và action trước khi tạo học liệu.':'Chưa có kết nối an toàn từ EDOS. Chỉ giao diện kiểm thử đang hoạt động; không có lệnh gọi Gemini.';
  if(!preserveFeedback)feedback.textContent=ready?'Đã phát hiện cầu nối phía EDOS; có thể thử tạo một bản nháp với tài khoản kiểm thử.':'Cần EDOS triển khai action hva_studio_ai_generate và cung cấp kết nối xác thực. Không thể gọi AI từ GitHub Pages đơn lẻ.';
 }
 el('studioPilotCheck').addEventListener('click',inspect);
+let pilotBusy=false;
+let pilotSuccess=false;
+function setPilotProgress(state,message){
+ status.textContent=state==='running'?'ĐANG XỬ LÝ: yêu cầu đã chuyển tới cầu nối EDOS.':state==='success'?'THÀNH CÔNG: đã nhận bản nháp cần thẩm định.':state==='error'?'THẤT BẠI: chưa nhận được học liệu hợp lệ.':'CHƯA KẾT NỐI: đợi EDOS cấp phiên an toàn.';
+ feedback.textContent=message||'';
+}
 run.addEventListener('click',async()=>{
+ if(pilotBusy)return;
  const bridge=approvedBridge();if(!bridge){inspect();return}
- if(!window.verifiedCurriculum && typeof curriculumContext!=='function'){feedback.textContent='Chưa nạp dữ liệu chương trình.';return}
- const context=typeof curriculumContext==='function'?curriculumContext('GDPT_2018','Toán','10','Mệnh đề và tập hợp'):{verified:false};
- if(!context.verified){feedback.textContent='Chưa tải được yêu cầu cần đạt Toán 10 đã xác minh. Hãy kiểm tra kho chương trình rồi thử lại.';return}
+ if(typeof curriculumContext!=='function'){setPilotProgress('error','Chưa tải được lõi chương trình.');return}
+ const context=curriculumContext('GDPT_2018','Toán','10','Mệnh đề và tập hợp');
+ if(!context.verified){setPilotProgress('error','Chưa có YCCĐ Toán 10 đã xác minh. Hãy kiểm tra kho chương trình rồi thử lại.');return}
  const input=el('studioPilotInstruction').value.trim();
- if(!input||input.length>3000){feedback.textContent='Yêu cầu phải có nội dung, tối đa 3.000 ký tự.';return}
- run.disabled=true;feedback.textContent='Đang yêu cầu Gemini qua Backend EDOS đã xác thực…';
+ if(!input||input.length>3000){setPilotProgress('error','Yêu cầu phải có nội dung, tối đa 3.000 ký tự.');return}
+ pilotBusy=true;pilotSuccess=false;run.disabled=true;
+ el('studioPilotOutput').classList.add('hidden');
+ setPilotProgress('running','Đang yêu cầu Gemini qua Backend EDOS đã xác thực…');
  try{
-  const result=await generateWithEdos({taskType:'lesson_plan',program:'GDPT_2018',subject:'Toán',grade:'10',topic:'Mệnh đề và tập hợp',input:input+'\nNguồn YCCĐ đã xác minh: '+JSON.stringify(context.entries),outputFormat:'markdown'},bridge);
+  const result=await generateWithEdos({taskType:'lesson_plan',program:'GDPT_2018',subject:'Toán',grade:'10',topic:'Mệnh đề và tập hợp',input:input+'\\nNguồn YCCĐ đã xác minh: '+JSON.stringify(context.entries),outputFormat:'markdown'},bridge);
   if(!result.success)throw Error(result.message||'Backend chưa tạo được học liệu');
+  if(result.provider!=='gemini')throw Error('Đợt thử chỉ chấp nhận phản hồi có nguồn Gemini đã được Backend xác nhận.');
+  if(result.answer.length<150)throw Error('Nội dung giáo án quá ngắn, cần kiểm tra lại kết quả.');
   el('studioPilotDraft').value=result.answer;
   el('studioPilotOutput').classList.remove('hidden');
-  feedback.textContent='Đã nhận bản nháp thực từ Backend ('+result.provider+'). Giáo viên kiểm tra và chỉnh sửa trước khi lưu.';
- }catch(err){feedback.textContent='Không thể tạo học liệu: '+(err?.message||'Lỗi kết nối');el('studioPilotOutput').classList.add('hidden')}
- finally{inspect(true)}
+  pilotSuccess=true;
+  setPilotProgress('success','Backend đã phản hồi bản nháp Gemini. Giáo viên cần kiểm tra nội dung và lưu vào Kho.');
+ }catch(err){
+  pilotSuccess=false;setPilotProgress('error','Không thể tạo học liệu: '+(err?.message||'Lỗi kết nối'));
+ }finally{
+  pilotBusy=false;run.disabled=!approvedBridge();
+ }
 });
 function applyPilotDraft(){
- const draft=el('studioPilotDraft').value.trim();if(!draft){feedback.textContent='Bản nháp đang trống.';return false}
+ const draft=el('studioPilotDraft').value.trim();if(!pilotSuccess||!draft){feedback.textContent='Chưa có bản nháp từ Gemini được xác minh trong phiên này.';return false}
  el('program').value='Phổ thông – CT GDPT 2018';el('subject').value='Toán';el('grade').value='10';updateCurriculumTopics();el('curriculumTopic').value='Mệnh đề và tập hợp';el('topic').value='Mệnh đề và tập hợp – giáo án thử nghiệm';el('content').value=draft;
  feedback.textContent='Đã đưa bản nháp vào trình biên tập. Giáo viên rà soát trước khi phê duyệt.';
  el('content').scrollIntoView({behavior:'smooth',block:'center'});
