@@ -356,6 +356,7 @@ function buildPrompt(){
  'Chủ đề/bài học: '+(title||'[chưa xác định]'),
  'Nguồn chương trình: '+source,
  'DỮ LIỆU CHƯƠNG TRÌNH CHÍNH THỨC: '+JSON.stringify(ctx),
+ 'Quy tắc nguồn: CHỈ các mục entries trong DỮ LIỆU CHƯƠNG TRÌNH CHÍNH THỨC có verified=true mới được ghi là YCCĐ đã kiểm chứng. Các dòng ma trận giáo viên nhập là dữ liệu tham khảo chưa được xác minh độc lập. Nếu không có entries thì phải yêu cầu nguồn trước khi lập sản phẩm bám chuẩn.',
  warning,level,
  'MA TRẬN KIẾN THỨC – YÊU CẦU CẦN ĐẠT:'+matrixText,
  examMode()?'QUY TRÌNH ĐỀ TOÁN (bắt buộc ma trận và đặc tả trước khi sinh đề): '+JSON.stringify({tenKy:exam.name,thoiGian:exam.minutes,tongDiem:exam.points,hinhThuc:exam.kind,maTranDe:exam.blueprint,banDacTa:exam.spec}):'',
@@ -467,9 +468,10 @@ function createBatchOrder(){
  if(!tasks.length){message.textContent='Hãy chọn ít nhất một loại học liệu.';return}
  const name=BATCH_TYPES.filter(([id])=>tasks.includes(id)).map(([id,title])=>({id,title,status:'Chờ kết nối AI'}));
  const examSelected=tasks.includes('exam'),hasSpec=tasks.includes('specification');
+ const checked=curriculumContext(program,subject,grade,topic);
  const existing=batchData(),id='batch-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
- const order={id,createdAt:new Date().toISOString(),program,subject,grade,topic,instruction:document.getElementById('batchInstruction').value.slice(0,10000),status:'Đã lưu kế hoạch – Chưa tạo học liệu',tasks:name,dependencies:examSelected?['Ma trận kiến thức','Ma trận đề','Bản đặc tả được duyệt','Sinh đề và lời giải']:[],needsSpecification:examSelected&&!hasSpec};
- try{localStorage.setItem(BATCH_KEY,JSON.stringify([order,...existing]));message.textContent='Đã lưu lệnh gồm '+tasks.length+' học liệu vào trình duyệt. Chưa gọi AI; chưa có sản phẩm được tạo.';showBatchOrders()}
+ const order={id,createdAt:new Date().toISOString(),program,subject,grade,topic,instruction:document.getElementById('batchInstruction').value.slice(0,10000),curriculumVerified:checked.verified,verifiedOutcomeIds:checked.entries.map(x=>x.id),status:'Đã lưu kế hoạch – Chưa tạo học liệu',tasks:name,dependencies:examSelected?['Ma trận kiến thức','Ma trận đề','Bản đặc tả được duyệt','Sinh đề và lời giải']:[],needsSpecification:examSelected&&!hasSpec};
+ try{localStorage.setItem(BATCH_KEY,JSON.stringify([order,...existing]));message.textContent='Đã lưu kế hoạch '+tasks.length+' học liệu. '+(checked.verified?'Có '+checked.entries.length+' YCCĐ đã kiểm chứng cho chủ đề.':'Chủ đề chưa có YCCĐ được xác minh; sẽ không được gọi là đã bám chuẩn.')+' Chưa gọi AI hoặc sinh sản phẩm.';showBatchOrders()}
  catch(e){message.textContent='Không thể lưu nhiệm vụ trên thiết bị: '+e.message}
 }
 function showBatchOrders(){
@@ -479,7 +481,7 @@ function showBatchOrders(){
  orders.forEach(order=>{
  const box=document.createElement('div');box.className='batch-entry';
  const title=document.createElement('h3');title.textContent=order.topic+' · '+order.subject+' '+order.grade;
- const date=document.createElement('div');date.className='source';date.textContent=new Date(order.createdAt).toLocaleString('vi-VN')+' · '+order.status;box.append(title,date);
+ const date=document.createElement('div');date.className='source';date.textContent=new Date(order.createdAt).toLocaleString('vi-VN')+' · '+order.status+' · '+(order.curriculumVerified?'Có dữ liệu chương trình đã xác minh':'Chưa xác minh dữ liệu chương trình');box.append(title,date);
  (order.tasks||[]).forEach(task=>{const line=document.createElement('div');line.className='batch-task';const a=document.createElement('span');a.textContent=task.title;const b=document.createElement('span');b.textContent=task.status;line.append(a,b);box.append(line)});
  if(order.dependencies?.length){const p=document.createElement('p');p.className='source';p.textContent='Quy trình đề kiểm tra: '+order.dependencies.join(' → ')+(order.needsSpecification?' (phải tạo, phê duyệt ma trận và đặc tả trước)':'');box.append(p)}
  const actions=document.createElement('div');actions.className='actions';
