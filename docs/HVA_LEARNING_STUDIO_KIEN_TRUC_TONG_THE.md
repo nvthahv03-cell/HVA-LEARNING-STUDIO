@@ -114,3 +114,27 @@ Trạng thái học liệu: `nhap` → `AI_de_xuat` → `giao_vien_bien_tap` →
 - Cổng action Studio, SSO, Gemini thật, OpenAI dự phòng và kho nhiều người dùng **chưa PASS tích hợp**.
 
 **Nguyên tắc bàn giao:** Chỉ hoàn thiện 1 phân hệ sau khi kiểm tra tác động đến phần đã PASS; không gắn nhãn thành công dựa trên giao diện mô phỏng.
+
+## 12. Quy ước giao diện và sáng tạo học liệu đồng bộ (chốt 05/11/2026)
+
+**Menu EDOS:** HỆ SINH THÁI HỌC LIỆU. **Tên sản phẩm:** HVA LEARNING STUDIO.
+
+**Menu trong Studio:**
+1. Tổng quan
+2. Sáng tạo học liệu
+3. Sáng tạo học liệu đồng bộ
+4. Trợ lý AI – Chuyên gia
+5. Kho học liệu của tôi
+6. Học liệu chia sẻ
+7. Quản trị hệ thống (chỉ người đủ quyền khi SSO được triển khai)
+
+Ngôn ngữ giao diện giáo viên dùng **Sáng tạo / Thiết kế học liệu**, không dùng “sản xuất hàng loạt” làm tên nút hay phân hệ. “Bộ máy sản xuất” chỉ là thuật ngữ kiến trúc.
+
+**Sáng tạo học liệu đồng bộ:**
+- Giáo viên chọn chế độ, môn, lớp, chủ đề đã xác minh, chọn 1–n sản phẩm, nêu yêu cầu chung và giao một nhiệm vụ.
+- Bộ điều phối máy chủ lập đồ thị phụ thuộc nội dung gốc → ma trận → bản đặc tả nếu ra đề → các sản phẩm → thẩm định.
+- Mỗi tác vụ có `jobId`, `artifactId`, trạng thái `queued/running/review_required/approved/failed`; xử lý lỗi độc lập và có thể chạy lại không tạo bản trùng.
+- Bản nháp hoàn thành được lưu vào **Kho học liệu cá nhân**; phê duyệt và chia sẻ vẫn do giáo viên quyết định, không tự công bố.
+- Cần backend job queue, lưu trữ bền vững, xác thực, quota, giới hạn tần suất. Không dùng GitHub Pages hoặc localStorage để nhận là lưu kho chính thức.
+
+**Hiện trạng:** Màn hình đặt kế hoạch nhiều học liệu đã được đưa lên GitHub Pages; chỉ lưu kế hoạch cục bộ, chưa chạy AI hay lưu sản phẩm thật. Các mục chia sẻ và quản trị là trạng thái chờ, không gắn chức năng mô phỏng.
