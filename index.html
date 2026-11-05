@@ -355,7 +355,7 @@ function buildPrompt(){
  const level=p.includes('thành phố')?'Ưu tiên vận dụng cao và vận dụng rất cao (mức mở rộng luyện HSG), yêu cầu lập luận chặt chẽ.':p.includes('HSG quốc gia')?'Yêu cầu chuyên sâu, phải đối chiếu văn bản môn chuyên và phạm vi thi trước khi sử dụng.':'Tuân thủ đúng yêu cầu cần đạt của CT GDPT 2018.';
  const matrix=validateMatrix();
  const exam=examValidation();
- const matrixText=matrix.rows.map((r,i)=>'\\n'+(i+1)+'. Kiến thức: '+r.knowledge+'; YCCĐ: '+r.requirement+'; Nguồn: '+r.source+'; Năng lực: '+r.competency+'; Mức độ: '+r.level+'; Minh chứng: '+r.evidence).join('');
+ const matrixText=matrix.rows.map((r,i)=>'\n'+(i+1)+'. Kiến thức: '+r.knowledge+'; YCCĐ: '+r.requirement+'; Nguồn: '+r.source+'; Năng lực: '+r.competency+'; Mức độ: '+r.level+'; Minh chứng: '+r.evidence).join('');
  const ctx=curriculumContext(programCode(p),s,g,selected||title);
  const warning=selected?'Chủ đề tham chiếu giáo viên chọn: '+selected:'Chưa có chủ đề được chọn từ chương trình đã xác minh.';
  $('promptText').value=[
@@ -376,7 +376,7 @@ function buildPrompt(){
  'Hãy đề xuất MA TRẬN KIẾN THỨC và BẢN ĐẶC TẢ theo đúng nguồn chương trình chính thức. Mỗi dòng cần gồm nội dung kiến thức, nguyên văn yêu cầu cần đạt (nếu có nguồn đã xác minh), nguồn/trang, năng lực đặc thù, mức tư duy, minh chứng đánh giá và số câu dự kiến khi tạo đề. Nếu chưa có tài liệu chuẩn, hãy yêu cầu cung cấp tài liệu; tuyệt đối không bịa yêu cầu cần đạt hay trang trích dẫn. Giáo viên phải duyệt trước khi dùng để sinh đề.':
  'Chỉ thiết kế nội dung phù hợp từng yêu cầu cần đạt, mức độ tư duy đã gắn trong ma trận; nêu rõ phần mở rộng HSG. Có đáp án, lời giải và tiêu chí thẩm định nếu cần. Không tự suy đoán căn cứ chương trình.',
  'Nội dung giáo viên cung cấp: '+($('content').value||'[Chưa có]')
- ].join('\\n');
+ ].join('\n');
 }
 async function copyPrompt(){buildPrompt();if(examMode()&&examValidation().errors.length){$('assistantMessage').textContent='Chưa đủ ma trận và bản đặc tả để yêu cầu tạo đề Toán.';return}try{await navigator.clipboard.writeText($('promptText').value);$('assistantMessage').textContent='Đã sao chép yêu cầu. Chưa gọi Gemini trực tiếp.'}catch(e){$('promptText').focus();$('promptText').select();$('assistantMessage').textContent='Không thể tự sao chép; bấm Ctrl+C để sao chép yêu cầu.'}}
 ['program','subject','grade'].forEach(id=>$(id).addEventListener('change',()=>{updateCurriculumTopics();if(!$('assistantPanel').classList.contains('hidden'))buildPrompt()}));
