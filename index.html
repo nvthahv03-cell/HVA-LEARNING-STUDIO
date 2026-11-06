@@ -139,6 +139,11 @@ main{max-width:1520px}
 @media(max-width:800px){.studio-sidebar{position:sticky;top:64px;height:auto;z-index:15;border-bottom:1px solid #e3edf1;background:white}.studio-sidebar button{white-space:nowrap;min-width:max-content}.studio-pathway{padding:17px}.studio-pathway-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.pathway-step{flex-direction:row}}
 @media(max-width:520px){.studio-brand strong{font-size:13px}.studio-brand small{font-size:8px}.studio-mark{width:35px;height:35px}.topbar-actions{gap:5px!important}.topbar-library{padding:7px!important;font-size:10px}.studio-hero-copy{padding:24px 20px}.studio-hero h1{font-size:28px}.hero-course{font-size:8px}.studio-tool{min-height:148px}.pathway-step{gap:7px;padding:9px;align-items:flex-start}.step-number{width:28px;height:28px}.pathway-step b{font-size:11px}.pathway-step small{font-size:9px;white-space:normal}.panel{padding:16px}}
 @media(prefers-reduced-motion:reduce){.studio-tool,.studio-sidebar button{transition:none!important}}
+
+.h01-source-panel{padding:15px 17px;border:1px solid #dceae9;background:#f6fbfa;border-radius:13px;margin:12px 0}
+.h01-source-title{display:block;font-size:13px;font-weight:800;color:#165761;margin:0 0 6px}
+.h01-source-panel .source{line-height:1.65;margin:6px 0}
+.h01-source-panel a{font-size:13px;font-weight:750;color:#087e79}
 </style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar"><div class="sidebar-group-label">KHÔNG GIAN SÁNG TẠO</div><button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button><button data-page="curriculum"><span class="nav-symbol">◎</span> Chương trình & yêu cầu cần đạt</button><button data-page="create"><span class="nav-symbol">✧</span> Sáng tạo học liệu</button><button data-page="batch"><span class="nav-symbol">▦</span> Sáng tạo học liệu đồng bộ</button><button data-page="library"><span class="nav-symbol">▤</span> Kho học liệu của tôi</button><div class="sidebar-group-label sidebar-second">TRỢ LÝ CHUYÊN MÔN</div><button data-page="expert"><span class="nav-symbol">✦</span> Trợ lý AI – Chuyên gia</button><div class="sidebar-group-label sidebar-second">THƯ VIỆN & HỆ THỐNG</div><button data-page="shared"><span class="nav-symbol">♧</span> Học liệu chia sẻ</button><button data-page="admin"><span class="nav-symbol">⚙</span> Quản trị hệ thống</button><div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Một nền tảng • Mọi môn học</small></div></div></aside><main><div class="hint studio-caution"><span class="caution-symbol">ⓘ</span><span><strong>Giao diện thử nghiệm.</strong> Kho cá nhân đang lưu trên trình duyệt; chưa có đăng nhập EDOS, chia sẻ kho hoặc kết nối Gemini trên trang GitHub Pages. Gemini thật đã được kiểm thử riêng trên Apps Script. Không nhập thông tin học sinh, tài liệu mật.</span></div><section id="home">
 <div class="studio-hero">
   <div class="studio-hero-copy"><div class="hero-course">KHÔNG GIAN GIÁO DỤC SỐ · DÀNH CHO GIÁO VIÊN THPT</div>
@@ -188,7 +193,12 @@ main{max-width:1520px}
  <div class="grid"><div><label>Chương trình</label><select id="h01Program"><option value="GDPT_2018">Phổ thông – CT GDPT 2018</option><option value="HSG_THANH_PHO">HSG thành phố (mở rộng CT2018)</option><option value="HSG_QUOC_GIA">HSG quốc gia – môn chuyên</option></select></div>
  <div><label>Môn học</label><select id="h01Subject"></select></div><div><label>Lớp</label><select id="h01Grade"><option>10</option><option>11</option><option>12</option></select></div>
  <div><label>Tìm chủ đề</label><input id="h01Search" placeholder="Tìm theo tên chủ đề"></div></div>
- <p class="source">Nguồn pháp lý nền: <a href="https://vbpl.moj.gov.vn/bogiaoducdaotao/Pages/vbpq-toanvan.aspx?ItemID=146721" target="_blank" rel="noopener noreferrer">Thông tư 32/2018/TT-BGDĐT (CSDL pháp luật)</a>. Chương trình môn Toán: <a href="https://se.ctu.edu.vn/images/upload/thongbao/TT32.pdf" target="_blank" rel="noopener noreferrer">tài liệu môn Toán ban hành kèm Thông tư 32</a>. Cần đối chiếu văn bản sửa đổi và yêu cầu cần đạt nguyên văn trước khi phê duyệt.</p>
+ <div class="h01-source-panel" aria-live="polite">
+ <span id="h01SourceTitle" class="h01-source-title">Nguồn chương trình theo môn học</span>
+ <p class="source" id="h01SourceDescription">Chọn môn học để xem nguồn chương trình phù hợp.</p>
+ <a id="h01SubjectSource" href="https://vbpl.moj.gov.vn/bogiaoducdaotao/Pages/vbpq-toanvan.aspx?ItemID=146721" target="_blank" rel="noopener noreferrer">Mở văn bản chương trình</a>
+ <p class="source">Nguồn được liên kết chỉ để đối chiếu. Yêu cầu cần đạt chỉ được gắn nhãn đã xác minh khi đã đối chiếu nguyên văn và lưu thông tin thẩm định.</p>
+</div>
  <div class="actions"><button class="secondary" type="button" onclick="exportH01()">Xuất hồ sơ yêu cầu cần đạt JSON</button><button class="secondary" type="button" onclick="document.getElementById('h01Import').click()">Nhập hồ sơ JSON</button><input type="file" id="h01Import" accept=".json,application/json" class="hidden" onchange="importH01(event)"></div>
  <p class="status" id="h01Status" role="status"></p><div id="h01Topics"></div>
 </div>
@@ -289,6 +299,11 @@ async function loadVerifiedCurriculum(){
 
 const CT_SOURCE='Thông tư 32/2018/TT-BGDĐT – Chương trình GDPT môn Toán (đối chiếu theo mạch nội dung)';
 const CT_TOPICS={
+ 'Ngữ văn':{
+ '10':['Đọc hiểu văn bản','Viết','Nói và nghe'],
+ '11':['Đọc hiểu văn bản','Viết','Nói và nghe'],
+ '12':['Đọc hiểu văn bản','Viết','Nói và nghe']
+ },
  'Toán':{
  '10':['Mệnh đề và tập hợp','Bất phương trình và hệ bất phương trình bậc nhất hai ẩn','Hàm số và đồ thị','Hệ thức lượng trong tam giác','Vectơ trong mặt phẳng','Phương pháp tọa độ trong mặt phẳng','Đại số tổ hợp','Một số yếu tố thống kê','Xác suất cổ điển'],
  '11':['Hàm số lượng giác và phương trình lượng giác','Dãy số – cấp số cộng và cấp số nhân','Giới hạn và hàm số liên tục','Hàm số mũ và hàm số lôgarit','Đạo hàm','Đường thẳng và mặt phẳng trong không gian','Quan hệ song song trong không gian','Quan hệ vuông góc trong không gian','Mẫu số liệu ghép nhóm','Xác suất'],
@@ -579,15 +594,34 @@ function initH01(){
  ['h01Program','h01Subject','h01Grade','h01Search'].forEach(id=>$(id).addEventListener(id==='h01Search'?'input':'change',renderH01));
  renderH01();
 }
+function h01UpdateSource(subject,grade){
+ const math=subject==='Toán',literature=subject==='Ngữ văn';
+ const title=$('h01SourceTitle'),desc=$('h01SourceDescription'),link=$('h01SubjectSource');
+ title.textContent='Nguồn chương trình: '+subject+' – lớp '+grade;
+ if(literature){
+  desc.textContent='Chương trình môn Ngữ văn ban hành kèm Thông tư 32/2018/TT-BGDĐT. Nội dung cấp THPT tổ chức theo các mạch đọc, viết, nói và nghe; danh mục bên dưới là NHÓM NỘI DUNG THAM CHIẾU, chưa phải yêu cầu cần đạt nguyên văn hoặc danh sách bài theo sách giáo khoa.';
+  link.href='https://thleductho.hcm.edu.vn/van-ban/chuong-trinh-giao-duc-pho-thong-mon-ngu-van-ban-hanh-kem-theo-thong-tu-322018tt/vbct/72434/406282';
+  link.textContent='Xem chương trình môn Ngữ văn (nguồn trường học đăng văn bản Bộ)';
+ }else if(math){
+  desc.textContent='Chương trình môn Toán ban hành kèm Thông tư 32/2018/TT-BGDĐT. Chỉ một số yêu cầu cần đạt Toán 10 đã đối chiếu và ghi nhận; không coi toàn bộ danh mục là đã xác minh.';
+  link.href='https://thlevanthogv.hcm.edu.vn/chuong-trinh-gdpt-2018-khoi-1/chuong-trinh-giao-duc-pho-thong-mon-toan-ban-hanh-kem-theo-thong-tu-322018tt-bg/vbctmb/85091/567111';
+  link.textContent='Xem chương trình môn Toán';
+ }else{
+  desc.textContent='Chưa nạp liên kết văn bản chương trình riêng cho môn '+subject+'. Vui lòng đối chiếu chương trình môn học và các văn bản sửa đổi trước khi nhập yêu cầu cần đạt.';
+  link.href='https://vbpl.moj.gov.vn/bogiaoducdaotao/Pages/vbpq-toanvan.aspx?ItemID=146721';
+  link.textContent='Xem văn bản nền Thông tư 32/2018/TT-BGDĐT';
+ }
+}
 function renderH01(){
  const root=$('h01Topics');if(!root)return;root.replaceChildren();
  const {program,subject,grade}=h01Scope();
+ h01UpdateSource(subject,grade);
  const topics=program==='HSG_QUOC_GIA'?[]:(CT_TOPICS[subject]?.[grade]||[]);
  const search=$('h01Search').value.trim().toLocaleLowerCase('vi');
  const filtered=topics.filter(x=>x.toLocaleLowerCase('vi').includes(search));
  const existing=h01Records(),sources=existing.filter(x=>x.program===program&&x.subject===subject&&x.grade===grade);
  const official=verifiedCurriculum.outcomes.filter(x=>x.program===(program==='HSG_THANH_PHO'?'GDPT_2018':program)&&x.subject===subject&&String(x.grade)===String(grade));
- $('h01Status').textContent=program==='HSG_QUOC_GIA'?'Chưa nạp chương trình nâng cao môn chuyên đã xác minh. Không tự tạo danh mục.':subject==='Toán'?'Danh mục Toán là chủ đề THAM CHIẾU chưa xác minh đầy đủ nguyên văn yêu cầu cần đạt. Các hồ sơ nhập vào chỉ là bản nháp chờ thẩm định.':'Môn/lớp này chưa có danh mục chủ đề từ nguồn được kiểm chứng.';
+ $('h01Status').textContent=program==='HSG_QUOC_GIA'?'Chưa nạp chương trình nâng cao môn chuyên đã xác minh. Không tự tạo danh mục.':subject==='Toán'?'Danh mục Toán là chủ đề THAM CHIẾU chưa xác minh đầy đủ nguyên văn yêu cầu cần đạt. Các hồ sơ nhập vào chỉ là bản nháp chờ thẩm định.':subject==='Ngữ văn'?'Ngữ văn lớp '+grade+': hiển thị các MẠCH NỘI DUNG tham chiếu (Đọc, Viết, Nói và nghe). Chưa nạp yêu cầu cần đạt nguyên văn; các bản ghi nhập chỉ chờ thẩm định.':'Môn/lớp này chưa có danh mục chủ đề được kiểm chứng.';
  const info=document.createElement('p');info.className='source';info.textContent='Kho chuẩn: '+official.length+' yêu cầu cần đạt đã được xác minh trong gói dữ liệu · '+sources.length+' bản ghi giáo viên chờ thẩm định.'+(verifiedCurriculum.error?' Không tải được gói chuẩn: '+verifiedCurriculum.error:'');root.append(info);
  const coverage=(verifiedCurriculum.coverage.gradeSections||[]).find(x=>x.subject===subject&&String(x.grade)===String(grade));
  if(coverage){const p=document.createElement('p');p.className='source';p.textContent='Bản gốc môn Toán, lớp '+grade+': trang in '+coverage.fromPrintedPage+'–'+coverage.toPrintedPage+'; đã định vị dải trang, CHƯA xác minh toàn bộ nội dung.';root.append(p)}
