@@ -302,6 +302,24 @@ a{accent-color:#1565D8}
 .exercise-workspace textarea#exPrompt{min-height:310px;line-height:1.7;font-size:12px}
 .kr-exercises-link{border:0;background:none;color:#1565D8;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:8px 0}
 .kr-exercises-link:hover{text-decoration:underline}
+
+.exercise-distribution,.exercise-competency{background:#F7FAFF;border:1px solid #D8E4F7;border-radius:14px;padding:16px;margin:16px 0}
+.exercise-distribution-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.exercise-distribution-head h2,.exercise-competency h2{font-size:15px;margin:0}
+.exercise-distribution-head strong{font-size:12px;color:#1565D8}
+.exercise-levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}
+.exercise-levels label{font-size:11px;color:#244570}
+.exercise-levels input{display:block;margin-top:8px;width:100%;max-width:110px}
+.exercise-distribution-meter{height:9px;display:flex;overflow:hidden;border-radius:8px;background:#DDE8F7;margin-top:14px}
+.exercise-distribution-meter span{min-width:0}
+.exercise-competency-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.exercise-competency-grid label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
+.exercise-competency-grid input[type=checkbox]{width:16px;height:16px;flex:none;accent-color:#1565D8}
+.exercise-competency-grid textarea{min-height:70px}
+.exercise-competency .exercise-example{font-size:12px;background:#FFF;border-left:3px solid #1565D8;padding:12px;line-height:1.7}
+.exercise-example span{display:block;color:#58718B;margin-top:5px}
+@media(max-width:900px){.exercise-levels{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:580px){.exercise-levels,.exercise-competency-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.exercise-distribution-head{align-items:flex-start;flex-direction:column}}
 </style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar">
  <div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div>
  <button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button>
@@ -360,10 +378,29 @@ a{accent-color:#1565D8}
   <div><label for="exGrade">Lớp</label><select id="exGrade" onchange="updateExerciseTopics()"><option>10</option><option>11</option><option selected>12</option></select></div>
   <div><label for="exTopic">Chủ đề / chuyên đề</label><select id="exTopic" onchange="updateExerciseSource()"><option value="">— Chọn chủ đề —</option></select></div>
   <div><label for="exCustomTopic">Tên nội dung cụ thể (nếu cần)</label><input id="exCustomTopic" maxlength="180" placeholder="Ví dụ: Ứng dụng đạo hàm giải bài toán thực tiễn"></div>
-  <div><label for="exCount">Số lượng bài tập</label><input id="exCount" type="number" min="1" max="50" value="10"></div>
-  <div><label for="exLevel">Mức độ</label><select id="exLevel"><option value="Phân hóa từ nhận biết đến vận dụng">Phân hóa từ nhận biết đến vận dụng</option><option>Nhận biết</option><option>Thông hiểu</option><option>Vận dụng</option><option>Vận dụng cao (mở rộng)</option><option>Bồi dưỡng HSG</option></select></div>
+  <div><label for="exCount">Tổng số bài tập</label><input id="exCount" type="number" min="1" max="50" value="10" oninput="updateExerciseDistribution()"></div>
+  <div><label>Quy định đánh giá</label><p class="source">Mỗi bài bắt buộc ghi mức tư duy, năng lực cần đánh giá và chỉ báo quan sát được. Năng lực đặc thù tùy môn học.</p></div>
   <div><label for="exFormat">Dạng bài tập</label><select id="exFormat"><option>Phối hợp tự luận và trắc nghiệm</option><option>Tự luận</option><option>Trắc nghiệm nhiều lựa chọn</option><option>Đúng / sai</option><option>Trả lời ngắn</option></select></div>
   <div><label for="exSolution">Đáp án và hướng dẫn giải</label><select id="exSolution"><option>Đáp án và lời giải chi tiết</option><option>Đáp án và hướng dẫn chấm</option><option>Chỉ đáp án</option><option>Chưa kèm lời giải</option></select></div>
+ </div>
+ <div class="exercise-distribution">
+  <div class="exercise-distribution-head"><h2>Phân bổ bài tập theo mức độ</h2><strong id="exDistributionTotal" aria-live="polite">10/10 bài</strong></div>
+  <div class="exercise-levels">
+   <label for="exNb">Nhận biết<input id="exNb" type="number" min="0" max="50" step="1" value="2" oninput="updateExerciseDistribution()"></label>
+   <label for="exTh">Thông hiểu<input id="exTh" type="number" min="0" max="50" step="1" value="3" oninput="updateExerciseDistribution()"></label>
+   <label for="exVd">Vận dụng<input id="exVd" type="number" min="0" max="50" step="1" value="3" oninput="updateExerciseDistribution()"></label>
+   <label for="exVdc">Vận dụng cao (mở rộng)<input id="exVdc" type="number" min="0" max="50" step="1" value="2" oninput="updateExerciseDistribution()"></label>
+   <label for="exHsg">Bồi dưỡng HSG<input id="exHsg" type="number" min="0" max="50" step="1" value="0" oninput="updateExerciseDistribution()"></label>
+  </div>
+  <div class="exercise-distribution-meter" id="exDistributionBar" aria-label="Cơ cấu bài tập theo mức độ"></div>
+  <p class="source" id="exDistributionHint" role="status"></p>
+ </div>
+ <div class="exercise-competency" aria-label="Quy định chỉ báo năng lực cho từng bài">
+  <h2>Năng lực và chỉ báo đánh giá</h2>
+  <p class="source">Đối với môn Toán, lựa chọn những năng lực đặc thù cần đánh giá trong bộ bài tập. Mỗi bài phải có <strong>chỉ báo cụ thể</strong>, không chỉ ghi tên năng lực.</p>
+  <div id="exCompetencyGroup" class="exercise-competency-grid"></div>
+  <p class="source" id="exCompetencyNote"></p>
+  <p class="exercise-example"><strong>Ví dụ:</strong> Bài 03 · <b>Thông hiểu</b> · <b>Tư duy và lập luận toán học</b><span>Chỉ báo: Giải thích được căn cứ lựa chọn phép biến đổi, lập luận đúng về điều kiện áp dụng.</span></p>
  </div>
  <p id="exSource" class="source" role="status"></p>
  <label for="exNotes">Yêu cầu riêng</label><textarea id="exNotes" rows="3" maxlength="1500" placeholder="Ví dụ: Có câu hỏi thực tiễn, tăng dần độ khó, lời giải chặt chẽ, phù hợp lớp 12"></textarea>
@@ -518,10 +555,59 @@ function selectCurriculumTopic(){
  const t=$('curriculumTopic').value;if(t){$('topic').value=t}
  if(!$('assistantPanel').classList.contains('hidden'))buildPrompt();updateExamGate();
 }
+const EX_LEVEL_FIELDS=[
+ ['exNb','Nhận biết'],['exTh','Thông hiểu'],['exVd','Vận dụng'],
+ ['exVdc','Vận dụng cao (mở rộng)'],['exHsg','Bồi dưỡng HSG']
+];
+const EX_MATH_COMPETENCIES=[
+ 'Tư duy và lập luận toán học','Mô hình hóa toán học',
+ 'Giải quyết vấn đề toán học','Giao tiếp toán học','Sử dụng công cụ, phương tiện học toán'
+];
+function exerciseDistribution(){
+ const count=Number($('exCount').value);
+ const levels=EX_LEVEL_FIELDS.map(([id,label])=>({label,count:Number($(id).value)}));
+ const validNumbers=Number.isInteger(count)&&count>=1&&count<=50&&
+  levels.every(x=>Number.isInteger(x.count)&&x.count>=0&&x.count<=50);
+ const total=levels.reduce((sum,x)=>sum+x.count,0);
+ return {count,total,levels,valid:validNumbers&&total===count};
+}
+function updateExerciseDistribution(){
+ const d=exerciseDistribution(),label=$('exDistributionTotal'),meter=$('exDistributionBar');
+ label.textContent='Đã phân bổ '+d.total+'/'+(Number.isFinite(d.count)?d.count:'?')+' bài';
+ label.style.color=d.valid?'#1565D8':'#A45B27';
+ $('exDistributionHint').textContent=d.valid?'Phân bổ hợp lệ. Mỗi bài sẽ có nhãn mức độ, năng lực và chỉ báo đánh giá.':'Tổng số bài theo các mức phải bằng số bài yêu cầu. Chỉ nhập số nguyên không âm.';
+ meter.replaceChildren();
+ const colors=['#9CC6FA','#6FA7F1','#397EE0','#1957B5','#233D82'];
+ d.levels.forEach((x,i)=>{if(!x.count)return;const seg=document.createElement('span');seg.style.background=colors[i];seg.style.flex=String(x.count);seg.title=x.label+': '+x.count+' bài';meter.append(seg)});
+ $('exResult').classList.add('hidden');
+ return d.valid;
+}
+function updateExerciseCompetencies(){
+ const root=$('exCompetencyGroup');root.replaceChildren();
+ const math=$('exSubject').value==='Toán';
+ $('exCompetencyNote').textContent=math?
+ 'Năm thành phần năng lực toán học theo định hướng CT GDPT 2018. Chọn ít nhất một; hệ thống yêu cầu ghi chỉ báo cho TỪNG bài, không bắt tất cả bài đều đánh giá mọi năng lực.':
+ 'Mỗi môn có hệ năng lực đặc thù riêng. Chỉ báo sẽ được xác định theo chương trình môn học và yêu cầu cần đạt đã đối chiếu; không dùng nhãn năng lực toán học cho môn này.';
+ if(math){
+  for(const [i,name] of EX_MATH_COMPETENCIES.entries()){
+   const label=document.createElement('label');const input=document.createElement('input');input.type='checkbox';input.value=name;input.checked=i<3;input.addEventListener('change',()=>{$('exResult').classList.add('hidden')});
+   label.append(input,document.createTextNode(name));root.append(label);
+  }
+ }else{
+  const label=document.createElement('label');label.setAttribute('for','exCompetencyCustom');label.textContent='Năng lực đặc thù cần đánh giá (theo môn học)';
+  const field=document.createElement('textarea');field.id='exCompetencyCustom';field.rows=2;field.maxLength=700;field.placeholder='Nhập năng lực và biểu hiện tương ứng từ chương trình môn học, sau khi đối chiếu nguồn';field.addEventListener('input',()=>{$('exResult').classList.add('hidden')});
+  root.append(label,field);
+ }
+}
+function exerciseSelectedCompetencies(){
+ if($('exSubject').value==='Toán')return [...$('exCompetencyGroup').querySelectorAll('input:checked')].map(x=>x.value);
+ return [$('exCompetencyCustom')?.value.trim()||''].filter(Boolean);
+}
 function openExerciseWorkspace(){
  nav('exercises');
  if(!$('exSubject').options.length){const orig=$('subject');for(const option of orig.options){const o=document.createElement('option');o.value=option.value;o.textContent=option.textContent;$('exSubject').append(o)}}
  updateExerciseTopics();
+ updateExerciseDistribution();
 }
 function updateExerciseTopics(){
  const subject=$('exSubject').value,grade=$('exGrade').value,sel=$('exTopic'),before=sel.value;
@@ -531,6 +617,8 @@ function updateExerciseTopics(){
  if(topics.includes(before))sel.value=before;
  $('exCustomTopic').placeholder=topics.length?'Có thể bổ sung nội dung nhỏ trong chủ đề':'Ghi rõ chuyên đề nếu chưa có danh mục tham chiếu';
  updateExerciseSource();
+ updateExerciseCompetencies();
+ $('exResult').classList.add('hidden');
 }
 function updateExerciseSource(){
  const subject=$('exSubject').value,grade=$('exGrade').value,topic=$('exTopic').value;
@@ -541,8 +629,9 @@ function updateExerciseSource(){
 }
 function prepareExerciseRequest(){
  const subject=$('exSubject').value,grade=$('exGrade').value,topic=$('exTopic').value,custom=$('exCustomTopic').value.trim(),count=Number($('exCount').value);
- const name=custom||topic;
- if(!subject||!grade||!name||!Number.isInteger(count)||count<1||count>50){$('exMessage').textContent='Hãy chọn môn, lớp, chủ đề hoặc nhập nội dung cụ thể; số bài từ 1 đến 50.';return}
+ const name=custom||topic,dist=exerciseDistribution(),competencies=exerciseSelectedCompetencies();
+ if(!subject||!grade||!name||!dist.valid){$('exMessage').textContent='Chọn môn, lớp, chủ đề và phân bổ đúng tổng số bài (1–50) theo từng mức độ.';return}
+ if(!competencies.length){$('exMessage').textContent='Cần chọn hoặc nhập năng lực đặc thù môn học được đánh giá.';return}
  const context=topic?curriculumContext('GDPT_2018',subject,grade,topic):{verified:false,entries:[]};
  const lines=[
  'Bạn là chuyên gia thiết kế bài tập THPT. Hãy xây dựng một BẢN NHÁP BÀI TẬP để giáo viên thẩm định.',
@@ -550,7 +639,13 @@ function prepareExerciseRequest(){
  'Chủ đề tham chiếu: '+(topic||'Chưa có trong danh mục')+'.',
  'Nội dung cụ thể: '+name+'.',
  'Số lượng bài: '+count+'.',
- 'Mức độ: '+$('exLevel').value+'.',
+ 'Cơ cấu BẮT BUỘC: '+dist.levels.map(x=>x.label+' '+x.count+' bài').join('; ')+'. Tổng phải chính xác '+count+' bài.',
+ 'Các năng lực đặc thù cần xem xét khi thiết kế: '+competencies.join('; ')+'.',
+ 'VỚI TỪNG BÀI, bắt buộc trình bày: (1) Số bài và mức độ tư duy; (2) năng lực đặc thù CHỦ ĐẠO; (3) chỉ báo đánh giá là hành vi/sản phẩm quan sát được; (4) đề bài; (5) đáp án và lời giải theo yêu cầu; (6) điểm cần kiểm định.',
+ 'Mẫu nhãn: Bài 03 | Thông hiểu | Tư duy và lập luận toán học | Chỉ báo: giải thích được lý do áp dụng phép biến đổi và điều kiện tương ứng.',
+ 'Nếu một bài đánh giá nhiều năng lực, ghi rõ năng lực chính và năng lực bổ trợ, kèm chỉ báo của từng năng lực. Không gán chỉ báo chung cho cả bộ bài.',
+ 'Mức Vận dụng cao và HSG là nhãn mở rộng phục vụ phân hóa, không tự khẳng định là mức đánh giá chính thức CT GDPT.',
+
  'Dạng bài: '+$('exFormat').value+'.',
  'Yêu cầu lời giải: '+$('exSolution').value+'.',
  'Yêu cầu riêng: '+($('exNotes').value.trim()||'Không có')+'.',
@@ -575,7 +670,16 @@ function editExerciseDraft(){
  $('subject').value=subject;$('grade').value=grade;updateCurriculumTopics();
  if($('exTopic').value&&Array.from($('curriculumTopic').options).some(o=>o.value===$('exTopic').value))$('curriculumTopic').value=$('exTopic').value;
  $('topic').value='Bài tập chuyên đề – '+name;
- $('content').value='BẢN NHÁP BÀI TẬP – GIÁO VIÊN CẦN THẨM ĐỊNH\n\nChuyên đề: '+name+'\nMôn: '+subject+' – Lớp '+grade+'\n\nI. ĐỀ BÀI\n\n\nII. ĐÁP ÁN VÀ HƯỚNG DẪN GIẢI\n\n\nIII. GHI CHÚ RÀ SOÁT\n';
+ const d=exerciseDistribution(),lines=['BẢN NHÁP BÀI TẬP – GIÁO VIÊN CẦN THẨM ĐỊNH','','Chuyên đề: '+name,'Môn: '+subject+' – Lớp '+grade,''];
+ let index=0;
+ for(const level of d.levels){for(let i=0;i<level.count;i++){
+  lines.push('Bài '+String(++index).padStart(2,'0')+' | Mức độ: '+level.label,
+   'Năng lực chủ đạo: [ghi năng lực đặc thù]',
+   'Chỉ báo đánh giá: [hành vi hoặc sản phẩm quan sát được]',
+   'Đề bài:','', 'Đáp án và hướng dẫn giải:','', 'Đối chiếu yêu cầu cần đạt / kiểm định:','');
+ }}
+ lines.push('GHI CHÚ THẨM ĐỊNH: Chưa phê duyệt; cần đối chiếu chương trình, kiểm định và rà soát giáo viên.');
+ $('content').value=lines.join('\n');
  nav('create');$('content').scrollIntoView({behavior:'smooth',block:'center'});
  $('feedback').textContent='Đã mở mẫu biên tập bài tập theo chuyên đề. Chưa tạo câu hỏi bằng Gemini.';
 }
