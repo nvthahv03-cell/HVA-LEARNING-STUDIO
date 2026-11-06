@@ -185,6 +185,74 @@ main{max-width:1520px}
 @media(max-width:1120px){.academic-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.academic-actions{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:800px){.academic-heading{align-items:flex-start}.academic-heading h1{font-size:26px}.academic-lower{grid-template-columns:1fr}}
 @media(max-width:520px){.academic-heading{flex-direction:column}.academic-heading .primary{width:100%}.academic-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.academic-metric{min-height:110px;padding:13px}.academic-metric strong{font-size:24px}.academic-actions{grid-template-columns:1fr}.academic-action{min-height:140px}.academic-section-head{margin-top:23px}}
+
+/* HVA Korean-minimal workspace: editorial hierarchy; understated academic visual language. */
+:root{--kr-ink:#162f3c;--kr-muted:#74848d;--kr-accent:#087b76;--kr-line:#dce6e8}
+body{background:#fbfcfc}
+.studio-topbar{height:70px;background:#fff;border-bottom:1px solid #e9eeee}
+.shell{grid-template-columns:225px minmax(0,1fr);min-height:calc(100vh - 70px)}
+.studio-sidebar{top:70px;height:calc(100vh - 70px);padding:34px 11px;background:#fff;border-color:#e9eeee}
+.studio-sidebar button{font-weight:580;color:#4b6270;font-size:12px;border-radius:7px;padding:11px 13px}
+.studio-sidebar button.sel{background:#eef8f6;color:#096e6b;box-shadow:inset 2px 0 #0c9d93}
+.studio-sidebar .sidebar-group-label{color:#93a4aa}
+main{padding:28px 42px 68px;max-width:1440px}
+.studio-caution{font-size:11px!important;padding:9px 12px!important;background:#fcfaf4!important;border:1px solid #f0e6cf!important;color:#806c46!important;border-radius:8px!important;margin:0 0 26px!important;box-shadow:none!important}
+.kr-home{color:var(--kr-ink)}
+.kr-intro{display:grid;grid-template-columns:minmax(0,1fr) 260px;min-height:285px;background:#f1f7f6;border-radius:12px;overflow:hidden}
+.kr-intro-text{padding:35px 42px 38px}
+.kr-overline{display:inline-flex;align-items:center;gap:12px;color:#087d79;font-size:10px;font-weight:800;letter-spacing:.11em}
+.kr-rule{width:20px;height:1px;background:#7bb7b2;display:inline-block}
+.kr-intro h1{font-size:clamp(32px,3.2vw,45px);font-weight:760;line-height:1.17;letter-spacing:-.042em;color:#183844;margin:19px 0 14px}
+.kr-intro h1 em{font-style:normal;color:#0c827b}
+.kr-intro p{font-size:13px;line-height:1.8;color:#607b83;max-width:540px;margin:0}
+.kr-intro-actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:25px}
+.kr-primary{border:0;border-radius:8px;background:#087c76;color:#fff;padding:12px 18px;cursor:pointer;font:inherit;font-weight:750;font-size:12px;display:flex;align-items:center;gap:20px}
+.kr-primary:hover{background:#086b67}
+.kr-link{border:0;background:none;color:#096e6a;font:inherit;font-size:12px;font-weight:750;cursor:pointer;padding:8px 0;display:inline-flex;gap:14px;align-items:center}
+.kr-link:hover{text-decoration:underline}
+.kr-intro-side{position:relative;display:flex;flex-direction:column;justify-content:space-between;padding:29px 28px;background:linear-gradient(145deg,#e4f1ef,#d6eae7);border-left:1px solid #d6e7e3;overflow:hidden}
+.kr-side-index{font-size:10px;letter-spacing:.12em;color:#67908d;font-weight:750}
+.kr-side-motif{position:absolute;right:18px;top:72px;width:160px;height:160px}
+.kr-side-motif i{display:block;position:absolute;inset:12px;border:1px solid #a2cbc6;border-radius:50%}
+.kr-side-motif i:nth-child(2){inset:33px;border-color:#7fbab1}
+.kr-side-motif i:nth-child(3){inset:58px;background:#80bdb51a;border-color:#67b4a7}
+.kr-side-caption{position:relative;font-size:11px;color:#416d69;line-height:1.7;font-weight:650;margin-top:auto}
+.kr-dashboard{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,.74fr);gap:49px;margin-top:36px}
+.kr-section-head{display:flex;justify-content:space-between;align-items:end;gap:10px;margin-bottom:14px}
+.kr-section-head h2,.kr-side-section h2{font-size:20px;color:#163440;font-weight:760;letter-spacing:-.025em;margin:6px 0 0}
+.kr-section-counter{color:#96a6ab;font-size:11px}
+.kr-task-list{border-top:1px solid #cfdcde}
+.kr-task{width:100%;display:grid;grid-template-columns:43px minmax(0,1fr) 20px;gap:9px;align-items:center;text-align:left;padding:19px 5px 18px 0;border:0;border-bottom:1px solid #e1e9e9;background:transparent;color:#183743;cursor:pointer;transition:background .15s ease,padding-left .15s ease}
+.kr-task:hover{background:#f4faf8;padding-left:9px}
+.kr-task-num{font-size:11px;color:#9caeb1;font-weight:700;align-self:start;padding-top:4px}
+.kr-task-copy{display:flex;flex-direction:column;gap:6px}
+.kr-task-copy b{font-size:14px;font-weight:750}
+.kr-task-copy small{font-size:11px;color:#748990;line-height:1.55}
+.kr-task-arrow{color:#089187;font-size:17px}
+.kr-side-column{border-left:1px solid #e2e9e9;padding-left:30px}
+.kr-side-section{padding:0 0 24px;margin-bottom:24px;border-bottom:1px solid #e0e9e9}
+.kr-side-section:last-child{border-bottom:0}
+.kr-total{display:flex;align-items:baseline;gap:12px;margin:15px 0 16px}
+.kr-total strong{font-size:52px;font-weight:760;letter-spacing:-.06em;line-height:1;color:#0b7772}
+.kr-total span{color:#657d84;font-size:12px}
+.kr-total button{margin-left:auto;border:0;background:none;color:#0b7975;font-size:19px;cursor:pointer}
+.kr-stat{display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid #e7eeee;font-size:12px;color:#627981}
+.kr-stat b{color:#164854;font-size:14px}
+.kr-footnote{font-size:10px;color:#90a0a4;line-height:1.7;margin:15px 0 0}
+.kr-recent{font-size:12px;line-height:1.65;color:#6b8189;background:none;border:0;padding:0;min-height:0}
+.kr-system-line{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;font-size:11px;color:#647a82}
+.kr-system-line b{font-size:10px;color:#0b7c76;text-align:right}
+.kr-system-line:last-child b{color:#a08346}
+.kr-footer-line{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:23px 0 8px;border-top:1px solid #dfe8e9;margin-top:32px}
+.kr-footer-line strong{font-size:12px;color:#173945}
+.kr-footer-line span{font-size:11px;color:#657d84}
+.kr-footer-line i{font-style:normal;color:#0e9188;margin:0 5px}
+.kr-disclaimer{font-size:10px;color:#8a9a9e;margin:8px 0}
+@media(max-width:1150px){.kr-dashboard{grid-template-columns:minmax(0,1.3fr) minmax(250px,.7fr);gap:24px}.kr-side-column{padding-left:22px}main{padding:22px 25px 60px}}
+@media(max-width:900px){.kr-intro{grid-template-columns:1fr}.kr-intro-side{display:none}.kr-dashboard{grid-template-columns:1fr}.kr-side-column{border-left:0;border-top:1px solid #e2e9e9;padding:25px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:25px}.kr-system{grid-column:1/-1}.kr-footer-line{align-items:start;flex-direction:column;gap:6px}}
+@media(max-width:800px){.studio-topbar{height:64px}.shell{grid-template-columns:1fr}.studio-sidebar{top:64px;height:auto;padding:8px}.kr-intro-text{padding:27px}}
+@media(max-width:520px){main{padding:15px 16px 50px}.kr-intro h1{font-size:32px}.kr-intro-text{padding:23px}.kr-intro-actions{gap:16px}.kr-dashboard{margin-top:29px}.kr-side-column{grid-template-columns:1fr;gap:0}.kr-system{grid-column:auto}.kr-task{grid-template-columns:30px minmax(0,1fr) 17px;padding:16px 3px}.kr-task-copy b{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.kr-task{transition:none}}
 </style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar">
  <div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div>
  <button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button>
@@ -198,38 +266,39 @@ main{max-width:1520px}
  <button data-page="shared"><span class="nav-symbol">♧</span> Học liệu chia sẻ</button>
  <button data-page="admin"><span class="nav-symbol">⚙</span> Quản trị hệ thống</button>
  <div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Chuyên môn · Khoa học · Thực chất</small></div></div>
-</aside><main><div class="hint studio-caution"><span class="caution-symbol">ⓘ</span><span><strong>Giao diện thử nghiệm.</strong> Kho cá nhân đang lưu trên trình duyệt; chưa có đăng nhập EDOS, chia sẻ kho hoặc kết nối Gemini trên trang GitHub Pages. Gemini thật đã được kiểm thử riêng trên Apps Script. Không nhập thông tin học sinh, tài liệu mật.</span></div><section id="home">
- <div class="academic-heading">
-  <div><span class="eyebrow">TRƯỜNG THPT HÒA VANG · HỆ SINH THÁI HỌC LIỆU</span><h1>Không gian sáng tạo học liệu</h1>
-  <p>Thiết kế, biên tập và quản lý học liệu theo chương trình giáo dục phổ thông. Mỗi học liệu cần được giáo viên rà soát trước khi sử dụng.</p></div>
-  <button type="button" class="primary" onclick="nav('create')">+ Tạo học liệu mới</button>
+</aside><main><div class="hint studio-caution"><span class="caution-symbol">ⓘ</span><span><strong>Giao diện thử nghiệm.</strong> Kho cá nhân đang lưu trên trình duyệt; chưa có đăng nhập EDOS, chia sẻ kho hoặc kết nối Gemini trên trang GitHub Pages. Gemini thật đã được kiểm thử riêng trên Apps Script. Không nhập thông tin học sinh, tài liệu mật.</span></div><section id="home" class="kr-home">
+ <div class="kr-intro">
+  <div class="kr-intro-text"><span class="kr-overline">HVA LEARNING STUDIO <span class="kr-rule"></span> TRƯỜNG THPT HÒA VANG</span>
+   <h1>Không gian<br><em>sáng tạo học liệu.</em></h1>
+   <p>Nơi giáo viên nghiên cứu chương trình, phát triển bài dạy và quản lý học liệu trong một quy trình chuyên môn thống nhất.</p>
+   <div class="kr-intro-actions"><button type="button" class="kr-primary" onclick="nav('create')">Bắt đầu thiết kế <span aria-hidden="true">↗</span></button><button type="button" class="kr-link" onclick="nav('library')">Đến kho học liệu <span aria-hidden="true">→</span></button></div>
+  </div>
+  <div class="kr-intro-side" aria-label="Định hướng hệ thống"><span class="kr-side-index">01 / HỌC LIỆU SỐ</span><div class="kr-side-motif" aria-hidden="true"><i></i><i></i><i></i></div><span class="kr-side-caption">Nghiên cứu có nguồn.<br>Thiết kế có căn cứ.<br>Thẩm định trước khi sử dụng.</span></div>
  </div>
- <div class="academic-section-head"><div><h2>Hồ sơ học liệu của tôi</h2><p>Thống kê từ dữ liệu đang lưu trên trình duyệt này, không phải số liệu toàn trường.</p></div></div>
- <div class="academic-metrics">
-  <button type="button" class="academic-metric" onclick="nav('library')"><span>Chủ đề đã lưu</span><strong id="academicTotal">0</strong><small>Xem kho cá nhân</small></button>
-  <button type="button" class="academic-metric" onclick="nav('library')"><span>Học liệu môn Toán</span><strong id="academicMath">0</strong><small>Trên thiết bị hiện tại</small></button>
-  <button type="button" class="academic-metric" onclick="nav('library')"><span>Học liệu môn khác</span><strong id="academicOther">0</strong><small>Trên thiết bị hiện tại</small></button>
-  <div class="academic-metric academic-metric-pending"><span>Chờ thẩm định chính thức</span><strong>Chưa kết nối</strong><small>Chưa có quy trình phê duyệt máy chủ</small></div>
- </div>
- <div class="academic-section-head"><div><h2>Công việc chuyên môn</h2><p>Chọn nghiệp vụ cần thực hiện; chỉ mở chức năng đã có, không hiển thị thao tác giả.</p></div></div>
- <div class="academic-actions">
-  <button type="button" class="academic-action" onclick="nav('curriculum')"><span class="academic-action-icon">01</span><b>Chương trình và yêu cầu cần đạt</b><small>Tra cứu nguồn, kiểm tra nội dung theo môn và lớp</small><span class="academic-action-link">Mở hồ sơ →</span></button>
-  <button type="button" class="academic-action" onclick="nav('create')"><span class="academic-action-icon">02</span><b>Soạn kế hoạch bài dạy</b><small>Chọn chủ đề, biên tập và lưu bản nháp</small><span class="academic-action-link">Bắt đầu →</span></button>
-  <button type="button" class="academic-action" onclick="nav('create');openMatrixAssistant()"><span class="academic-action-icon">03</span><b>Ma trận và bản đặc tả</b><small>Hoàn thiện cấu trúc trước khi xây dựng đề</small><span class="academic-action-link">Mở công cụ →</span></button>
-  <button type="button" class="academic-action" onclick="nav('create');showAssistant()"><span class="academic-action-icon">04</span><b>Ngân hàng câu hỏi và đề kiểm tra</b><small>Chuẩn bị nội dung theo ma trận; cần thẩm định</small><span class="academic-action-link">Mở công cụ →</span></button>
-  <button type="button" class="academic-action" onclick="nav('batch')"><span class="academic-action-icon">05</span><b>Thiết kế nhiều loại học liệu</b><small>Lập kế hoạch sản phẩm theo một chủ đề</small><span class="academic-action-link">Mở danh mục →</span></button>
-  <button type="button" class="academic-action" onclick="nav('library')"><span class="academic-action-icon">06</span><b>Kho học liệu của tôi</b><small>Tìm kiếm, mở lại và sao lưu bản nháp</small><span class="academic-action-link">Xem kho →</span></button>
- </div>
- <div class="academic-lower">
-  <div class="academic-panel"><div class="academic-panel-head"><h2>Tiếp tục công việc</h2><button type="button" class="academic-text-button" onclick="nav('library')">Xem kho →</button></div><p id="recentWorkspace" class="workspace-empty">Chưa có chủ đề đã lưu trên thiết bị này.</p><button type="button" class="secondary" onclick="nav('create')">Tạo chủ đề mới</button></div>
-  <div class="academic-panel"><h2>Tình trạng triển khai</h2>
-   <div class="academic-state"><span>Biên tập và lưu bản nháp cục bộ</span><b>Đã có</b></div>
-   <div class="academic-state"><span>Gemini trong Apps Script riêng</span><b>Đã kiểm thử</b></div>
-   <div class="academic-state"><span>Kết nối Gemini trực tiếp từ trang này</span><b>Chưa kích hoạt</b></div>
-   <div class="academic-state"><span>Đăng nhập EDOS và kho dùng chung</span><b>Đang phát triển</b></div>
+ <div class="kr-dashboard">
+  <div class="kr-main-column">
+   <div class="kr-section-head"><div><span class="kr-overline">THAO TÁC CHÍNH</span><h2>Công việc chuyên môn</h2></div><span class="kr-section-counter">06 nội dung</span></div>
+   <div class="kr-task-list">
+    <button type="button" class="kr-task" onclick="nav('curriculum')"><span class="kr-task-num">01</span><span class="kr-task-copy"><b>Chương trình và yêu cầu cần đạt</b><small>Tra cứu nội dung theo môn, lớp và nguồn văn bản</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
+    <button type="button" class="kr-task" onclick="nav('create')"><span class="kr-task-num">02</span><span class="kr-task-copy"><b>Kế hoạch bài dạy</b><small>Thiết kế hoạt động, biên tập và lưu bản nháp</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
+    <button type="button" class="kr-task" onclick="nav('create');openMatrixAssistant()"><span class="kr-task-num">03</span><span class="kr-task-copy"><b>Ma trận và bản đặc tả</b><small>Định hướng nội dung đánh giá trước khi ra đề</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
+    <button type="button" class="kr-task" onclick="nav('create');showAssistant()"><span class="kr-task-num">04</span><span class="kr-task-copy"><b>Câu hỏi và đề kiểm tra</b><small>Chuẩn bị ngân hàng câu hỏi theo cấu trúc kiểm tra</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
+    <button type="button" class="kr-task" onclick="nav('batch')"><span class="kr-task-num">05</span><span class="kr-task-copy"><b>Thiết kế học liệu đồng bộ</b><small>Lập kế hoạch nhiều sản phẩm theo một chủ đề</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
+    <button type="button" class="kr-task" onclick="nav('library')"><span class="kr-task-num">06</span><span class="kr-task-copy"><b>Kho học liệu của tôi</b><small>Tìm kiếm, tiếp tục biên tập và sao lưu</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
+   </div>
+  </div>
+  <div class="kr-side-column">
+   <div class="kr-side-section"><div class="kr-section-head"><div><span class="kr-overline">DỮ LIỆU TRÊN THIẾT BỊ</span><h2>Hồ sơ của tôi</h2></div></div>
+    <div class="kr-total"><strong id="academicTotal">0</strong><span>chủ đề đã lưu</span><button type="button" onclick="nav('library')" aria-label="Mở kho cá nhân">↗</button></div>
+    <div class="kr-stat"><span>Môn Toán</span><b id="academicMath">0</b></div><div class="kr-stat"><span>Các môn còn lại</span><b id="academicOther">0</b></div>
+    <p class="kr-footnote">Chỉ thống kê bản nháp trên trình duyệt này; không phải số liệu toàn trường.</p>
+   </div>
+   <div class="kr-side-section kr-continue"><span class="kr-overline">TIẾP TỤC</span><h2>Học liệu gần đây</h2><p id="recentWorkspace" class="kr-recent">Chưa có chủ đề đã lưu trên thiết bị này.</p><button type="button" class="kr-link" onclick="nav('library')">Mở kho cá nhân <span aria-hidden="true">→</span></button></div>
+   <div class="kr-side-section kr-system"><span class="kr-overline">TÌNH TRẠNG</span><div class="kr-system-line"><span>Lưu nháp trên thiết bị</span><b>Đang hoạt động</b></div><div class="kr-system-line"><span>Gemini thử nghiệm riêng</span><b>Đã kiểm thử</b></div><div class="kr-system-line"><span>EDOS &amp; kho dùng chung</span><b>Chưa kết nối</b></div></div>
   </div>
  </div>
- <div class="academic-process"><h2>Quy trình phát triển học liệu</h2><p>Đối chiếu chương trình → Xác định yêu cầu cần đạt → Thiết kế học liệu → Rà soát, phản biện → Lưu nháp → Thẩm định theo phân quyền.</p><small>Chức năng phản biện tự động và phê duyệt chính thức chưa được triển khai trên trang này.</small></div>
+ <div class="kr-footer-line"><strong>Quy trình học liệu</strong><span>Chương trình <i>→</i> Yêu cầu cần đạt <i>→</i> Thiết kế <i>→</i> Phản biện <i>→</i> Lưu và thẩm định</span></div>
+ <p class="kr-disclaimer">Phản biện tự động và phê duyệt chính thức chưa triển khai. Học liệu cần được giáo viên kiểm tra trước khi sử dụng.</p>
  <div class="hidden" aria-hidden="true"><span id="count">0</span></div>
 </section><section id="curriculum" class="hidden">
 <div class="eyebrow">H01 · NỀN TẢNG CHUYÊN MÔN</div><h1>Chương trình và yêu cầu cần đạt</h1>
