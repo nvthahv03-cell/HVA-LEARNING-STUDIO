@@ -297,11 +297,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
 .studio-tool .tool-more,.academic-action-link,.studio-minor,.studio-outline,.academic-text-button{color:#1565D8}
 a{accent-color:#1565D8}
 @media(prefers-reduced-motion:reduce){.kr-task,.studio-tool{transition:none}}
+.sidebar-exercise{color:#1565D8!important}
+.exercise-workspace{max-width:1160px}
+.exercise-workspace textarea#exPrompt{min-height:310px;line-height:1.7;font-size:12px}
+.kr-exercises-link{border:0;background:none;color:#1565D8;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;padding:8px 0}
+.kr-exercises-link:hover{text-decoration:underline}
 </style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar">
  <div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div>
  <button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button>
  <button data-page="curriculum"><span class="nav-symbol">▤</span> Chương trình và yêu cầu cần đạt</button>
  <button data-page="create"><span class="nav-symbol">✎</span> Thiết kế học liệu</button>
+ <button type="button" data-page="exercises" class="sidebar-exercise" onclick="openExerciseWorkspace()"><span class="nav-symbol">▤</span> Bài tập theo chuyên đề</button>
  <button data-page="batch"><span class="nav-symbol">▦</span> Lập kế hoạch học liệu đồng bộ</button>
  <button data-page="library"><span class="nav-symbol">▥</span> Kho học liệu của tôi</button>
  <div class="sidebar-group-label sidebar-second">CHUYÊN MÔN VÀ KHẢO THÍ</div>
@@ -321,7 +327,7 @@ a{accent-color:#1565D8}
  </div>
  <div class="kr-dashboard">
   <div class="kr-main-column">
-   <div class="kr-section-head"><div><span class="kr-overline">THAO TÁC CHÍNH</span><h2>Công việc chuyên môn</h2></div><span class="kr-section-counter">06 nội dung</span></div>
+   <div class="kr-section-head"><div><span class="kr-overline">THAO TÁC CHÍNH</span><h2>Công việc chuyên môn</h2></div><button type="button" class="kr-exercises-link" onclick="openExerciseWorkspace()">Bài tập theo chuyên đề →</button></div>
    <div class="kr-task-list">
     <button type="button" class="kr-task" onclick="nav('curriculum')"><span class="kr-task-num">01</span><span class="kr-task-copy"><b>Chương trình và yêu cầu cần đạt</b><small>Tra cứu nội dung theo môn, lớp và nguồn văn bản</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
     <button type="button" class="kr-task" onclick="nav('create')"><span class="kr-task-num">02</span><span class="kr-task-copy"><b>Kế hoạch bài dạy</b><small>Thiết kế hoạt động, biên tập và lưu bản nháp</small></span><span class="kr-task-arrow" aria-hidden="true">↗</span></button>
@@ -344,6 +350,31 @@ a{accent-color:#1565D8}
  <div class="kr-footer-line"><strong>Quy trình học liệu</strong><span>Chương trình <i>→</i> Yêu cầu cần đạt <i>→</i> Thiết kế <i>→</i> Phản biện <i>→</i> Lưu và thẩm định</span></div>
  <p class="kr-disclaimer">Phản biện tự động và phê duyệt chính thức chưa triển khai. Học liệu cần được giáo viên kiểm tra trước khi sử dụng.</p>
  <div class="hidden" aria-hidden="true"><span id="count">0</span></div>
+</section><section id="exercises" class="hidden">
+<div class="eyebrow">THIẾT KẾ HỌC LIỆU · BÀI TẬP</div>
+<h1>Bài tập theo chuyên đề</h1>
+<p>Chọn môn, khối lớp, chủ đề và cấu trúc bài tập. Bộ công cụ chuẩn bị yêu cầu chuyên môn để giáo viên tự biên tập hoặc sử dụng khi kết nối AI được xác thực.</p>
+<div class="panel exercise-workspace">
+ <div class="grid">
+  <div><label for="exSubject">Môn học</label><select id="exSubject" onchange="updateExerciseTopics()"></select></div>
+  <div><label for="exGrade">Lớp</label><select id="exGrade" onchange="updateExerciseTopics()"><option>10</option><option>11</option><option selected>12</option></select></div>
+  <div><label for="exTopic">Chủ đề / chuyên đề</label><select id="exTopic" onchange="updateExerciseSource()"><option value="">— Chọn chủ đề —</option></select></div>
+  <div><label for="exCustomTopic">Tên nội dung cụ thể (nếu cần)</label><input id="exCustomTopic" maxlength="180" placeholder="Ví dụ: Ứng dụng đạo hàm giải bài toán thực tiễn"></div>
+  <div><label for="exCount">Số lượng bài tập</label><input id="exCount" type="number" min="1" max="50" value="10"></div>
+  <div><label for="exLevel">Mức độ</label><select id="exLevel"><option value="Phân hóa từ nhận biết đến vận dụng">Phân hóa từ nhận biết đến vận dụng</option><option>Nhận biết</option><option>Thông hiểu</option><option>Vận dụng</option><option>Vận dụng cao (mở rộng)</option><option>Bồi dưỡng HSG</option></select></div>
+  <div><label for="exFormat">Dạng bài tập</label><select id="exFormat"><option>Phối hợp tự luận và trắc nghiệm</option><option>Tự luận</option><option>Trắc nghiệm nhiều lựa chọn</option><option>Đúng / sai</option><option>Trả lời ngắn</option></select></div>
+  <div><label for="exSolution">Đáp án và hướng dẫn giải</label><select id="exSolution"><option>Đáp án và lời giải chi tiết</option><option>Đáp án và hướng dẫn chấm</option><option>Chỉ đáp án</option><option>Chưa kèm lời giải</option></select></div>
+ </div>
+ <p id="exSource" class="source" role="status"></p>
+ <label for="exNotes">Yêu cầu riêng</label><textarea id="exNotes" rows="3" maxlength="1500" placeholder="Ví dụ: Có câu hỏi thực tiễn, tăng dần độ khó, lời giải chặt chẽ, phù hợp lớp 12"></textarea>
+ <div class="actions"><button class="primary" type="button" onclick="prepareExerciseRequest()">Chuẩn bị bộ bài tập</button><button class="secondary" type="button" onclick="nav('curriculum')">Tra cứu chương trình</button></div>
+ <p id="exMessage" class="status" role="status"></p>
+ <div id="exResult" class="hidden">
+  <label for="exPrompt">Yêu cầu chuyên môn đã chuẩn bị</label><textarea id="exPrompt" rows="12" readonly></textarea>
+  <div class="actions"><button type="button" class="secondary" onclick="copyExercisePrompt()">Sao chép yêu cầu</button><button type="button" class="primary" onclick="editExerciseDraft()">Mở trình biên tập bài tập</button></div>
+  <p class="source">Chưa tự sinh bài tập bằng Gemini trên trang này. Giáo viên có thể sử dụng yêu cầu với công cụ AI được cấp quyền, kiểm tra kết quả rồi nhập vào trình biên tập. Không coi bài tập chưa kiểm định là học liệu đã phê duyệt.</p>
+ </div>
+</div>
 </section><section id="curriculum" class="hidden">
 <div class="eyebrow">H01 · NỀN TẢNG CHUYÊN MÔN</div><h1>Chương trình và yêu cầu cần đạt</h1>
 <p>Thư viện dữ liệu nguồn cho tất cả Trợ lý AI. Phân biệt chủ đề tham chiếu, yêu cầu cần đạt chưa thẩm định và dữ liệu được xác minh. Không tự coi dữ liệu do giáo viên nhập là văn bản chính thức.</p>
@@ -486,6 +517,67 @@ function updateCurriculumTopics(){
 function selectCurriculumTopic(){
  const t=$('curriculumTopic').value;if(t){$('topic').value=t}
  if(!$('assistantPanel').classList.contains('hidden'))buildPrompt();updateExamGate();
+}
+function openExerciseWorkspace(){
+ nav('exercises');
+ if(!$('exSubject').options.length){const orig=$('subject');for(const option of orig.options){const o=document.createElement('option');o.value=option.value;o.textContent=option.textContent;$('exSubject').append(o)}}
+ updateExerciseTopics();
+}
+function updateExerciseTopics(){
+ const subject=$('exSubject').value,grade=$('exGrade').value,sel=$('exTopic'),before=sel.value;
+ sel.replaceChildren();const o=document.createElement('option');o.value='';o.textContent='— Chọn chủ đề —';sel.append(o);
+ const topics=(CT_TOPICS[subject]||{})[grade]||[];
+ topics.forEach(t=>{const a=document.createElement('option');a.value=t;a.textContent=t;sel.append(a)});
+ if(topics.includes(before))sel.value=before;
+ $('exCustomTopic').placeholder=topics.length?'Có thể bổ sung nội dung nhỏ trong chủ đề':'Ghi rõ chuyên đề nếu chưa có danh mục tham chiếu';
+ updateExerciseSource();
+}
+function updateExerciseSource(){
+ const subject=$('exSubject').value,grade=$('exGrade').value,topic=$('exTopic').value;
+ const context=topic?curriculumContext('GDPT_2018',subject,grade,topic):{verified:false,entries:[]};
+ $('exSource').textContent=context.verified?
+ 'Có '+context.entries.length+' yêu cầu cần đạt đã được đối chiếu trong kho. Giáo viên cần kiểm tra phạm vi áp dụng.':
+ 'Chủ đề tham chiếu; chưa có yêu cầu cần đạt được xác minh trong kho cho lựa chọn này. Phải đối chiếu chương trình chính thức trước khi sử dụng.';
+}
+function prepareExerciseRequest(){
+ const subject=$('exSubject').value,grade=$('exGrade').value,topic=$('exTopic').value,custom=$('exCustomTopic').value.trim(),count=Number($('exCount').value);
+ const name=custom||topic;
+ if(!subject||!grade||!name||!Number.isInteger(count)||count<1||count>50){$('exMessage').textContent='Hãy chọn môn, lớp, chủ đề hoặc nhập nội dung cụ thể; số bài từ 1 đến 50.';return}
+ const context=topic?curriculumContext('GDPT_2018',subject,grade,topic):{verified:false,entries:[]};
+ const lines=[
+ 'Bạn là chuyên gia thiết kế bài tập THPT. Hãy xây dựng một BẢN NHÁP BÀI TẬP để giáo viên thẩm định.',
+ 'Môn học: '+subject+'; Lớp: '+grade+'.',
+ 'Chủ đề tham chiếu: '+(topic||'Chưa có trong danh mục')+'.',
+ 'Nội dung cụ thể: '+name+'.',
+ 'Số lượng bài: '+count+'.',
+ 'Mức độ: '+$('exLevel').value+'.',
+ 'Dạng bài: '+$('exFormat').value+'.',
+ 'Yêu cầu lời giải: '+$('exSolution').value+'.',
+ 'Yêu cầu riêng: '+($('exNotes').value.trim()||'Không có')+'.',
+ 'Chỉ sử dụng các yêu cầu cần đạt đã có bằng chứng xác minh trong dữ liệu sau; không tự gán nhãn xác minh cho tài liệu tham chiếu.',
+ 'Dữ liệu yêu cầu cần đạt xác minh: '+JSON.stringify(context.verified?context.entries:[]),
+ context.verified?'Phải đối chiếu từng bài với yêu cầu cần đạt và chỉ rõ mã tham chiếu.':'CHƯA CÓ YCCĐ XÁC MINH: yêu cầu giáo viên cung cấp/đối chiếu nguồn chính thức trước khi công bố; chỉ tạo nháp tham khảo.',
+ 'Bài tập phải phù hợp môn và lớp, có dữ kiện đủ, câu hỏi rõ ràng, không sao chép nguyên văn tài liệu có bản quyền.',
+ 'Kiểm tra độc lập lời giải, điều kiện, các trường hợp đặc biệt; nêu chỗ chưa xác minh; trình bày phân tách đề bài và đáp án.',
+ 'Không tự phê duyệt hoặc tuyên bố học liệu đạt chuẩn.'
+ ];
+ $('exPrompt').value=lines.join('\n');$('exResult').classList.remove('hidden');
+ $('exMessage').textContent='Đã chuẩn bị yêu cầu bài tập; trang này chưa trực tiếp sinh nội dung AI.';
+}
+function copyExercisePrompt(){
+ const text=$('exPrompt').value;
+ if(!text)return;
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(()=>$('exMessage').textContent='Đã sao chép yêu cầu.').catch(()=>$('exMessage').textContent='Không sao chép tự động được; hãy chọn và sao chép trong ô.');
+ else{$('exPrompt').focus();$('exPrompt').select();$('exMessage').textContent='Đã chọn nội dung để sao chép.'}
+}
+function editExerciseDraft(){
+ const subject=$('exSubject').value,grade=$('exGrade').value,name=$('exCustomTopic').value.trim()||$('exTopic').value;
+ $('subject').value=subject;$('grade').value=grade;updateCurriculumTopics();
+ if($('exTopic').value&&Array.from($('curriculumTopic').options).some(o=>o.value===$('exTopic').value))$('curriculumTopic').value=$('exTopic').value;
+ $('topic').value='Bài tập chuyên đề – '+name;
+ $('content').value='BẢN NHÁP BÀI TẬP – GIÁO VIÊN CẦN THẨM ĐỊNH\n\nChuyên đề: '+name+'\nMôn: '+subject+' – Lớp '+grade+'\n\nI. ĐỀ BÀI\n\n\nII. ĐÁP ÁN VÀ HƯỚNG DẪN GIẢI\n\n\nIII. GHI CHÚ RÀ SOÁT\n';
+ nav('create');$('content').scrollIntoView({behavior:'smooth',block:'center'});
+ $('feedback').textContent='Đã mở mẫu biên tập bài tập theo chuyên đề. Chưa tạo câu hỏi bằng Gemini.';
 }
 function showAssistant(){$('assistantPanel').classList.remove('hidden');updateExamMode();buildPrompt();$('assistantPanel').scrollIntoView({behavior:'smooth',block:'nearest'})}
 function openMatrixAssistant(){
