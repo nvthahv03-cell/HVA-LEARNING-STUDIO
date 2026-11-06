@@ -144,48 +144,93 @@ main{max-width:1520px}
 .h01-source-title{display:block;font-size:13px;font-weight:800;color:#165761;margin:0 0 6px}
 .h01-source-panel .source{line-height:1.65;margin:6px 0}
 .h01-source-panel a{font-size:13px;font-weight:750;color:#087e79}
-</style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar"><div class="sidebar-group-label">KHÔNG GIAN SÁNG TẠO</div><button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button><button data-page="curriculum"><span class="nav-symbol">◎</span> Chương trình & yêu cầu cần đạt</button><button data-page="create"><span class="nav-symbol">✧</span> Sáng tạo học liệu</button><button data-page="batch"><span class="nav-symbol">▦</span> Sáng tạo học liệu đồng bộ</button><button data-page="library"><span class="nav-symbol">▤</span> Kho học liệu của tôi</button><div class="sidebar-group-label sidebar-second">TRỢ LÝ CHUYÊN MÔN</div><button data-page="expert"><span class="nav-symbol">✦</span> Trợ lý AI – Chuyên gia</button><div class="sidebar-group-label sidebar-second">THƯ VIỆN & HỆ THỐNG</div><button data-page="shared"><span class="nav-symbol">♧</span> Học liệu chia sẻ</button><button data-page="admin"><span class="nav-symbol">⚙</span> Quản trị hệ thống</button><div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Một nền tảng • Mọi môn học</small></div></div></aside><main><div class="hint studio-caution"><span class="caution-symbol">ⓘ</span><span><strong>Giao diện thử nghiệm.</strong> Kho cá nhân đang lưu trên trình duyệt; chưa có đăng nhập EDOS, chia sẻ kho hoặc kết nối Gemini trên trang GitHub Pages. Gemini thật đã được kiểm thử riêng trên Apps Script. Không nhập thông tin học sinh, tài liệu mật.</span></div><section id="home">
-<div class="studio-hero">
-  <div class="studio-hero-copy"><div class="hero-course">KHÔNG GIAN GIÁO DỤC SỐ · DÀNH CHO GIÁO VIÊN THPT</div>
-    <div class="hero-kicker"><span class="pulse-dot"></span> HỆ SINH THÁI HỌC LIỆU · HVA LEARNING STUDIO</div>
-    <h1>Biến ý tưởng bài dạy thành <em>học liệu chất lượng.</em></h1>
-    <p>Một không gian làm việc cho giáo viên THPT: phát triển chủ đề, thiết kế ma trận – đặc tả, xây dựng học liệu và quản lý sản phẩm theo chương trình giáo dục.</p>
-    <div class="hero-actions"><button class="hero-primary" onclick="nav('create')">✦ Sáng tạo học liệu <span>↗</span></button><button class="hero-outline" onclick="nav('library')">Mở kho của tôi <span>→</span></button></div>
-    <div class="hero-meta"><span>◇ Quy trình thẩm định đang thiết kế</span><span>✓ Theo từng môn và lớp</span><span>◇ AI trên trang chính chưa kết nối EDOS</span></div>
-  </div>
-  <div class="hero-art" aria-hidden="true">
-    <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-    <div class="hero-art-card card-back"><span>✧</span><b>MA TRẬN & ĐẶC TẢ</b><small>Chuẩn hóa yêu cầu đánh giá</small></div>
-    <div class="hero-art-card card-main"><span>✦</span><b>LEARNING STUDIO</b><small>Thiết kế • Thẩm định • Lưu kho</small><div class="art-bars"><i></i><i></i><i></i></div></div>
-    <div class="hero-art-card card-front"><span>▤</span><b>HỌC LIỆU CỦA TÔI</b><small>Hình thành từ một chủ đề</small></div>
-  </div>
-</div>
-<div class="studio-dashboard-head"><div><span class="eyebrow">KHÔNG GIAN LÀM VIỆC</span><h2>Công cụ dành cho giáo viên</h2><p>Chọn đúng công việc để bắt đầu. Những công cụ chưa nối AI sẽ có trạng thái rõ ràng.</p></div><button class="studio-minor" onclick="nav('expert')">Khám phá chuyên gia <span>→</span></button></div>
-<div class="studio-tools">
- <button class="studio-tool" onclick="nav('create')"><span class="tool-icon purple">▧</span><b>Giáo án & kế hoạch bài dạy</b><small>Khởi tạo và biên tập nội dung theo chủ đề</small><span class="tool-more">Mở công cụ ↗</span></button>
- <button class="studio-tool" onclick="nav('create');showAssistant()"><span class="tool-icon aqua">▤</span><b>Ma trận & bản đặc tả</b><small>Tổ chức kiến thức, mức độ tư duy, minh chứng</small><span class="tool-more">Mở công cụ ↗</span></button>
- <button class="studio-tool" onclick="nav('create');showAssistant()"><span class="tool-icon amber">◇</span><b>Ngân hàng câu hỏi & đề kiểm tra</b><small>Thiết kế có cấu trúc; cần thẩm định trước khi dùng</small><span class="tool-more">Mở công cụ ↗</span></button>
- <button class="studio-tool" onclick="nav('batch')"><span class="tool-icon blue">▦</span><b>Sáng tạo học liệu đồng bộ</b><small>Một lần giao nhiệm vụ, chọn nhiều sản phẩm</small><span class="tool-more">Xem danh mục ↗</span></button>
-</div>
-<div class="studio-pathway" aria-label="Quy trình phát triển học liệu">
- <div class="eyebrow">QUY TRÌNH HỌC LIỆU</div><h2>Nghiên cứu chuẩn. Sáng tạo có căn cứ.</h2>
- <p>Những công cụ đã có được tổ chức theo trình tự công việc chuyên môn.</p>
- <div class="studio-pathway-steps">
-  <button type="button" class="pathway-step" onclick="nav('curriculum')"><span class="step-number">01</span><span><b>Nghiên cứu</b><small>Chương trình &amp; YCCĐ</small></span></button>
-  <span class="pathway-arrow" aria-hidden="true">→</span>
-  <button type="button" class="pathway-step" onclick="nav('create')"><span class="step-number">02</span><span><b>Sáng tạo</b><small>Thiết kế bài dạy</small></span></button>
-  <span class="pathway-arrow" aria-hidden="true">→</span>
-  <button type="button" class="pathway-step" onclick="nav('expert')"><span class="step-number">03</span><span><b>Phản biện</b><small>Trợ lý chuyên môn</small></span></button>
-  <span class="pathway-arrow" aria-hidden="true">→</span>
-  <button type="button" class="pathway-step" onclick="nav('library')"><span class="step-number">04</span><span><b>Lưu bản nháp</b><small>Kho trên thiết bị</small></span></button>
+
+/* Academic workspace — giao diện quản trị chuyên môn, không dùng banner marketing */
+#home{--acad-ink:#17364b;--acad-muted:#607687;--acad-teal:#087d78}
+.academic-heading{display:flex;justify-content:space-between;align-items:center;gap:22px;padding:18px 0 21px;border-bottom:1px solid #dce6eb}
+.academic-heading h1{font-size:30px;letter-spacing:-.035em;color:#17364b;margin:8px 0 8px}
+.academic-heading p{font-size:13px;color:#63798a;max-width:760px;line-height:1.65;margin:0}
+.academic-heading .primary{white-space:nowrap}
+.academic-section-head{display:flex;align-items:end;justify-content:space-between;margin:27px 0 13px}
+.academic-section-head h2,.academic-panel h2,.academic-process h2{color:#17364b;font-size:18px;letter-spacing:-.015em;margin:0 0 6px}
+.academic-section-head p{font-size:12px;color:#6a8190;margin:0}
+.academic-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.academic-metric{background:#fff;border:1px solid #dce8ee;border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:8px;min-height:136px;box-shadow:0 3px 12px #173a4f06;color:#17364b;cursor:pointer}
+.academic-metric:hover{border-color:#95cbc6;background:#fcfffe}
+.academic-metric span{font-size:12px;color:#557386;font-weight:700}
+.academic-metric strong{font-size:29px;font-weight:800;line-height:1.2;color:#126f70}
+.academic-metric small{font-size:11px;color:#8194a0}
+.academic-metric-pending{cursor:default;background:#f9fbfc}
+.academic-metric-pending strong{font-size:16px;color:#92733f;margin:10px 0 5px}
+.academic-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.academic-action{display:flex;align-items:flex-start;flex-direction:column;text-align:left;background:#fff;border:1px solid #dfebef;border-radius:13px;padding:19px;min-height:175px;gap:9px;color:#17364b;cursor:pointer;box-shadow:0 3px 12px #173a4f06}
+.academic-action:hover{border-color:#9ccfc9;background:#fbfefd;transform:translateY(-1px)}
+.academic-action-icon{display:grid;place-items:center;width:35px;height:35px;background:#e8f3f2;color:#087d78;font-weight:800;font-size:11px;border-radius:9px}
+.academic-action b{font-size:14px;font-weight:750}
+.academic-action small{font-size:12px;color:#687f8e;line-height:1.55}
+.academic-action-link{margin-top:auto;font-size:11px;font-weight:750;color:#087f7a}
+.academic-lower{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.academic-panel{background:#fff;border:1px solid #e0e9ee;border-radius:13px;padding:20px;min-height:220px}
+.academic-panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.academic-text-button{background:none;border:0;color:#087e79;font-weight:750;cursor:pointer;font-size:12px}
+.academic-panel .workspace-empty{margin:15px 0}
+.academic-state{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #eef2f5;font-size:12px;color:#607687}
+.academic-state:last-child{border-bottom:0}
+.academic-state b{font-size:11px;color:#246a6c;text-align:right;white-space:nowrap}
+.academic-process{background:#f7fafb;border:1px solid #e0e9ed;border-radius:12px;padding:19px 21px;margin-top:17px}
+.academic-process p{margin:6px 0;font-size:13px;color:#435e71}
+.academic-process small{color:#7d909d;font-size:11px}
+.studio-sidebar button{font-size:12px;line-height:1.4;align-items:center}
+.studio-sidebar .nav-symbol{flex:none}
+@media(max-width:1120px){.academic-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.academic-actions{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.academic-heading{align-items:flex-start}.academic-heading h1{font-size:26px}.academic-lower{grid-template-columns:1fr}}
+@media(max-width:520px){.academic-heading{flex-direction:column}.academic-heading .primary{width:100%}.academic-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.academic-metric{min-height:110px;padding:13px}.academic-metric strong{font-size:24px}.academic-actions{grid-template-columns:1fr}.academic-action{min-height:140px}.academic-section-head{margin-top:23px}}
+</style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar">
+ <div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div>
+ <button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button>
+ <button data-page="curriculum"><span class="nav-symbol">▤</span> Chương trình và yêu cầu cần đạt</button>
+ <button data-page="create"><span class="nav-symbol">✎</span> Thiết kế học liệu</button>
+ <button data-page="batch"><span class="nav-symbol">▦</span> Lập kế hoạch học liệu đồng bộ</button>
+ <button data-page="library"><span class="nav-symbol">▥</span> Kho học liệu của tôi</button>
+ <div class="sidebar-group-label sidebar-second">CHUYÊN MÔN VÀ KHẢO THÍ</div>
+ <button data-page="expert"><span class="nav-symbol">◎</span> Trợ lý chuyên môn</button>
+ <div class="sidebar-group-label sidebar-second">THƯ VIỆN VÀ HỆ THỐNG</div>
+ <button data-page="shared"><span class="nav-symbol">♧</span> Học liệu chia sẻ</button>
+ <button data-page="admin"><span class="nav-symbol">⚙</span> Quản trị hệ thống</button>
+ <div class="sidebar-bottom"><span class="sidebar-bottom-icon">◇</span><div><b>HVA DIGITAL EDUCATION</b><small>Chuyên môn · Khoa học · Thực chất</small></div></div>
+</aside><main><div class="hint studio-caution"><span class="caution-symbol">ⓘ</span><span><strong>Giao diện thử nghiệm.</strong> Kho cá nhân đang lưu trên trình duyệt; chưa có đăng nhập EDOS, chia sẻ kho hoặc kết nối Gemini trên trang GitHub Pages. Gemini thật đã được kiểm thử riêng trên Apps Script. Không nhập thông tin học sinh, tài liệu mật.</span></div><section id="home">
+ <div class="academic-heading">
+  <div><span class="eyebrow">TRƯỜNG THPT HÒA VANG · HỆ SINH THÁI HỌC LIỆU</span><h1>Không gian sáng tạo học liệu</h1>
+  <p>Thiết kế, biên tập và quản lý học liệu theo chương trình giáo dục phổ thông. Mỗi học liệu cần được giáo viên rà soát trước khi sử dụng.</p></div>
+  <button type="button" class="primary" onclick="nav('create')">+ Tạo học liệu mới</button>
  </div>
- <p class="pathway-note">Phản biện AI độc lập và phê duyệt chính thức chưa kích hoạt; đây là các lối dẫn đến những mục hiện có.</p>
-</div>
-<div class="studio-lower">
- <div class="studio-workspace"><div class="studio-workspace-head"><div><span class="eyebrow">KHO CÁ NHÂN</span><h2>Tiếp tục công việc</h2></div><button class="studio-minor" onclick="nav('library')">Xem tất cả →</button></div><p id="recentWorkspace" class="workspace-empty">Chưa có chủ đề đã lưu trên thiết bị này. Bắt đầu bằng một chủ đề đầu tiên.</p><button class="studio-outline" onclick="nav('create')">+ Tạo chủ đề mới</button></div>
- <div class="studio-status"><span class="eyebrow">TÌNH TRẠNG HỆ THỐNG</span><h2>Sẵn sàng cho kiểm thử giao diện</h2><div class="status-line"><span class="status-dot green"></span><span>Giao diện Kho học liệu</span><strong>Đang hoạt động</strong></div><div class="status-line"><span class="status-dot green"></span><span>Lưu bản nháp cục bộ</span><strong>Đã triển khai</strong></div><div class="status-line"><span class="status-dot orange"></span><span>Gemini qua EDOS</span><strong>Chưa kết nối</strong></div><div class="status-line"><span class="status-dot orange"></span><span>Đăng nhập chung / chia sẻ</span><strong>Chưa kích hoạt</strong></div></div>
-</div>
-<div class="hidden" aria-hidden="true"><span id="count">0</span></div>
+ <div class="academic-section-head"><div><h2>Hồ sơ học liệu của tôi</h2><p>Thống kê từ dữ liệu đang lưu trên trình duyệt này, không phải số liệu toàn trường.</p></div></div>
+ <div class="academic-metrics">
+  <button type="button" class="academic-metric" onclick="nav('library')"><span>Chủ đề đã lưu</span><strong id="academicTotal">0</strong><small>Xem kho cá nhân</small></button>
+  <button type="button" class="academic-metric" onclick="nav('library')"><span>Học liệu môn Toán</span><strong id="academicMath">0</strong><small>Trên thiết bị hiện tại</small></button>
+  <button type="button" class="academic-metric" onclick="nav('library')"><span>Học liệu môn khác</span><strong id="academicOther">0</strong><small>Trên thiết bị hiện tại</small></button>
+  <div class="academic-metric academic-metric-pending"><span>Chờ thẩm định chính thức</span><strong>Chưa kết nối</strong><small>Chưa có quy trình phê duyệt máy chủ</small></div>
+ </div>
+ <div class="academic-section-head"><div><h2>Công việc chuyên môn</h2><p>Chọn nghiệp vụ cần thực hiện; chỉ mở chức năng đã có, không hiển thị thao tác giả.</p></div></div>
+ <div class="academic-actions">
+  <button type="button" class="academic-action" onclick="nav('curriculum')"><span class="academic-action-icon">01</span><b>Chương trình và yêu cầu cần đạt</b><small>Tra cứu nguồn, kiểm tra nội dung theo môn và lớp</small><span class="academic-action-link">Mở hồ sơ →</span></button>
+  <button type="button" class="academic-action" onclick="nav('create')"><span class="academic-action-icon">02</span><b>Soạn kế hoạch bài dạy</b><small>Chọn chủ đề, biên tập và lưu bản nháp</small><span class="academic-action-link">Bắt đầu →</span></button>
+  <button type="button" class="academic-action" onclick="nav('create');openMatrixAssistant()"><span class="academic-action-icon">03</span><b>Ma trận và bản đặc tả</b><small>Hoàn thiện cấu trúc trước khi xây dựng đề</small><span class="academic-action-link">Mở công cụ →</span></button>
+  <button type="button" class="academic-action" onclick="nav('create');showAssistant()"><span class="academic-action-icon">04</span><b>Ngân hàng câu hỏi và đề kiểm tra</b><small>Chuẩn bị nội dung theo ma trận; cần thẩm định</small><span class="academic-action-link">Mở công cụ →</span></button>
+  <button type="button" class="academic-action" onclick="nav('batch')"><span class="academic-action-icon">05</span><b>Thiết kế nhiều loại học liệu</b><small>Lập kế hoạch sản phẩm theo một chủ đề</small><span class="academic-action-link">Mở danh mục →</span></button>
+  <button type="button" class="academic-action" onclick="nav('library')"><span class="academic-action-icon">06</span><b>Kho học liệu của tôi</b><small>Tìm kiếm, mở lại và sao lưu bản nháp</small><span class="academic-action-link">Xem kho →</span></button>
+ </div>
+ <div class="academic-lower">
+  <div class="academic-panel"><div class="academic-panel-head"><h2>Tiếp tục công việc</h2><button type="button" class="academic-text-button" onclick="nav('library')">Xem kho →</button></div><p id="recentWorkspace" class="workspace-empty">Chưa có chủ đề đã lưu trên thiết bị này.</p><button type="button" class="secondary" onclick="nav('create')">Tạo chủ đề mới</button></div>
+  <div class="academic-panel"><h2>Tình trạng triển khai</h2>
+   <div class="academic-state"><span>Biên tập và lưu bản nháp cục bộ</span><b>Đã có</b></div>
+   <div class="academic-state"><span>Gemini trong Apps Script riêng</span><b>Đã kiểm thử</b></div>
+   <div class="academic-state"><span>Kết nối Gemini trực tiếp từ trang này</span><b>Chưa kích hoạt</b></div>
+   <div class="academic-state"><span>Đăng nhập EDOS và kho dùng chung</span><b>Đang phát triển</b></div>
+  </div>
+ </div>
+ <div class="academic-process"><h2>Quy trình phát triển học liệu</h2><p>Đối chiếu chương trình → Xác định yêu cầu cần đạt → Thiết kế học liệu → Rà soát, phản biện → Lưu nháp → Thẩm định theo phân quyền.</p><small>Chức năng phản biện tự động và phê duyệt chính thức chưa được triển khai trên trang này.</small></div>
+ <div class="hidden" aria-hidden="true"><span id="count">0</span></div>
 </section><section id="curriculum" class="hidden">
 <div class="eyebrow">H01 · NỀN TẢNG CHUYÊN MÔN</div><h1>Chương trình và yêu cầu cần đạt</h1>
 <p>Thư viện dữ liệu nguồn cho tất cả Trợ lý AI. Phân biệt chủ đề tham chiếu, yêu cầu cần đạt chưa thẩm định và dữ liệu được xác minh. Không tự coi dữ liệu do giáo viên nhập là văn bản chính thức.</p>
@@ -263,7 +308,12 @@ main{max-width:1520px}
 <label>Yêu cầu gửi chuyên gia AI</label><textarea id="promptText" readonly aria-label="Nội dung yêu cầu gửi Trợ lý AI"></textarea><div class="actions"><button id="copyAIPrompt" class="primary" onclick="copyPrompt()">Sao chép yêu cầu</button><button class="secondary" onclick="buildPrompt()">Cập nhật yêu cầu</button><button class="secondary" onclick="hideAssistant()">Đóng</button></div><p id="assistantMessage" role="status" class="status"></p></div></div></section><section id="library" class="hidden"><div class="eyebrow">THƯ VIỆN HỌC LIỆU</div><h1>Kho học liệu của tôi</h1><p>Lưu cục bộ, chưa đồng bộ với EDOS hoặc giữa các máy.</p><div class="panel"><h2>Danh sách chủ đề</h2><div class="grid"><div><label>Tìm kiếm chủ đề</label><input id="searchTopics" placeholder="Tên chủ đề, môn học, chương trình..." oninput="render()"></div><div><label>Lọc môn học</label><select id="filterSubject" onchange="render()"><option value="">Tất cả môn học</option><option>Toán</option><option>Ngữ văn</option><option>Tiếng Anh</option><option>Vật lí</option><option>Hóa học</option><option>Sinh học</option><option>Lịch sử</option><option>Địa lí</option><option>Tin học</option><option>Công nghệ</option><option>GD Kinh tế và Pháp luật</option><option>Giáo dục thể chất</option><option>GDQP&AN</option><option>Hoạt động trải nghiệm</option></select></div></div><div class="actions"><button class="secondary" onclick="backupLibrary()">Tải bản sao lưu (.json)</button><button class="secondary" onclick="document.getElementById('restoreFile').click()">Khôi phục từ tệp</button><input type="file" id="restoreFile" accept=".json,application/json" style="display:none" onchange="restoreLibrary(event)"></div><p class="muted">Sao lưu trước khi đổi thiết bị hoặc xóa dữ liệu trình duyệt. Khôi phục sẽ bổ sung chủ đề từ bản sao lưu, không tự xóa kho hiện tại.</p><p id="libraryMessage" class="status" role="status"></p><div id="list"></div></div></section><section id="expert" class="hidden"><div class="eyebrow">BAN CHUYÊN GIA HỌC LIỆU</div><h1>Trợ lý AI – Chuyên gia</h1><p>Gemini là AI chính, OpenAI đối chiếu và dự phòng. Chưa kết nối trên website này.</p><div id="mods" class="mods"></div></section></main></div><footer>HVA LEARNING STUDIO · Một nền tảng – Mọi môn học – Sáng tạo không giới hạn</footer><script>
 const KEY='hva-studio-public-preview-v1';let editing=null;let matrixRows=[];let blueprintRows=[];let specRows=[];const $=id=>document.getElementById(id);
 function data(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}}
-function updateRecentWorkspace(){const t=data()[0],root=document.getElementById('recentWorkspace');if(root){root.textContent=t?('Gần đây: '+t.name+' · '+t.subject+' · lớp '+t.grade):'Chưa có chủ đề đã lưu trên thiết bị này. Bắt đầu bằng một chủ đề đầu tiên.'}}
+function updateRecentWorkspace(){
+ const rows=data(),t=rows[0],root=document.getElementById('recentWorkspace');
+ if(root)root.textContent=t?('Gần đây: '+t.name+' · '+t.subject+' · lớp '+t.grade+' · '+(t.updated||'Chưa ghi thời gian')):'Chưa có chủ đề đã lưu trên thiết bị này.';
+ const metrics={'academicTotal':rows.length,'academicMath':rows.filter(x=>x.subject==='Toán').length,'academicOther':rows.filter(x=>x.subject!=='Toán').length};
+ for(const [id,num] of Object.entries(metrics)){const el=document.getElementById(id);if(el)el.textContent=String(num)}
+}
 function nav(p){document.querySelectorAll('main section').forEach(s=>s.classList.toggle('hidden',s.id!==p));document.querySelectorAll('aside button').forEach(b=>b.classList.toggle('sel',b.dataset.page===p));if(p==='library')render();updateRecentWorkspace();$('count').textContent=data().length;scrollTo(0,0)}
 document.querySelectorAll('aside button').forEach(b=>b.addEventListener('click',()=>nav(b.dataset.page)));
 
