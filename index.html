@@ -320,6 +320,19 @@ a{accent-color:#1565D8}
 .exercise-example span{display:block;color:#58718B;margin-top:5px}
 @media(max-width:900px){.exercise-levels{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:580px){.exercise-levels,.exercise-competency-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.exercise-distribution-head{align-items:flex-start;flex-direction:column}}
+
+.exercise-formats{margin:16px 0;padding:17px;border:1px solid #D8E4F7;border-radius:14px;background:#FFFFFF}
+.exercise-format-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.exercise-format-list label{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#F7FAFF;border:1px solid #E2EAF7;border-radius:11px;padding:12px}
+.exercise-format-list label span{display:flex;flex-direction:column;gap:5px}
+.exercise-format-list b{font-size:12px;color:#173B6B}
+.exercise-format-list small{font-size:10px;color:#5F728C;line-height:1.5;font-weight:400}
+.exercise-format-list input{width:72px;flex:none}
+.exercise-answer-check{margin-top:14px;border-top:1px solid #E2EAF7;padding-top:12px}
+.exercise-answer-inline{display:flex;gap:12px;align-items:center}
+.exercise-answer-inline input{max-width:130px}
+.exercise-answer-inline span{font-size:11px;color:#5F728C}
+@media(max-width:700px){.exercise-format-list{grid-template-columns:1fr}}
 </style></head><body><header class="studio-topbar"><div class="studio-brand"><div class="studio-mark">✦</div><div><strong>HVA <span>LEARNING STUDIO</span></strong><div><small>TRƯỜNG THPT HÒA VANG</small></div></div></div><div class="topbar-actions"><span class="studio-beta"><span class="pulse-dot"></span> KHÔNG GIAN THỬ NGHIỆM</span><button type="button" onclick="nav('library')" class="topbar-library">▤ Kho của tôi</button></div></header><div class="shell"><aside class="studio-sidebar">
  <div class="sidebar-group-label">KHÔNG GIAN LÀM VIỆC</div>
  <button data-page="home" class="sel"><span class="nav-symbol">⌂</span> Tổng quan</button>
@@ -380,8 +393,22 @@ a{accent-color:#1565D8}
   <div><label for="exCustomTopic">Tên nội dung cụ thể (nếu cần)</label><input id="exCustomTopic" maxlength="180" placeholder="Ví dụ: Ứng dụng đạo hàm giải bài toán thực tiễn"></div>
   <div><label for="exCount">Tổng số bài tập</label><input id="exCount" type="number" min="1" max="50" value="10" oninput="updateExerciseDistribution()"></div>
   <div><label>Quy định đánh giá</label><p class="source">Mỗi bài bắt buộc ghi mức tư duy, năng lực cần đánh giá và chỉ báo quan sát được. Năng lực đặc thù tùy môn học.</p></div>
-  <div><label for="exFormat">Dạng bài tập</label><select id="exFormat"><option>Phối hợp tự luận và trắc nghiệm</option><option>Tự luận</option><option>Trắc nghiệm nhiều lựa chọn</option><option>Đúng / sai</option><option>Trả lời ngắn</option></select></div>
+  <div><label>Cơ cấu dạng thức</label><p class="source">Phân bổ số câu cho bốn dạng thức ở bảng bên dưới; được phối hợp trong cùng chuyên đề.</p></div>
   <div><label for="exSolution">Đáp án và hướng dẫn giải</label><select id="exSolution"><option>Đáp án và lời giải chi tiết</option><option>Đáp án và hướng dẫn chấm</option><option>Chỉ đáp án</option><option>Chưa kèm lời giải</option></select></div>
+ </div>
+ <div class="exercise-formats">
+  <div class="exercise-distribution-head"><h2>Phân bổ theo bốn dạng thức câu hỏi</h2><strong id="exFormatsTotal" aria-live="polite">10/10 câu</strong></div>
+  <div class="exercise-format-list">
+   <label for="exF1"><span><b>1. Trắc nghiệm khách quan</b><small>04 lựa chọn A, B, C, D; có một phương án đúng.</small></span><input id="exF1" type="number" min="0" max="50" step="1" value="3" oninput="updateExerciseDistribution()"></label>
+   <label for="exF2"><span><b>2. Trắc nghiệm đúng/sai</b><small>Một câu gồm bốn ý a), b), c), d); đánh giá đúng/sai từng ý.</small></span><input id="exF2" type="number" min="0" max="50" step="1" value="2" oninput="updateExerciseDistribution()"></label>
+   <label for="exF3"><span><b>3. Trắc nghiệm trả lời ngắn</b><small>Chỉ điền đáp số tối đa 04 ký tự; ví dụ: 2376, 0,15, -3,4.</small></span><input id="exF3" type="number" min="0" max="50" step="1" value="3" oninput="updateExerciseDistribution()"></label>
+   <label for="exF4"><span><b>4. Tự luận</b><small>Trình bày lập luận, phép biến đổi và lời giải theo yêu cầu.</small></span><input id="exF4" type="number" min="0" max="50" step="1" value="2" oninput="updateExerciseDistribution()"></label>
+  </div>
+  <p id="exFormatsHint" class="source" role="status"></p>
+  <div class="exercise-answer-check">
+   <label for="exShortSample">Kiểm tra thử đáp số trả lời ngắn (04 ký tự)</label>
+   <div class="exercise-answer-inline"><input id="exShortSample" type="text" maxlength="10" placeholder="VD: -3,4" oninput="checkExerciseShortAnswer()"><span id="exShortFeedback" role="status">Chưa nhập đáp số</span></div>
+  </div>
  </div>
  <div class="exercise-distribution">
   <div class="exercise-distribution-head"><h2>Phân bổ bài tập theo mức độ</h2><strong id="exDistributionTotal" aria-live="polite">10/10 bài</strong></div>
@@ -559,6 +586,37 @@ const EX_LEVEL_FIELDS=[
  ['exNb','Nhận biết'],['exTh','Thông hiểu'],['exVd','Vận dụng'],
  ['exVdc','Vận dụng cao (mở rộng)'],['exHsg','Bồi dưỡng HSG']
 ];
+const EX_FORMAT_FIELDS=[
+ ['exF1','Trắc nghiệm khách quan (4 lựa chọn A, B, C, D)'],
+ ['exF2','Trắc nghiệm đúng/sai (4 ý a, b, c, d)'],
+ ['exF3','Trắc nghiệm trả lời ngắn (đáp số tối đa 04 ký tự)'],
+ ['exF4','Tự luận']
+];
+function exerciseFormats(){
+ const count=Number($('exCount').value);
+ const forms=EX_FORMAT_FIELDS.map(([id,label])=>({id,label,count:$(id).value.trim()===''?NaN:Number($(id).value)}));
+ const total=forms.reduce((sum,x)=>sum+x.count,0);
+ return {forms,total,valid:Number.isInteger(count)&&count>=1&&count<=50&&
+ forms.every(x=>Number.isInteger(x.count)&&x.count>=0&&x.count<=50)&&total===count};
+}
+function validateExerciseShortAnswer(value){
+ // Quy ước HVA do giáo viên lựa chọn: dấu phẩy thập phân, không đơn vị hoặc khoảng trắng.
+ // 04 ký tự tính cả dấu âm và dấu phẩy. Không coi đây là mọi quy định thi chính thức.
+ return typeof value==='string'&&value.length>0&&value.length<=4&&/^-?[0-9]+(,[0-9]+)?$/.test(value);
+}
+function checkExerciseShortAnswer(){
+ const value=$('exShortSample').value,valid=validateExerciseShortAnswer(value),node=$('exShortFeedback');
+ node.textContent=value?(valid?'Hợp lệ ('+value.length+'/4 ký tự)':'Chưa hợp lệ: chỉ ghi số, tối đa 4 ký tự tính cả dấu âm và dấu phẩy.'):'Chưa nhập đáp số';
+ node.style.color=valid?'#1565D8':'#A45B27';
+}
+function exerciseQuestionPlan(){
+ const d=exerciseDistribution(),f=exerciseFormats();
+ if(!d.valid||!f.valid)return [];
+ const levels=d.levels.flatMap(x=>Array.from({length:x.count},()=>x.label));
+ const forms=f.forms.flatMap(x=>Array.from({length:x.count},()=>x.label));
+ // Phân bổ xác định, giữ nguyên đúng số lượng của cả hai phân loại.
+ return levels.map((level,i)=>({index:i+1,level,format:forms[i]}));
+}
 const EX_MATH_COMPETENCIES=[
  'Tư duy và lập luận toán học','Mô hình hóa toán học',
  'Giải quyết vấn đề toán học','Giao tiếp toán học','Sử dụng công cụ, phương tiện học toán'
@@ -572,7 +630,10 @@ function exerciseDistribution(){
  return {count,total,levels,valid:validNumbers&&total===count};
 }
 function updateExerciseDistribution(){
- const d=exerciseDistribution(),label=$('exDistributionTotal'),meter=$('exDistributionBar');
+ const d=exerciseDistribution(),f=exerciseFormats(),label=$('exDistributionTotal'),meter=$('exDistributionBar');
+ $('exFormatsTotal').textContent='Đã phân bổ '+f.total+'/'+(Number.isFinite(d.count)?d.count:'?')+' câu';
+ $('exFormatsTotal').style.color=f.valid?'#1565D8':'#A45B27';
+ $('exFormatsHint').textContent=f.valid?'Cơ cấu dạng thức hợp lệ. Mỗi câu phải tuân thủ cấu trúc của dạng đã chọn.':'Tổng số câu của bốn dạng thức phải bằng tổng số bài và mỗi ô phải là số nguyên không âm.';
  label.textContent='Đã phân bổ '+d.total+'/'+(Number.isFinite(d.count)?d.count:'?')+' bài';
  label.style.color=d.valid?'#1565D8':'#A45B27';
  $('exDistributionHint').textContent=d.valid?'Phân bổ hợp lệ. Mỗi bài sẽ có nhãn mức độ, năng lực và chỉ báo đánh giá.':'Tổng số bài theo các mức phải bằng số bài yêu cầu. Chỉ nhập số nguyên không âm.';
@@ -580,7 +641,7 @@ function updateExerciseDistribution(){
  const colors=['#9CC6FA','#6FA7F1','#397EE0','#1957B5','#233D82'];
  d.levels.forEach((x,i)=>{if(!x.count)return;const seg=document.createElement('span');seg.style.background=colors[i];seg.style.flex=String(x.count);seg.title=x.label+': '+x.count+' bài';meter.append(seg)});
  $('exResult').classList.add('hidden');
- return d.valid;
+ return d.valid&&f.valid;
 }
 function updateExerciseCompetencies(){
  const root=$('exCompetencyGroup');root.replaceChildren();
@@ -629,8 +690,8 @@ function updateExerciseSource(){
 }
 function prepareExerciseRequest(){
  const subject=$('exSubject').value,grade=$('exGrade').value,topic=$('exTopic').value,custom=$('exCustomTopic').value.trim(),count=Number($('exCount').value);
- const name=custom||topic,dist=exerciseDistribution(),competencies=exerciseSelectedCompetencies();
- if(!subject||!grade||!name||!dist.valid){$('exMessage').textContent='Chọn môn, lớp, chủ đề và phân bổ đúng tổng số bài (1–50) theo từng mức độ.';return}
+ const name=custom||topic,dist=exerciseDistribution(),forms=exerciseFormats(),competencies=exerciseSelectedCompetencies();
+ if(!subject||!grade||!name||!dist.valid||!forms.valid){$('exMessage').textContent='Chọn môn, lớp, chủ đề; phân bổ đúng tổng số bài (1–50) cho cả mức tư duy và bốn dạng thức.';return}
  if(!competencies.length){$('exMessage').textContent='Cần chọn hoặc nhập năng lực đặc thù môn học được đánh giá.';return}
  const context=topic?curriculumContext('GDPT_2018',subject,grade,topic):{verified:false,entries:[]};
  const lines=[
@@ -639,14 +700,21 @@ function prepareExerciseRequest(){
  'Chủ đề tham chiếu: '+(topic||'Chưa có trong danh mục')+'.',
  'Nội dung cụ thể: '+name+'.',
  'Số lượng bài: '+count+'.',
- 'Cơ cấu BẮT BUỘC: '+dist.levels.map(x=>x.label+' '+x.count+' bài').join('; ')+'. Tổng phải chính xác '+count+' bài.',
+ 'Cơ cấu mức tư duy BẮT BUỘC: '+dist.levels.map(x=>x.label+' '+x.count+' bài').join('; ')+'. Tổng chính xác '+count+' bài.',
+ 'Cơ cấu dạng thức BẮT BUỘC: '+forms.forms.map(x=>x.label+' '+x.count+' câu').join('; ')+'. Tổng chính xác '+count+' câu.',
+ 'Quy tắc theo từng dạng:',
+ '1) Trắc nghiệm khách quan: đúng 04 lựa chọn A, B, C, D, một đáp án đúng; giải thích vì sao đúng và kiểm tra tính duy nhất.',
+ '2) Trắc nghiệm đúng/sai: đúng 04 ý a), b), c), d); chỉ rõ Đúng/Sai cho TỪNG ý và giải thích độc lập.',
+ '3) Trắc nghiệm trả lời ngắn: chỉ điền đáp số, không điền đơn vị/chữ; tối đa 04 ký tự, tính cả dấu âm và dấu phẩy thập phân. Ví dụ 2376; 0,15; -3,4. Nếu đáp số không biểu diễn được theo quy tắc này, phải thay số liệu/điều chỉnh câu hỏi hoặc loại câu, KHÔNG cắt bớt hay làm tròn tùy tiện.',
+ '4) Tự luận: trình bày các bước giải có lập luận, điều kiện, kết luận; nếu yêu cầu hướng dẫn chấm, chỉ rõ tiêu chí/chia điểm.',
+ 'Phân bố theo TỪNG câu đúng mức tư duy và dạng thức sau: '+JSON.stringify(exerciseQuestionPlan())+'.',
+ 'Mỗi câu phải có một nhãn mức tư duy, một nhãn dạng thức và chỉ báo đánh giá năng lực quan sát được; bốn ý đúng/sai có thể có chỉ báo riêng khi cần.',
  'Các năng lực đặc thù cần xem xét khi thiết kế: '+competencies.join('; ')+'.',
  'VỚI TỪNG BÀI, bắt buộc trình bày: (1) Số bài và mức độ tư duy; (2) năng lực đặc thù CHỦ ĐẠO; (3) chỉ báo đánh giá là hành vi/sản phẩm quan sát được; (4) đề bài; (5) đáp án và lời giải theo yêu cầu; (6) điểm cần kiểm định.',
  'Mẫu nhãn: Bài 03 | Thông hiểu | Tư duy và lập luận toán học | Chỉ báo: giải thích được lý do áp dụng phép biến đổi và điều kiện tương ứng.',
  'Nếu một bài đánh giá nhiều năng lực, ghi rõ năng lực chính và năng lực bổ trợ, kèm chỉ báo của từng năng lực. Không gán chỉ báo chung cho cả bộ bài.',
  'Mức Vận dụng cao và HSG là nhãn mở rộng phục vụ phân hóa, không tự khẳng định là mức đánh giá chính thức CT GDPT.',
 
- 'Dạng bài: '+$('exFormat').value+'.',
  'Yêu cầu lời giải: '+$('exSolution').value+'.',
  'Yêu cầu riêng: '+($('exNotes').value.trim()||'Không có')+'.',
  'Chỉ sử dụng các yêu cầu cần đạt đã có bằng chứng xác minh trong dữ liệu sau; không tự gán nhãn xác minh cho tài liệu tham chiếu.',
@@ -670,14 +738,18 @@ function editExerciseDraft(){
  $('subject').value=subject;$('grade').value=grade;updateCurriculumTopics();
  if($('exTopic').value&&Array.from($('curriculumTopic').options).some(o=>o.value===$('exTopic').value))$('curriculumTopic').value=$('exTopic').value;
  $('topic').value='Bài tập chuyên đề – '+name;
- const d=exerciseDistribution(),lines=['BẢN NHÁP BÀI TẬP – GIÁO VIÊN CẦN THẨM ĐỊNH','','Chuyên đề: '+name,'Môn: '+subject+' – Lớp '+grade,''];
- let index=0;
- for(const level of d.levels){for(let i=0;i<level.count;i++){
-  lines.push('Bài '+String(++index).padStart(2,'0')+' | Mức độ: '+level.label,
+ const plan=exerciseQuestionPlan(),lines=['BẢN NHÁP BÀI TẬP – GIÁO VIÊN CẦN THẨM ĐỊNH','','Chuyên đề: '+name,'Môn: '+subject+' – Lớp '+grade,''];
+ if(!plan.length){$('exMessage').textContent='Cần hoàn thiện phân bổ dạng thức và mức tư duy trước khi mở trình biên tập.';return}
+ for(const item of plan){
+  lines.push('Bài '+String(item.index).padStart(2,'0')+' | Mức độ: '+item.level+' | Dạng: '+item.format,
    'Năng lực chủ đạo: [ghi năng lực đặc thù]',
-   'Chỉ báo đánh giá: [hành vi hoặc sản phẩm quan sát được]',
-   'Đề bài:','', 'Đáp án và hướng dẫn giải:','', 'Đối chiếu yêu cầu cần đạt / kiểm định:','');
- }}
+   'Chỉ báo đánh giá: [hành vi hoặc sản phẩm quan sát được]');
+  if(item.format.startsWith('Trắc nghiệm khách quan'))lines.push('Câu dẫn:','A. ','B. ','C. ','D. ','Đáp án đúng (A/B/C/D):','Giải thích và kiểm tra tính duy nhất:');
+  else if(item.format.startsWith('Trắc nghiệm đúng/sai'))lines.push('Câu dẫn:','a) ','b) ','c) ','d) ','Đáp án đúng/sai lần lượt a, b, c, d:','Giải thích cho từng ý:');
+  else if(item.format.startsWith('Trắc nghiệm trả lời ngắn'))lines.push('Câu dẫn:','Đáp số (tối đa 04 ký tự, gồm dấu âm và dấu phẩy nếu có):','Đối chiếu kết quả và điều kiện:');
+  else lines.push('Đề bài:','', 'Đáp án và hướng dẫn giải:');
+  lines.push('Đối chiếu yêu cầu cần đạt / kiểm định:','');
+ }
  lines.push('GHI CHÚ THẨM ĐỊNH: Chưa phê duyệt; cần đối chiếu chương trình, kiểm định và rà soát giáo viên.');
  $('content').value=lines.join('\n');
  nav('create');$('content').scrollIntoView({behavior:'smooth',block:'center'});
